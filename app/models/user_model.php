@@ -12,5 +12,10 @@ class User_model extends CI_Model {
     {
         return '';
     }
+    
+    function get_user()
+    {
+        return;
+    }
 
 }
