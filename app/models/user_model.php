@@ -247,6 +247,7 @@ class User_model extends CI_Model {
             return false;
         
         return $this->db->insert($this->_tables['users'], $data); 
+        
     }
 
 }
