@@ -34,12 +34,18 @@ class post extends CI_Model {
         return $query->row();
     }
     
+    /**
+     *
+     * @param mixd $userid if send "admin" this meaning give me all posts
+     * @return boolean 
+     */
     function getPosts($userid)
     {
         if(empty($userid)) return false;
-        
-        $this->db->where('from_users_id',$userid);
-        $this->db->or_where('to_users_id',$userid);
+        if(is_numeric($userid))
+        {
+            $this->db->where('from_users_id',$userid);
+        }
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return $query->row();
