@@ -36,10 +36,11 @@ class work extends CI_Model {
     }
     
     /**
-     *
-     * @param string $type "work" or "traning"
-     * @param array $data 
-     */
+    *
+    * @param type $userid
+    * @param type $workid
+    * @return boolean 
+    */
     function addTableToUser($userid,$workid)
     {
         if(empty($userid) || empty($workid)) return false;
