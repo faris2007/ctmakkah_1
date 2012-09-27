@@ -6,9 +6,9 @@
  */
 
 /**
- * Description of post
+ * this class for the post from user to admin and replay on it
  *
- * @author faris2007
+ * @author Faris Al-Otaibi
  */
 class post extends CI_Model {
     
@@ -46,9 +46,20 @@ class post extends CI_Model {
         {
             $this->db->where('from_users_id',$userid);
         }
+        $this->db->where('post_id',0);
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
-        return $query->row();
+        return $query->result();
+    }
+    
+    function getReplays($postid)
+    {
+        if(empty($postid)||!is_numeric($postid)) return false;
+        
+        $this->db->where('post_id',$postid);
+        $this->db->order_by("numberOfPost"); 
+        $query = $this->db->get($this->_table);
+        return $query->result();
     }
     
     function deletePost($id)

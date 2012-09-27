@@ -8,7 +8,7 @@
 /**
  * Description of work
  *
- * @author faris2007
+ * @author Faris Al-Otaibi
  */
 class work extends CI_Model {
 
@@ -33,6 +33,22 @@ class work extends CI_Model {
         
         $data['isTraning'] = ($type == "traning")?"y":"n";
         return $this->db->insert($this->_tables['work'], $data); 
+    }
+    
+    /**
+     *
+     * @param string $type "work" or "traning"
+     * @param array $data 
+     */
+    function addTableToUser($userid,$workid)
+    {
+        if(empty($userid) || empty($workid)) return false;
+        
+        $data = array(
+            'users_id'  => $userid,
+            'work_id'   => $workid
+        );
+        return $this->db->insert($this->_tables['link'], $data); 
     }
     
     function getTable($id)
