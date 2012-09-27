@@ -31,7 +31,7 @@ class post extends CI_Model {
         
         $this->db->where('id',$id);
         $query = $this->db->get($this->_table);
-        return $query->row();
+        return ($query->num_rows() > 0)? $query->row() : false; 
     }
     
     /**
@@ -49,7 +49,7 @@ class post extends CI_Model {
         $this->db->where('post_id',0);
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
-        return $query->result();
+        return ($query->num_rows() > 0)? $query->result() : false;
     }
     
     function getReplays($postid)
@@ -59,7 +59,7 @@ class post extends CI_Model {
         $this->db->where('post_id',$postid);
         $this->db->order_by("numberOfPost"); 
         $query = $this->db->get($this->_table);
-        return $query->result();
+        return ($query->num_rows() > 0)? $query->result() : false;
     }
     
     function deletePost($id)

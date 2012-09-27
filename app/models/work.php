@@ -58,7 +58,7 @@ class work extends CI_Model {
         
         $this->db->where('id',$id);
         $query = $this->db->get($this->_tables['work']);
-        return $query->row();
+        return ($query->num_rows() > 0)? $query->row() : false;
     }
     
     /**
@@ -80,7 +80,7 @@ class work extends CI_Model {
             $this->db->order_by($this->_tables['work'].'.id',"DESC");
             $query = $this->db->get($this->_tables['work']);
         }
-        return $query->result();
+        return ($query->num_rows() > 0)? $query->result() : false;
     }
     
     function deleteTable($id)

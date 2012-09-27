@@ -51,7 +51,7 @@ class forms {
         
         $this->db->where('id',$id);
         $query = $this->db->get($this->_tables['forms']);
-        return $query->row();
+        return ($query->num_rows() > 0)? $query->row() : false;
     }
     
     /**
@@ -73,7 +73,7 @@ class forms {
             $this->db->order_by($this->_tables['forms'].'.id',"DESC");
             $query = $this->db->get($this->_tables['forms']);
         }
-        return $query->result();
+        return ($query->num_rows() > 0)?$query->result():false;
     }
     
     function deleteForm($id)

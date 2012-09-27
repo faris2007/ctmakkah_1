@@ -47,7 +47,7 @@ class User_model extends CI_Model {
         {
             $this->db->where("id",$userid);
             $query = $this->db->get($this->_tables['users']);
-            $data['profile'] = $query->row();
+            $data['profile'] = ($query->num_rows() > 0)? $query->row():false;
             if(!$this->checkIfCandidate($userid)){
                 if($this->checkIfEmployee("accepted", $userid))
                     $data['status']  = 1;
@@ -244,7 +244,7 @@ class User_model extends CI_Model {
         if(empty($userid) || !is_array($data))
             return false;
         $this->db->where("id",$userid);
-        $this->db->update($this->_tables['users'],$data);
+        return $this->db->update($this->_tables['users'],$data);
     }
     
     function register($data)

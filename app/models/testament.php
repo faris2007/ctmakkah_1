@@ -52,7 +52,7 @@ class testament {
         
         $this->db->where('id',$id);
         $query = $this->db->get($this->_tables['testament']);
-        return $query->row();
+        return ($query->num_rows() > 0)?$query->row():false;
     }
     
     /**
@@ -74,7 +74,7 @@ class testament {
             $this->db->order_by($this->_tables['testament'].'.id',"DESC");
             $query = $this->db->get($this->_tables['testament']);
         }
-        return $query->result();
+        return ($query->num_rows() > 0)?$query->result():false;
     }
     
     function deleteTestament($id)
