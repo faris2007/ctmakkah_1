@@ -9,6 +9,7 @@ class Core {
     {
             // Load Class CI
             $this->CI =& get_instance();
+            $this->CI->load->model("user_model","users");
     }
 
     public function load_setting()
@@ -70,6 +71,30 @@ class Core {
             }else{
                     $this->CI->load->view('template',$data);
             }
+    }
+    
+    public function checkPermissions($service_name = "admin",$function_name = "all",$value = "all",$otherValue = "all")
+    {
+        if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
+            return false;
+        
+        if($this->users->isLogin())
+            redirect ('login');
+        
+        if($this->users->checkifUser())
+            return FALSE;
+        
+        if ($service_name == "admin")
+        {
+            if(!$this->users->checkifUser())
+                return true;
+            else 
+                return false;
+        }else
+        {
+            return $this->users->checkIfHavePremission($service_name,$function_name,$value,$otherValue);
+        }
+        
     }
     
 }

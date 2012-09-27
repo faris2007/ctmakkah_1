@@ -13,7 +13,7 @@ class User_model extends CI_Model {
     function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
+        //$this->load->library('session');
         $this->load->database();
     }
     
@@ -116,16 +116,73 @@ class User_model extends CI_Model {
             $query = $this->db->get($this->_tables['permissions']);
             foreach ($query->result() as $row)
             {
-                $data['permissions'][$row->service_name][$row->function_name][$row->value][$row->other_value] =  true;
+                if($row->function_name == "all")
+                    $data['permissions'][$row->service_name] =  true;
+                else
+                {
+                    if($row->value == "all")
+                        $data['permissions'][$row->service_name][$row->function_name] = true;
+                    else
+                    {
+                        if($row->other_value == "all")
+                            $data['permissions'][$row->service_name][$row->function_name][$row->value] = true;
+                        else
+                            $data['permissions'][$row->service_name][$row->function_name][$row->value][$row->other_value] = true;
+                    }
+                }
                 $first = FALSE;
             }
+            $data['groupType'] = "admin";
             return $data;
         }else
             return array(
-                'permissions' => "user",
+                'permissions' => false,
+                'groupType'   => "user"
                 );
     }
     
+    public function isLogin()
+    {
+        return (isset($this->session->userdata('userid'))) ? true : false;
+    }
+    
+    public function checkIfUser()
+    {
+        return ($this->session->userdata('groupType') == "user") ? true : false;
+    }
+    
+    public function checkIfHavePremission($service_name = "admin",$function_name = "all",$value = "all",$otherValue = "all")
+    {
+        if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
+            return FALSE;
+        
+        $premission = $this->session->userdata('premissions');
+        $accessGrade = (isset($premission[$service_name]))?1:0;
+        $accessAdmin = 1;
+        
+        
+        if($function_name != "all"){
+            $accessGrade++;
+            if($value != "all") { 
+                $accessGrade++;
+                if($otherValue != "all") 
+                    $accessGrade++;
+            }
+        }
+        
+        if(!is_bool($premission[$service_name])){
+            $accessAdmin++;
+            if(!is_bool($premission[$service_name][$function_name])) { 
+                $accessAdmin++;
+                if(!is_bool($premission[$service_name][$function_name][$value])) 
+                    $accessAdmin++;
+            }
+        }
+        
+        return ($accessGrade >= $accessAdmin)? true:false;
+    }
+
+
     private function checkIfNotUser($groupId)
     {
         $this->db->where("id",$groupId);
@@ -182,56 +239,7 @@ class User_model extends CI_Model {
         
     }
 
-    public function checkPermissions($service_name = "admin",$function_name = "all",$value = "all",$otherValue = "all")
-    {
-        if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
-            return false;
-        
-        if(!isset($this->session->userdata('userid')))
-            redirect ('login');
-        
-        if(!is_array($this->session->userdata('premissions')))
-            return FALSE;
-        
-        if ($service_name == "admin")
-        {
-            if(is_array($this->session->userdata('premissions')))
-                return true;
-            else 
-                return false;
-        }else
-        {
-            $premission = $this->session->userdata('premissions');
-            if(isset($premission[$service_name]))
-            {
-                if($function_name != 'all')
-                {
-                    if(isset($premission[$service_name][$function_name]))
-                    {
-                        if($value != 'all')
-                        {
-                            if(isset($premission[$service_name][$function_name][$value]))
-                            {
-                                if($otherValue != 'all')
-                                {
-                                    if(isset($premission[$service_name][$function_name][$value][$otherValue]))
-                                        return true;
-                                    else
-                                        return false;
-                                }else
-                                    return true;
-                            }else 
-                                return false;
-                        }else 
-                            return true;
-                    }else 
-                        return false;
-                }else
-                    return true;
-            }else
-                return false;
-        }
-    }
+    
     
     function updateUser($userid,$data)
     {
