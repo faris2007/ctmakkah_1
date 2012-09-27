@@ -3,25 +3,29 @@
 class Core {
 	
     private $CI;
-    private $Token,$Old_Token,$New_Token;
+    private $Token,$Old_Token,$New_Token,$Security_Key,$User_Agent;
 
     public function __construct()
     {
             // Load Class CI
             $this->CI =& get_instance();
+            $this->load_setting();
     }
 
     public function load_setting()
     {
-
+            $this->generate_token();
     }
 
     public function generate_token()
     {
             // Token
-            $this->Token = $this->session->userdata('New_Token');
-            $this->New_Token = sha1(rand(1000,9999) * rand(1000,9999));
+            $this->Old_Token = $this->CI->encrypt->decode($this->CI->session->userdata('Token'));
+            $this->Token = $this->CI->encrypt->decode($this->CI->session->userdata('New_Token'));
+            $this->User_Agent = $this->CI->agent->agent_string();
+            $this->New_Token = $this->CI->encrypt->encode($this->User_Agent . sha1(rand(1000,9999) * rand(1000,9999)));
             $this->Token = ($this->Token != '') ? $this->Token : $this->New_Token;
+            
     }
 
     public function token($generate = FALSE)
@@ -55,8 +59,8 @@ class Core {
             // Other Code ( HTML -> HEAD )
             $data['HEAD']['OTHER'] = (isset($temp_data['HEAD'])) ? $temp_data['HEAD'] : '';
 
-			// Main Menu
-			$data['MENU'] = (isset($temp_data['MENU'])) ? $temp_data['MENU'] : $this->CI->load->view('menu',NULL,TRUE);
+            // Main Menu
+            $data['MENU'] = (isset($temp_data['MENU'])) ? $temp_data['MENU'] : $this->CI->load->view('menu',NULL,TRUE);
 			
             // Content
             $data['CONTENT'] = (isset($temp_data['CONTENT'])) ? $this->CI->load->view($temp_data['CONTENT'],$temp_data,TRUE) : '' ;
