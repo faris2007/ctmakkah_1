@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Users extends CI_Model {
 
     private $_tables = array(
         'users'         =>  "users",
