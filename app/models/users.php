@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Users extends CI_Model {
 
     private $_tables = array(
         'users'         =>  "users",
@@ -47,7 +47,7 @@ class User_model extends CI_Model {
         {
             $this->db->where("id",$userid);
             $query = $this->db->get($this->_tables['users']);
-            $data['profile'] = $query->row();
+            $data['profile'] = ($query->num_rows() > 0)? $query->row():false;
             if(!$this->checkIfCandidate($userid)){
                 if($this->checkIfEmployee("accepted", $userid))
                     $data['status']  = 1;
@@ -103,6 +103,30 @@ class User_model extends CI_Model {
         $this->session->unset_userdata($array);
     }
     
+    function addNewPermission($data)
+    {
+        if(!is_array($data)) return false;
+        
+        return $this->db->insert($this->_tables['permissions'], $data); 
+    }
+    
+    function updatePermission($id,$data)
+    {
+        if(empty($id) || !is_array($data)) return false;
+        
+        $this->db->where('id',$id);
+        return $this->db->update($this->_tables['permissions'], $data); 
+    }
+    
+    function deletePermission($id)
+    {
+        if(empty($id)) return false;
+        
+        $this->db->where('id',$id);
+        return $this->db->delete($this->_tables['permissions']); 
+    }
+
+
     private function getPermissions($groupId)
     {
         if($this->checkIfNotUser($groupId))
@@ -244,7 +268,7 @@ class User_model extends CI_Model {
         if(empty($userid) || !is_array($data))
             return false;
         $this->db->where("id",$userid);
-        $this->db->update($this->_tables['users'],$data);
+        return $this->db->update($this->_tables['users'],$data);
     }
     
     function register($data)
