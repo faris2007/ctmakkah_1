@@ -23,7 +23,7 @@ class Core {
             $this->Old_Token = $this->CI->encrypt->decode($this->CI->session->userdata('Token'));
             $this->Token = $this->CI->encrypt->decode($this->CI->session->userdata('New_Token'));
             $this->User_Agent = $this->CI->agent->agent_string();
-            $this->New_Token = $this->CI->encrypt->encode($this->User_Agent . sha1(rand(1000,9999) * rand(1000,9999)));
+            $this->New_Token = $this->CI->encrypt->encode($this->User_Agent . '|' . sha1(rand(1000,9999) * rand(1000,9999)) . '|' . time());
             $this->Token = ($this->Token != '') ? $this->Token : $this->New_Token;
             
     }
@@ -40,6 +40,23 @@ class Core {
             }
     }
 
+    public function check_token($redirect = TRUE,$token = '')
+    {
+            $redirect = (is_bool($redirect)) ? $redirect : FALSE;
+            $token = ($token == '') ? $this->input->post('token', TRUE) : $token;
+            if ($this->input->post('token', TRUE) == $this->Token)
+            {
+                return TRUE;
+            }else{
+                if ($redirect)
+                {
+                    redirect();
+                }else{
+                    return FALSE;
+                }
+            }
+    }
+ 
     public function load_template($temp_data = array(),$load_only = FALSE)
     {
 
