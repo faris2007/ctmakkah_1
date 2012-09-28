@@ -20,10 +20,11 @@ class Core {
     public function generate_token()
     {
             // Token
+            $this->Security_Key = sha1(rand(1000,9999) * rand(1000,9999));
             $this->Old_Token = $this->CI->encrypt->decode($this->CI->session->userdata('Token'));
             $this->Token = $this->CI->encrypt->decode($this->CI->session->userdata('New_Token'));
             $this->User_Agent = $this->CI->agent->agent_string();
-            $this->New_Token = $this->CI->encrypt->encode($this->User_Agent . '|' . sha1(rand(1000,9999) * rand(1000,9999)) . '|' . time());
+            $this->New_Token = $this->CI->encrypt->encode($this->User_Agent . '|' . $this->Security_Key  . '|' . time());
             $this->Token = ($this->Token != '') ? $this->Token : $this->New_Token;
             
     }
