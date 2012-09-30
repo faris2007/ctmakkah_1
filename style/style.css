@@ -24,12 +24,40 @@ body {
 #top_bar #login_link {
 	text-decoration: none;
 	background-image:url('icon/login.png');
-	background-repeat:no-repeat;
-	background-position:left center;
+	background-repeat: no-repeat;
+	background-position: left center;
 	vertical-align: middle;
 	padding-left: 23px;
 }
 
+#notification {
+    z-index:  10000000000;
+    position: fixed;
+    top: 0;
+    margin: 0 auto 0 auto;
+    height: 32px;
+    width: 100%;
+    color: #FFF;
+}
+
+#notification div {
+    background-color: #000;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    vertical-align: middle;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#notification div img {
+    vertical-align: middle;
+    margin: auto 3px auto 3px;
+}
 
 #container {
 	margin: 0 auto 0 auto;
@@ -88,6 +116,6 @@ body {
 	font-weight: bold;
 }
 
-.tbl tbody .td1 {
+.tbl tbody tr:hover {
 	background-color: #E0E0E0;	
 }
