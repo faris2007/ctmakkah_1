@@ -1,7 +1,6 @@
-<?php $this->lang->load('login', $LANGUAGE); ?>
 <?php if($STEP == "login"): ?>
-    <form action="" method ="post">
-        <table class ="tbl" width="95%">
+    <form method ="post">
+        <table class ="tbl" style="width: 50%;margin-top: 15px;">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('login_text');?></td>
@@ -9,14 +8,17 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><?=$this->lang->line('login_ID');?></td>
-                    <td><input type="text" name="loginID" id="loginID" placeholder="ID ..." value="ID ..." maxlength="10" style="width: 70%" /></td>
+                    <td style="width: 30%;"><?=$this->lang->line('login_ID');?></td>
+                    <td><input type="text" name="loginID" id="loginID" placeholder="ID ..." value="" maxlength="10" style="width: 70%" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('login_pass');?></td>
                     <td><input type="password" name="password" id="password" placeholder="password" style="width: 70%" /></td>
                 </tr>
-                <?php if(@$ERROR): ?>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Login" /></td>
+                </tr>
+                <?php if($ERROR): ?>
                     <tr>
                         <td colspan="2"><?=$this->lang->line('login_error');?></td>
                     </tr>

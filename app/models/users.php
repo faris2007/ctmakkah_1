@@ -59,12 +59,12 @@ class Users extends CI_Model {
         }
     }
     
-    function login($id,$password)
+    function login($id = 0,$password = '')
     {
         if(empty($id) || empty($password))
             return FALSE;
         
-        $this->db->where("id",$id);
+        $this->db->where("idn",$id);
         $this->db->where("password", $password);
         $query = $this->db->get($this->_tables['users']);
         if($query->num_rows() > 0)
@@ -92,7 +92,7 @@ class Users extends CI_Model {
         $data = $this->getPermissions($groupId);
         $data['userid'] = $id;
         $data['group'] = $groupId;
-        $this->session->set_userdata($array);
+        $this->session->set_userdata($data);
     }
     
     private function unsetSession()
@@ -163,9 +163,19 @@ class Users extends CI_Model {
                 );
     }
     
-    public function isLogin()
+    public function isLogin($redirect = FALSE)
     {
-        return ($this->session->userdata('userid')) ? true : false;
+        if ($this->session->userdata('userid'))
+        {
+            return TRUE;
+        }else{
+            if ($redirect)
+            {
+                redirect();
+            }else{
+                return FALSE;
+            }
+        }
     }
     
     public function checkIfUser()

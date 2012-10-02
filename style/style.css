@@ -1,5 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
+@import url("menu.css");
+@import url("css3buttons.css");
 
 * {
     font: normal 12px tahoma;
@@ -9,7 +11,8 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #E0DCDC;
+	background-color:#dcdcdc;
+        background:url(bg.png) repeat;
 }
 
 #top_bar {
@@ -33,11 +36,10 @@ body {
 #notification {
     z-index:  10000000000;
     position: fixed;
-    top: 0;
+    bottom: 0;
     margin: 0 auto 0 auto;
     height: 32px;
     width: 100%;
-    color: #FFF;
 }
 
 #notification div {
@@ -46,23 +48,37 @@ body {
     height: 100%;
     margin: auto;
     vertical-align: middle;
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-topleft: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 #notification div img {
     vertical-align: middle;
-    margin: auto 3px auto 3px;
+    margin: 2px 3px auto 3px;
+}
+
+#main_menu {
+    margin: 10px auto 10px auto;
+    background-color: #c5c5c5;
+    width: 90%;
+    height: 31px;
+    padding: 0px 4px 0px 4px;
+    -webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.20);
+    -moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.20);
+    box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.20);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 #container {
 	margin: 0 auto 0 auto;
 	width: 900px;
-	background-color: #FFF;
+        background-color:#f4f4f4;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -72,13 +88,14 @@ body {
 }
 
 #header {
-	height: 200px;
+	height: 80px;
 	background-image:url('header.png');
-	background-repeat:no-repeat;	
+	background-repeat:no-repeat;
+        background-position: bottom;
 }
 
 #footer {
-	background-color: #000;
+	background-color: #c5c5c5;
 	margin:5px auto auto auto;
 	padding: 10px;
 	height: 15px;
@@ -94,7 +111,6 @@ body {
 #footer span {
 	text-align: center;
 	margin: auto;
-	color: #FFF;
 }
 
 .tbl {

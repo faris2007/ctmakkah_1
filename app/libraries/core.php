@@ -4,6 +4,7 @@ class Core {
 	
     private $CI;
     private $Token,$Old_Token,$New_Token,$Security_Key,$User_Agent;
+    public  $site_language = 'english';
 
     public function __construct()
     {

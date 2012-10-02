@@ -2,12 +2,14 @@
 <html>
 <head>
     <title><?=$HEAD['TITLE']?></title>
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>style/style.css" />
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>style/menu.css" />
     <script type="text/javascript">
         var Token = '<?=$this->core->token(TRUE)?>';
-    	document.write('<script type="text/javascript" src="js"><\/script>');
+        var base_url = '<?=base_url()?>';
+        var js_files = ["jquery","functions"];
+        for (js_x in js_files){document.write('<script type="text/javascript" src="' + base_url + 'js/' + js_files[js_x] + '.js"></' + 'script>');}
+	document.write('<link type="text/css" rel="stylesheet" href="' + base_url + 'style/style.css">');
     </script>
+    
     <!--[if IE 6]>
     <style>
         body {behavior: url("csshover3.htc");}
@@ -23,17 +25,19 @@
     <div id="notification">
         <div>
             <img src="<?=base_url()?>style/icon/notification.png">
-            <span>Welcom To aaaa</span>
+            <span style="color: #FFF;">Notification</span>
         </div>
     </div>
     <div id="top_bar">
     	<a href="#" id="login_link">Login</a>
-      	<span style="float:right;direction:rtl">8 ذو القعدة 1433 هـ	 - 2012/09/24 م</span>
+        <span style="float:right;"><?=date("F j, Y, g:i a")?></span>
     </div>
 	<div id="container">
     	<div id="header"></div>
-        <?=$MENU?>
-		<div id="main_content">
+        <div id="main_menu">
+            <?=$MENU?>
+        </div>
+        <div id="main_content">
 			<?=$CONTENT?>
             <br />
             <br />

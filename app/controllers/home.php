@@ -4,8 +4,8 @@ class Home extends CI_Controller {
       
 	public function index()
 	{
-                $data['TITLE'] = 'Employee Profile';
-                $data['CONTENT'] = 'employee/profile';
+                $data['TITLE'] = 'Asfar Wa Amal';
+                $data['CONTENT'] = 'home';
 		$this->core->load_template($data);
 	}
 }
