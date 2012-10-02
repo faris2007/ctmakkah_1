@@ -5,12 +5,13 @@
  * 
  * @author Faris Al-Otaibi
  */
-class login extends CI_Controller{
+
+class Login extends CI_Controller{
     
     function __construct() {
         parent::__construct();
         $this->load->model("users");
-        $this->lang->load('login', "arabic");
+        $this->lang->load('login', $this->core->site_language);
     }
     
     function index(){
@@ -18,10 +19,13 @@ class login extends CI_Controller{
     }
     
     function login(){
+        
         if(!$this->users->isLogin())
         {
             if($_POST){
-                if($this->users->login($_POST['loginID'],$_POST['password']))
+                $username = $this->input->post('loginID',TRUE);
+                $password = sha1($this->input->post('password',TRUE));
+                if($this->users->login($username,$password))
                 {
                     $data['ERROR'] = FALSE;
                     $data['STEP'] = "success";
