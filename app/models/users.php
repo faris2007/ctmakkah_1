@@ -65,7 +65,7 @@ class Users extends CI_Model {
             return FALSE;
         
         $this->db->where("id",$id);
-        $this->db->where("password",  md5($password));
+        $this->db->where("password", $password);
         $query = $this->db->get($this->_tables['users']);
         if($query->num_rows() > 0)
         {
@@ -79,7 +79,7 @@ class Users extends CI_Model {
     
     function logout()
     {
-        if(isset($this->session->userdata('userid')))
+        if($this->session->userdata('userid'))
         {
             $this->unsetSession();
         }
@@ -165,7 +165,7 @@ class Users extends CI_Model {
     
     public function isLogin()
     {
-        return (isset($this->session->userdata('userid'))) ? true : false;
+        return ($this->session->userdata('userid')) ? true : false;
     }
     
     public function checkIfUser()
