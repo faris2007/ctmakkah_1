@@ -8,6 +8,12 @@
         var Token = '<?=$this->core->token(TRUE)?>';
     	document.write('<script type="text/javascript" src="js"><\/script>');
     </script>
+    <!--[if IE 6]>
+    <style>
+        body {behavior: url("csshover3.htc");}
+        #menu li .drop {background:url("img/drop.gif") no-repeat right 8px; 
+    </style>
+    <![endif]-->
     <meta charset="utf-8" />
 	<?=meta($HEAD['META']['META'])?>
     <?=$HEAD['OTHER']?>
