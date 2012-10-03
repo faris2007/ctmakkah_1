@@ -10,7 +10,6 @@ class Login extends CI_Controller{
     
     function __construct() {
         parent::__construct();
-        $this->load->model("users");
         $this->lang->load('login', $this->core->site_language);
     }
     
@@ -50,6 +49,7 @@ class Login extends CI_Controller{
     function logout()
     {
         if($this->users->isLogin()){
+            $this->users->logout();
             $data['ERROR'] = False;
             $data['STEP'] = "login";
             $data['TITLE'] = $this->lang->line('logout_text');

@@ -99,22 +99,22 @@ class Core {
     {
         if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
             return false;
-        
-        if($this->users->isLogin())
+        $this->CI->load->model("users");
+        if(!$this->CI->users->isLogin())
             redirect ('login');
         
-        if($this->users->checkifUser())
+        if($this->CI->users->checkifUser())
             return FALSE;
         
         if ($service_name == "admin")
         {
-            if(!$this->users->checkifUser())
+            if(!$this->CI->users->checkifUser())
                 return true;
             else 
                 return false;
         }else
         {
-            return $this->users->checkIfHavePremission($service_name,$function_name,$value,$otherValue);
+            return $this->CI->users->checkIfHavePremission($service_name,$function_name,$value,$otherValue);
         }
         
     }

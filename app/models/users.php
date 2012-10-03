@@ -5,7 +5,7 @@ class Users extends CI_Model {
     private $_tables = array(
         'users'         =>  "users",
         'group'         =>  "group",
-        'permissions'   =>  "permissions",
+        'permissions'   =>  "Permissios",
         'employee'      =>  "Employee",
         'jobs'          =>  "jobs"
     );
@@ -34,6 +34,10 @@ class Users extends CI_Model {
 
                 case 'group':
                     return $this->session->userdata('group');
+                    break;
+                
+                case 'groupType':
+                    return $this->session->userdata('groupType');
                     break;
 
                 case 'all':
@@ -74,7 +78,7 @@ class Users extends CI_Model {
         if($query->num_rows() > 0)
         {
             $row = $query->row();
-            $this->setSession($id, $row->group_id);
+            $this->setSession($row->id, $row->group_id);
             return true;
         }else
             return FALSE;
@@ -83,10 +87,7 @@ class Users extends CI_Model {
     
     function logout()
     {
-        if($this->session->userdata('userid'))
-        {
-            $this->unsetSession();
-        }
+        $this->unsetSession();
         return true;
     }
 
@@ -102,9 +103,9 @@ class Users extends CI_Model {
     private function unsetSession()
     {
         $data['premissions'] = '';
-        $data['id'] = '';
+        $data['userid'] = '';
         $data['group'] = '';
-        $this->session->unset_userdata($array);
+        $this->session->unset_userdata($data);
     }
     
     function addNewPermission($data)
@@ -137,7 +138,7 @@ class Users extends CI_Model {
         {
             $data = array();
             $first = true;
-            $this->db->where("id",$groupId);
+            $this->db->where("group_id",$groupId);
             $this->db->group_by(array('service_name','function_name','value'));
             $query = $this->db->get($this->_tables['permissions']);
             foreach ($query->result() as $row)
@@ -192,10 +193,9 @@ class Users extends CI_Model {
         if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
             return FALSE;
         
-        $premission = $this->session->userdata('premissions');
+        $premission = $this->session->userdata('permissions');
         $accessGrade = (isset($premission[$service_name]))?1:0;
         $accessAdmin = 1;
-        
         
         if($function_name != "all"){
             $accessGrade++;
@@ -204,7 +204,7 @@ class Users extends CI_Model {
                 if($otherValue != "all") 
                     $accessGrade++;
             }
-        }
+        } 
         
         if(!is_bool($premission[$service_name])){
             $accessAdmin++;

@@ -5,7 +5,7 @@
  * 
  * @author Faris Al-Otaibi
  */
-class penalty extends CI_Model {
+class penalties extends CI_Model {
    
     private $_table = "penalty";
     

@@ -10,7 +10,7 @@
  *
  * @author Faris Al-Otaibi
  */
-class testament {
+class testaments  extends CI_Model{
     
     private $_tables = array(
         'testament' => "Testament",
@@ -66,7 +66,7 @@ class testament {
         if(is_numeric($userid))
         {
             $this->db->order_by($this->_tables['testament'].'.id',"DESC"); 
-            $this->db->where($this->_tables['link'].'.user_id',$userid);
+            $this->db->where($this->_tables['link'].'.users_id',$userid);
             $this->db->where($this->_tables['testament'].'.id',$this->_tables['link'].'.Testament_id');
             $query = $this->db->get($this->_tables['link'].",".$this->_tables['testament']);
         }else

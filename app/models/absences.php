@@ -1,13 +1,18 @@
 <?php
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
- * this class for add,edit and remove from group table
- * 
+ * this class for add absence or edit or remove it
+ *
  * @author Faris Al-Otaibi
  */
-class group extends CI_Model {
+class absences extends CI_Model {
    
-    private $_table = "group";
+    private $_table = "absence";
     
     function __construct() {
         parent::__construct();
@@ -18,25 +23,39 @@ class group extends CI_Model {
      * @param type $data
      * @return boolean 
      */
-    function addNewGroup($data)
+    function addNewAbsence($data)
     {
         if(!is_array($data)) return false;
         
         return $this->db->insert($this->_table, $data); 
     }
-     
+    
+    /**
+     *
+     * @param int $id
+     * @return boolean 
+     */
+    function getAbsence($id)
+    {
+        if(empty($id)) return false;
+        
+        $this->db->where('id',$id);
+        $query = $this->db->get($this->_table);
+        return ($query->num_rows() > 0)? $query->row() : false; 
+    }
+    
     /**
      *
      * @param mixd $userid
      * @return boolean 
      */
-    function getGroups($id = "all")
+    function getAbsences($userid)
     {
-        if(empty($id)) return false;
+        if(empty($userid)) return false;
         
-        if(is_numeric($id))
+        if(is_numeric($userid))
         {
-            $this->db->where('id',$id);
+            $this->db->where('users_id',$userid);
         }
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
@@ -48,7 +67,7 @@ class group extends CI_Model {
      * @param int $id
      * @return boolean 
      */
-    function deleteGroup($id)
+    function deleteAbsence($id)
     {
         if(empty($id)) return false;
         
@@ -62,7 +81,7 @@ class group extends CI_Model {
      * @param array $data
      * @return boolean 
      */
-    function updateGroup($id,$data)
+    function updateAbsence($id,$data)
     {
         if(empty($id) || !is_array($data)) return false;
         

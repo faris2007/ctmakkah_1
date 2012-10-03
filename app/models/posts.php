@@ -1,36 +1,31 @@
 <?php
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
- * this class for add,edit and remove from employee table
- * 
+ * this class for the post from user to admin and replay on it
+ *
  * @author Faris Al-Otaibi
  */
-class employee extends CI_Model {
-   
-    private $_table = "Employee";
+class posts extends CI_Model {
+    
+    private $_table = "post";
     
     function __construct() {
         parent::__construct();
+        $this->load->database();
     }
     
-    /**
-     *
-     * @param type $data
-     * @return boolean 
-     */
-    function addNewEmployee($data)
+    function addNewPost($data)
     {
         if(!is_array($data)) return false;
-        
         return $this->db->insert($this->_table, $data); 
     }
     
-    /**
-     *
-     * @param int $id
-     * @return boolean 
-     */
-    function getEmployee($id)
+    function getPost($id)
     {
         if(empty($id)) return false;
         
@@ -41,28 +36,33 @@ class employee extends CI_Model {
     
     /**
      *
-     * @param mixd $userid
+     * @param mixd $userid if send "admin" this meaning give me all posts
      * @return boolean 
      */
-    function getEmployees($userid)
+    function getPosts($userid)
     {
         if(empty($userid)) return false;
-        
         if(is_numeric($userid))
         {
-            $this->db->where('users_id',$userid);
+            $this->db->where('from_users_id',$userid);
         }
+        $this->db->where('post_id',0);
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;
     }
     
-    /**
-     *
-     * @param int $id
-     * @return boolean 
-     */
-    function deleteEmployee($id)
+    function getReplays($postid)
+    {
+        if(empty($postid)||!is_numeric($postid)) return false;
+        
+        $this->db->where('post_id',$postid);
+        $this->db->order_by("numberOfPost"); 
+        $query = $this->db->get($this->_table);
+        return ($query->num_rows() > 0)? $query->result() : false;
+    }
+    
+    function deletePost($id)
     {
         if(empty($id)) return false;
         
@@ -70,19 +70,14 @@ class employee extends CI_Model {
         return $this->db->delete($this->_table); 
     }
     
-    /**
-     *
-     * @param int $id
-     * @param array $data
-     * @return boolean 
-     */
-    function updateEmployee($id,$data)
+    function updatePost($id,$data)
     {
         if(empty($id) || !is_array($data)) return false;
         
         $this->db->where('id',$id);
         return $this->db->update($this->_table,$data); 
     }
+    
     
 }
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * this class for add,edit and remove from notification table
+ * this class for add,edit and remove from employee table
  * 
  * @author Faris Al-Otaibi
  */
-class notification extends CI_Model {
+class employees extends CI_Model {
    
-    private $_table = "notification";
+    private $_table = "Employee";
     
     function __construct() {
         parent::__construct();
@@ -18,7 +18,7 @@ class notification extends CI_Model {
      * @param type $data
      * @return boolean 
      */
-    function addNewNotification($data)
+    function addNewEmployee($data)
     {
         if(!is_array($data)) return false;
         
@@ -30,7 +30,7 @@ class notification extends CI_Model {
      * @param int $id
      * @return boolean 
      */
-    function getNotification($id)
+    function getEmployee($id)
     {
         if(empty($id)) return false;
         
@@ -41,16 +41,17 @@ class notification extends CI_Model {
     
     /**
      *
-     * @param string $type
-     * @param int $id
+     * @param mixd $userid
      * @return boolean 
      */
-    function getNotifications($type,$id)
+    function getEmployees($userid)
     {
-        if(empty($id) || empty($type)) return false;
-       
-        $this->db->where('to_type',$type);
-        $this->db->where('to',$id);
+        if(empty($userid)) return false;
+        
+        if(is_numeric($userid))
+        {
+            $this->db->where('users_id',$userid);
+        }
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;
@@ -61,7 +62,7 @@ class notification extends CI_Model {
      * @param int $id
      * @return boolean 
      */
-    function deleteNotification($id)
+    function deleteEmployee($id)
     {
         if(empty($id)) return false;
         
@@ -75,7 +76,7 @@ class notification extends CI_Model {
      * @param array $data
      * @return boolean 
      */
-    function updateNotification($id,$data)
+    function updateEmployee($id,$data)
     {
         if(empty($id) || !is_array($data)) return false;
         
@@ -84,6 +85,5 @@ class notification extends CI_Model {
     }
     
 }
-
 
 ?>

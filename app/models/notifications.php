@@ -1,18 +1,13 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * this class for add absence or edit or remove it
- *
+ * this class for add,edit and remove from notification table
+ * 
  * @author Faris Al-Otaibi
  */
-class absence extends CI_Model {
+class notifications extends CI_Model {
    
-    private $_table = "absence";
+    private $_table = "notification";
     
     function __construct() {
         parent::__construct();
@@ -23,7 +18,7 @@ class absence extends CI_Model {
      * @param type $data
      * @return boolean 
      */
-    function addNewAbsence($data)
+    function addNewNotification($data)
     {
         if(!is_array($data)) return false;
         
@@ -35,7 +30,7 @@ class absence extends CI_Model {
      * @param int $id
      * @return boolean 
      */
-    function getAbsence($id)
+    function getNotification($id)
     {
         if(empty($id)) return false;
         
@@ -46,17 +41,16 @@ class absence extends CI_Model {
     
     /**
      *
-     * @param mixd $userid
+     * @param string $type
+     * @param int $id
      * @return boolean 
      */
-    function getAbsences($userid)
+    function getNotifications($type,$id)
     {
-        if(empty($userid)) return false;
-        
-        if(is_numeric($userid))
-        {
-            $this->db->where('users_id',$userid);
-        }
+        if(empty($id) || empty($type)) return false;
+       
+        $this->db->where('to_type',$type);
+        $this->db->where('to',$id);
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;
@@ -67,7 +61,7 @@ class absence extends CI_Model {
      * @param int $id
      * @return boolean 
      */
-    function deleteAbsence($id)
+    function deleteNotification($id)
     {
         if(empty($id)) return false;
         
@@ -81,7 +75,7 @@ class absence extends CI_Model {
      * @param array $data
      * @return boolean 
      */
-    function updateAbsence($id,$data)
+    function updateNotification($id,$data)
     {
         if(empty($id) || !is_array($data)) return false;
         
@@ -90,5 +84,6 @@ class absence extends CI_Model {
     }
     
 }
+
 
 ?>
