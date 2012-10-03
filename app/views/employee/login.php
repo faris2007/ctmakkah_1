@@ -16,7 +16,7 @@
                     <td><input type="password" name="password" id="password" placeholder="password" style="width: 70%" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input type="submit" value="Login" /></td>
+                    <td colspan="2"><input type="submit" value="<?=$this->lang->line('login_button');?>" /></td>
                 </tr>
                 <?php if($ERROR): ?>
                     <tr>
@@ -29,5 +29,9 @@
 <?php elseif($STEP=="success"): ?>
     <div>
             <?=@$this->lang->line('login_success');?>
+    </div>
+<?php elseif($STEP=="logout"): ?>
+    <div>
+            <?=@$this->lang->line('logout_success');?>
     </div>
 <?php endif; ?>

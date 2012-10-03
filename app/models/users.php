@@ -45,10 +45,13 @@ class Users extends CI_Model {
             }
         }else
         {
-            $this->db->where("id",$userid);
+            if(strlen($userid) == 10)
+                $this->db->where("idn",$userid);
+            else
+                $this->db->where("id",$userid);
             $query = $this->db->get($this->_tables['users']);
             $data['profile'] = ($query->num_rows() > 0)? $query->row():false;
-            if(!$this->checkIfCandidate($userid)){
+            if(!$this->checkIfCandidate($userid) && !is_bool($data['profile'])){
                 if($this->checkIfEmployee("accepted", $userid))
                     $data['status']  = 1;
                 else if ($this->checkIfEmployee("rejected", $userid))
@@ -56,6 +59,7 @@ class Users extends CI_Model {
                 else
                     $data['status'] = 2;
             }
+            return $data;
         }
     }
     
