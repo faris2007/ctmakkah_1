@@ -1,6 +1,6 @@
 <?php if($STEP == "view"): ?>
-<div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list">
+<div id="delete" class="tbl" style="color:white;background-color:red;display:none;text-align:center" ></div>
+<table class="tbl" id="list" style="width: 70%;">
         <thead>
             <tr>
                 <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('testament_view')?></td>
