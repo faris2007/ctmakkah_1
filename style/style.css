@@ -151,6 +151,10 @@ body {
     box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.20);
 }
 
+.message .withtitle {
+    padding: 0px 0px 5px 0px;
+}
+
 .message title {
     top: 0;
     width: 100%;

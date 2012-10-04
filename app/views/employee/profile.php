@@ -82,6 +82,9 @@
 <?php elseif (@$STEP == "success") : ?>
     <div class="message">
         <?=@$MSG?>
+        <script type="text/javascript">
+            redirect('profile');
+        </script>
     </div>
 <?php endif; ?>
 
