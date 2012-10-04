@@ -50,11 +50,7 @@ class Login extends CI_Controller{
     {
         if($this->users->isLogin()){
             $this->users->logout();
-            $data['ERROR'] = False;
-            $data['STEP'] = "login";
-            $data['TITLE'] = $this->lang->line('logout_text');
-            $data['CONTENT'] = 'employee/login';
-            $this->core->load_template($data);
+            redirect("login");
         }else
             redirect("");
     }
