@@ -21,7 +21,7 @@
             </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
-                    <tr id="testments<?=$row->id?>">
+                    <tr id="groups<?=$row->id?>">
                         <td><?=$row->id?></td>
                         <td><?=$row->name?></td>
                         <td><?=$row->location?></td>
@@ -29,7 +29,7 @@
                         <?php if(@$CONTROL): ?>
                         <td>
                             <a href="<?=base_url()?>group/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
-                            <a onclick="deleted('<?=base_url()?>group/delete/<?=$row->id?>','testments<?=$row->id?>','<?=$this->lang->line("group_view_nothing")?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            <a onclick="deleted('<?=base_url()?>group/delete/<?=$row->id?>','groups<?=$row->id?>','<?=$this->lang->line("group_view_nothing")?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
                         </td>
                         <?php endif; ?>
                     </tr>

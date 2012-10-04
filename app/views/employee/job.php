@@ -3,8 +3,10 @@
     <table class="tbl" id="list">
         <thead>
             <tr>
-                <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('job_view')?></td>
-                <td><a href="<?=base_url()?>job/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                <td colspan="4"><?=$this->lang->line('job_view')?></td>
+                <?php if(@$CONTROL): ?>
+                    <td><a href="<?=base_url()?>job/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +21,7 @@
             </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
-                    <tr id="testments<?=$row->id?>">
+                    <tr id="jobs<?=$row->id?>">
                         <td><?=$row->id?></td>
                         <td><?=$row->name?></td>
                         <td><?=$row->date?></td>
@@ -27,7 +29,7 @@
                         <?php if(@$CONTROL): ?>
                         <td>
                             <a href="<?=base_url()?>job/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
-                            <a onclick="deleted('<?=base_url()?>job/delete/<?=$row->id?>','testments<?=$row->id?>','<?=$this->lang->line("job_view_nothing")?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            <a onclick="deleted('<?=base_url()?>job/delete/<?=$row->id?>','jobs<?=$row->id?>','<?=$this->lang->line("job_view_nothing")?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
                         </td>
                         <?php endif; ?>
                     </tr>

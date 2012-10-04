@@ -89,7 +89,7 @@ class testament extends CI_Controller {
 
     function edit(){
         $testamentID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("testament","add")){
+        if($this->core->checkPermissions("testament","edit",'all','all')){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),

@@ -84,7 +84,7 @@ class job extends CI_Controller {
 
     function edit(){
         $jobID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("job","add")){
+        if($this->core->checkPermissions("job","edit","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),

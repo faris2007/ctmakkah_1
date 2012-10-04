@@ -46,7 +46,7 @@ class posts extends CI_Model {
         {
             $this->db->where('from_users_id',$userid);
         }
-        $this->db->where('post_id',0);
+        $this->db->where('post_id IS NULL');
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;
