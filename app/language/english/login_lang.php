@@ -48,5 +48,8 @@ $lang['register_skip'] = "Skip";
 $lang['register_employee_error'] = "You are register before you can't register another";
 $lang['register_uploaded_error'] = "there is problem in upload files";
 $lang['register_success'] = "Thank you for register with us , it will come message in your Email if you Accept";
+$lang['profile_show'] = "Profile";
+$lang['profile_button'] = "Save";
+$lang['profile_edit_success'] = "edit profile successfully, it will be transfer you automatically";
 
 ?>

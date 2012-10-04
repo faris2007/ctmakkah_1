@@ -10,6 +10,8 @@
         </ul>
 		<div class="clear"></div>
     </li>
-    <li><a href="#">Logout</a></li>
+    <?php if($this->users->isLogin()): ?>
+        <li><a href="<?=base_url()?>login/logout">Logout</a></li>
+    <?php endif; ?>
 </ul>
 <div class="clear"></div>

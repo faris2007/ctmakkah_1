@@ -119,6 +119,19 @@ class Core {
         
     }
     
+    function getServicesName(){
+        $data = array("testament","employee");
+        return $data;
+    }
+    
+    function getFunctionsName($service_name){
+        $data = array(
+            "testament" => array("all","add","edit","delete"),
+            "employee" => array("profile")
+            );
+        return $data[$service_name];
+    }
+    
 }
 
 ?>

@@ -48,7 +48,7 @@
                     <td><input type="text" placeholder="Your Name (English)" name="enName" id="enName" /></td>
                 </tr>
                 <tr>
-                    <td><?=@$this->lang->line('register_nationality');?></td>
+                    <td><?=@$this->lang->line('register_nationality')?></td>
                     <td>
                         <select name="nationality" id="nationality">
                             <option disabled="true">اختيار الجنسية</option>
