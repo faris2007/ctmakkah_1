@@ -36,11 +36,4 @@ $(document).ready(function(){
             $(this).html("");
     });
 
-    function redirect(url)
-    {
-        alert('eeee');
-        setTimeout(function() {
-            window.location(url);
-        }, 5000);        
-    }
 }

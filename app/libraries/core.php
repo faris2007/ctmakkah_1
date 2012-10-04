@@ -121,12 +121,12 @@ class Core {
         
     }
     
-    function getServicesName(){
+    public function getServicesName(){
         $data = array("testament","employee","job");
         return $data;
     }
     
-    function getFunctionsName($service_name){
+    public function getFunctionsName($service_name){
         $data = array(
             "testament"     => array("all","add","edit","delete"),
             "employee"      => array("profile"),
@@ -136,6 +136,16 @@ class Core {
         return $data[$service_name];
     }
     
+    public function message($_message = '',$_url = '',$_title = '',$_time = 200)
+    {
+        $data['MSG']['TITLE'] = $_title;
+        $data['MSG']['MESSAGE'] = $_message;
+        $data['MSG']['URL'] = $_url;
+        $data['MSG']['TIME'] = $_time;
+        $data['TITLE'] = 'MSG';
+        $data['CONTENT'] = 'message';
+        $this->load_template($data);
+    }
 }
 
 ?>
