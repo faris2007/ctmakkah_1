@@ -67,6 +67,9 @@ class testament extends CI_Controller {
     }
     
     function delete(){
+        if(!$this->core->checkPermissions("testament","delete","all","all"))
+            redirect ("");
+        
         $segments = $this->uri->segment_array();
         $testamentID = (isset($segments[3]))? $segments[3] : 0;
         if($testamentID != 0){
