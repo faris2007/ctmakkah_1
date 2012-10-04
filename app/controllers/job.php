@@ -97,7 +97,7 @@ class job extends CI_Controller {
                     $row = $this->jobs->getJobs($jobID);
                     if(!is_bool($row)){
                         $data['NAME'] = $row->name;
-                        $data['TYPE'] = $row->type;
+                        $data['DATE'] = $row->date;
                         $data['MONY'] = $row->mony;
                     }else
                         show_404 ();
@@ -114,7 +114,7 @@ class job extends CI_Controller {
                 $row = $this->jobs->getJobs($jobID);
                 if(!is_bool($row)){
                     $data['NAME'] = $row->name;
-                    $data['TYPE'] = $row->type;
+                    $data['DATE'] = $row->date;
                     $data['MONY'] = $row->mony;
                 }else
                     show_404 ();

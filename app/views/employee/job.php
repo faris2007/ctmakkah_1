@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('job_date')?></td>
-                    <td><input type="text" name="date" id="date" value="<?=@$TYPE?>" maxlength="10" /></td>
+                    <td><input type="text" name="date" id="date" value="<?=@$DATE?>" maxlength="10" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('job_mony')?></td>
