@@ -1,8 +1,10 @@
 <?php if($STEP == "view"): ?>
-    <table class="tbl">
+<div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
+    <table class="tbl" id="list">
         <thead>
             <tr>
-                <td colspan="<?=(@$CONTROL)?5:4?>"><?=$this->lang->line('testament_view')?></td>
+                <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('testament_view')?></td>
+                <td><a href="<?=base_url()?>testament/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
             </tr>
         </thead>
         <tbody>
@@ -17,16 +19,23 @@
             </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
-                    <tr>
+                    <tr id="testments<?=$row->id?>">
                         <td><?=$row->id?></td>
                         <td><?=$row->name?></td>
                         <td><?=$row->type?></td>
                         <td><?=$row->mony?></td>
                         <?php if(@$CONTROL): ?>
-                            <td>Control</td>
+                        <td>
+                            <a href="<?=base_url()?>testament/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                            <a onclick="deleted('<?=base_url()?>testament/delete/<?=$row->id?>','testments<?=$row->id?>','<?=$this->lang->line("testament_view_nothing")?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                        </td>
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
+            <?php else: ?>
+                    <tr>
+                        <td colspan="<?=(@$CONTROL)?5:4?>"><?=$this->lang->line('testament_view_nothing')?></td>
+                    </tr>
             <?php endif; ?>
         </tbody>
     </table>

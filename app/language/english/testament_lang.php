@@ -20,5 +20,8 @@ $lang['testament_view_control'] = "Control";
 $lang['testament_add_error'] = "There is problem in data entry";
 $lang['testament_add_success'] = "Done work,  add new testament";
 $lang['testament_edit_success'] = "Done work,  edit testament";
+$lang['testament_delete_success'] = "The item has been deleted";
+$lang['testament_delete_error'] = "There is problem in delete item";
+$lang['testament_view_nothing'] = "Do not have any testament yet";
 
 ?>

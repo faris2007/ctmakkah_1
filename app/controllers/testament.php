@@ -11,6 +11,7 @@ class testament extends CI_Controller {
         parent::__construct();
         $this->load->model("testaments");
         $this->lang->load('testament', $this->core->site_language);
+        $this->lang->load('global', $this->core->site_language);
     }
     
     function index(){
@@ -50,6 +51,7 @@ class testament extends CI_Controller {
                 {
                     $data['STEP'] = "success";
                     $data['MSG'] = $this->lang->line('testament_add_success');
+                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'testament', 'type' => 'equiv'));
                 }
             }else{
                 $data['STEP'] = "add";
@@ -64,6 +66,24 @@ class testament extends CI_Controller {
         $this->core->load_template($data);
     }
     
+    function delete(){
+        $segments = $this->uri->segment_array();
+        $testamentID = (isset($segments[3]))? $segments[3] : 0;
+        if($testamentID != 0){
+            $row = $this->testaments->getTestament($testamentID);
+            if(is_bool($row))
+                echo $this->lang->line('testament_delete_error');
+            
+           if($this->testaments->deleteTestament($testamentID))
+               echo $this->lang->line('testament_delete_success');    
+           else
+               echo $this->lang->line('testament_delete_error');  
+               
+        }else
+            echo $this->lang->line('testament_delete_error');
+    }
+
+
     function edit(){
         $testamentID = $this->uri->segment(3, 0);
         if($this->core->checkPermissions("testament","add")){
@@ -88,6 +108,7 @@ class testament extends CI_Controller {
                 {
                     $data['STEP'] = "success";
                     $data['MSG'] = $this->lang->line('testament_edit_success');
+                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'testament', 'type' => 'equiv'));
                 }
             }else{
                 $data['STEP'] = "edit";
