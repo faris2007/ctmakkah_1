@@ -28,6 +28,7 @@ class Login extends CI_Controller{
                 {
                     $data['ERROR'] = FALSE;
                     $data['STEP'] = "success";
+                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  $this->session->userdata('prePage'), 'type' => 'equiv'));
                 }else
                 {
                     $data['ERROR'] = true;
@@ -50,6 +51,7 @@ class Login extends CI_Controller{
     {
         if($this->users->isLogin()){
             $this->users->logout();
+            $this->session->set_userdata("prePage",  base_url());
             redirect("login");
         }else
             redirect("");
