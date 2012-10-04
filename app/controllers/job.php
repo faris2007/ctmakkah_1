@@ -88,7 +88,7 @@ class job extends CI_Controller {
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
-                    'type'      => $this->input->post("type",true),
+                    'date'      => $this->input->post("date",true),
                     'mony'      => $this->input->post("mony",true),
                 );
                 if(!$this->jobs->updateJob($jobID,$store)){
@@ -96,9 +96,9 @@ class job extends CI_Controller {
                     $data['ID'] = $jobID;
                     $row = $this->jobs->getJobs($jobID);
                     if(!is_bool($row)){
-                        $data['NAME'] = $row->name;
-                        $data['DATE'] = $row->date;
-                        $data['MONY'] = $row->mony;
+                        $data['NAME'] = $row[0]->name;
+                        $data['DATE'] = $row[0]->date;
+                        $data['MONY'] = $row[0]->mony;
                     }else
                         show_404 ();
                     $data['ERROR'] = true;
@@ -113,9 +113,9 @@ class job extends CI_Controller {
                 $data['ID'] = $jobID;
                 $row = $this->jobs->getJobs($jobID);
                 if(!is_bool($row)){
-                    $data['NAME'] = $row->name;
-                    $data['DATE'] = $row->date;
-                    $data['MONY'] = $row->mony;
+                    $data['NAME'] = $row[0]->name;
+                    $data['DATE'] = $row[0]->date;
+                    $data['MONY'] = $row[0]->mony;
                 }else
                     show_404 ();
                 $data['ERROR'] = false;

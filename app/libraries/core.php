@@ -128,9 +128,10 @@ class Core {
     
     function getFunctionsName($service_name){
         $data = array(
-            "testament" => array("all","add","edit","delete"),
-            "employee" => array("profile"),
-            "job" => array("all","add","edit","delete")
+            "testament"     => array("all","add","edit","delete"),
+            "employee"      => array("profile"),
+            "job"           => array("all","add","edit","delete"),
+            "group"         => array("all","add","edit","delete")
             );
         return $data[$service_name];
     }
