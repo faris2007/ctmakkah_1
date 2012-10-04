@@ -80,7 +80,7 @@
 </form>
 
 <?php elseif (@$STEP == "success") : ?>
-    <div class="tbl">
+    <div class="message">
         <?=@$MSG?>
     </div>
 <?php endif; ?>

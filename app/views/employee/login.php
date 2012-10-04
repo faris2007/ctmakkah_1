@@ -27,11 +27,11 @@
         </table>
     </form>
 <?php elseif($STEP=="success"): ?>
-    <div>
+    <div class="message">
             <?=@$this->lang->line('login_success');?>
     </div>
 <?php elseif($STEP=="logout"): ?>
-    <div>
+    <div class="message">
             <?=@$this->lang->line('logout_success');?>
     </div>
 <?php endif; ?>
