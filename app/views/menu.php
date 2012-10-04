@@ -3,7 +3,7 @@
     <li><a href="#">Services</a>
         <ul>
             <li><a href="<?=base_url()?>employee/profile">Profile</a></li>
-            <li><a href="#"></a></li>
+            <li><a href="<?=base_url()?>testament">Testaments</a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
