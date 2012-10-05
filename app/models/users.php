@@ -20,7 +20,13 @@ class Users extends CI_Model {
         return '';
     }*/
     
-    function get_info_user($type = "all",$userid = "me")
+ function getUsers(){
+     $query = $this->db->get($this->_tables['users']);
+     return ($query->num_rows() > 0) ? $query->result() : false;
+ }
+
+
+ function get_info_user($type = "all",$userid = "me")
     {
         if(empty($type) || empty($userid)) return false;
         
@@ -129,6 +135,16 @@ class Users extends CI_Model {
         
         $this->db->where('id',$id);
         return $this->db->delete($this->_tables['permissions']); 
+    }
+
+    
+    public function getAllPermissions($groupId){
+        if(empty($groupId))
+            return false;
+        
+        $this->db->where("group_id",$groupId);
+        $query = $this->db->get($this->_tables['permissions']);
+        return($query->num_rows() > 0)? $query->result():false;
     }
 
 

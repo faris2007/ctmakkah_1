@@ -460,7 +460,7 @@
         </table>
     </form>
 <?php elseif($STEP == 4): ?>
-<div>
+<div class="message">
     <?=@$MSG?>
 </div>
 <?php endif; ?>

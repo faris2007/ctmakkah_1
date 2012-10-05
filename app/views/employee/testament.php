@@ -1,6 +1,6 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;text-align:center" ></div>
-<table class="tbl" id="list" style="width: 70%;">
+<table class="tbl" id="list" style="width: 80%;">
         <thead>
             <tr>
                 <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('testament_view')?></td>
@@ -41,7 +41,7 @@
     </table>
 <?php elseif($STEP == "add"): ?>
     <form method="post">
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('testament_add')?></td>
@@ -74,7 +74,7 @@
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('testament_edit')?></td>
@@ -105,7 +105,7 @@
         </table>
     </form>
 <?php elseif($STEP == "success"): ?>
-<div>
+<div class="message">
     <?=$MSG?>
 </div>
 <?php endif; ?>

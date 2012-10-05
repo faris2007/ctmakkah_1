@@ -1,6 +1,6 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list">
+    <table class="tbl" id="list" style="width:80%">
         <thead>
             <tr>
                 <td colspan="4"><?=$this->lang->line('job_view')?></td>
@@ -43,7 +43,7 @@
     </table>
 <?php elseif($STEP == "add"): ?>
     <form method="post">
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('job_add')?></td>
@@ -76,7 +76,7 @@
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('job_edit')?></td>
@@ -107,7 +107,7 @@
         </table>
     </form>
 <?php elseif($STEP == "success"): ?>
-<div>
+<div class="message">
     <?=$MSG?>
 </div>
 <?php endif; ?>

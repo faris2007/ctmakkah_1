@@ -58,7 +58,7 @@ class Login extends CI_Controller{
     }
     
     function register(){
-        $this->load->model("employee");
+        $this->load->model("employees");
         $this->load->model("attachments");
         if($_POST){
             $step = $this->input->post("step",true);
@@ -74,7 +74,7 @@ class Login extends CI_Controller{
                 }else {
                     $this->db->where("year",date("Y"));
                     $this->db->where("users_id",$check['profile']->id);
-                    $result = $this->employee->getEmployees("ALL");
+                    $result = $this->employees->getEmployees("ALL");
                     if(!$result){
                         $data['ERROR'] = False;
                         $data['STEP'] = 4;
@@ -85,10 +85,11 @@ class Login extends CI_Controller{
                             'isAccept'  => "C",
                             'users_id'  => $check['profile']->id
                         );
-                        if($this->employee->addNewEmployee($store))
+                        if($this->employees->addNewEmployee($store))
                         {    
                             $data['ERROR'] = False;
                             $data['STEP'] = 4;
+                            $data['MSG'] = $this->lang->line('register_success');
                         }else
                         {
                             $data['ERROR'] = true;
@@ -126,7 +127,7 @@ class Login extends CI_Controller{
                             'isAccept'  => "C",
                             'users_id'  => $check['profile']->id
                         );
-                        $this->employee->addNewEmployee($storeE);
+                        $this->employees->addNewEmployee($storeE);
                         $data['ERROR'] = False;
                         $data['STEP'] = 3;
                         $data['ID'] = $check['profile']->id;

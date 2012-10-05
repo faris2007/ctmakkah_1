@@ -1,6 +1,6 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list">
+    <table class="tbl" id="list" style="width:80%">
         <thead>
             <tr>
                 <td colspan="3"><?=$this->lang->line('post_view')?></td>
@@ -17,8 +17,8 @@
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): $user = $this->users->get_info_user("all",$row->from_users_id); ?>
                     <tr id="posts<?=$row->id?>">
-                        <td><?=$row->id?></td>
-                        <td><?=$row->title?></td>
+                        <td><?=$row->id?></a></td>
+                        <td><a href="<?=base_url()?>post/show/<?=$row->id?>"><?=$row->title?></a></td>
                         <td><?=$row->date?></td>
                         <td><?=$user['profile']->en_name?></td>
                     </tr>
@@ -33,7 +33,7 @@
 <?php elseif($STEP == "add"): ?>
     <form method="post">
         <input type="hidden" name="number" value="1" />
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('post_add')?></td>
@@ -66,7 +66,7 @@
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('post_edit')?></td>
@@ -97,11 +97,11 @@
         </table>
     </form>
 <?php elseif($STEP == "success"): ?>
-<div>
+<div class="message">
     <?=$MSG?>
 </div>
 <?php elseif($STEP == "show"): ?>
-<table class="tbl">
+<table class="tbl" style="width:80%">
     <tbody>
         <tr>
             <td><?=$this->lang->line('post_view_title')?></td>
@@ -109,7 +109,7 @@
         </tr>
         <tr>
             <td><?=$this->lang->line('post_view_from')?></td>
-            <td><?=@$FORM?></td>
+            <td><?=@$FROM?></td>
         </tr>
         <tr>
             <td><?=$this->lang->line('post_view_date')?></td>
@@ -121,20 +121,20 @@
     </tbody>
 </table>
 <?php if(@$REPLAY): ?>
+<div class="message">Replays :</div>
     <?php foreach($REPLAY as $row): $user = $this->users->get_info_user("all",$row->from_users_id); ?>
-        <br />
-        <table class="tbl">
+        <table class="tbl" style="width:80%">
             <tbody>
                 <tr>
-                    <td><?=$this->lang->line('post_view_title')?></td>
+                    <td><?=$this->lang->line('post_view_title')?> :</td>
                     <td><?=@$row->title?></td>
                 </tr>
                 <tr>
-                    <td><?=$this->lang->line('post_view_from')?></td>
+                    <td><?=$this->lang->line('post_view_from')?> :</td>
                     <td><?=@$user['profile']->en_name?></td>
                 </tr>
                 <tr>
-                    <td><?=$this->lang->line('post_view_date')?></td>
+                    <td><?=$this->lang->line('post_view_date')?> :</td>
                     <td><?=@$row->date?></td>
                 </tr>
                 <tr>
@@ -147,7 +147,7 @@
 <br />
 <form method="post">
     <input type="hidden" name="number" value="<?=(!$REPLAY)? 2 : 2+count($REPLAY)?>" />
-    <table class="tbl">
+    <table class="tbl" style="width:80%">
         <thead>
             <tr>
                 <td colspan="2"><?=$this->lang->line('post_add')?></td>

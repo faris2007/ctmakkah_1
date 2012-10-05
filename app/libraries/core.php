@@ -126,7 +126,7 @@ class Core {
         return $data;
     }
     
-    public function getFunctionsName($service_name){
+    public function getFunctionsName($service_name ="all"){
         $data = array(
             "testament"     => array("all","view","show","add","edit","delete"),
             "employee"      => array("profile"),
@@ -134,7 +134,7 @@ class Core {
             "group"         => array("all","view","show","add","edit","delete"),
             "post"          => array("all","view","show","add","edit","delete"),
             );
-        return $data[$service_name];
+        return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }
     
     public function message($_message = '',$_url = '',$_title = '',$_time = 200)

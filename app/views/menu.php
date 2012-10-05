@@ -4,14 +4,16 @@
         <ul>
             <li><a href="<?=base_url()?>employee/profile">Profile</a></li>
             <li><a href="<?=base_url()?>testament">Testaments</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
+            <li><a href="<?=base_url()?>group">Group</a></li>
+            <li><a href="<?=base_url()?>job">Job</a></li>
+            <li><a href="<?=base_url()?>post">Post</a></li>
         </ul>
 		<div class="clear"></div>
     </li>
     <?php if($this->users->isLogin()): ?>
         <li><a href="<?=base_url()?>login/logout">Logout</a></li>
+    <?php else : ?>
+        <li><a href="<?=base_url()?>login/Register">Register</a></li>
     <?php endif; ?>
 </ul>
 <div class="clear"></div>

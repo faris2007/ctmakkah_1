@@ -35,5 +35,23 @@ $(document).ready(function(){
             $(this).css("display","none");
             $(this).html("");
     });
+    }
+    
+    function added(URL,id){
 
-}
+        $('#add').load(URL);
+        $('#add').css( "display", "block" );
+        $('#'+id).click(function() {
+            //change the background color to red before removing
+            $(this).css("background-color","#FF3700");
+            $(this).css("color","#FFFFFF");
+            $(this).fadeOut(1000, function(){
+                $(this).remove();
+            });
+        });
+        $('#add').fadeOut(5000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+    });
+
+    }
