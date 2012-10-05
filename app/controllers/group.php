@@ -229,33 +229,22 @@ class group extends CI_Controller {
         $this->core->load_template($data);
     }
     
-    function adduserstogroup($groupId,$start = 0){
-        if(!$this->core->checkPermissions("group","add","all","all"))
-            redirect ("");
+    public function adduserstogroup()
+    {
+        // Permaters
+        $groupId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
+        $start = (is_numeric($this->uri->segment(4, 1))) ? $this->uri->segment(4, 1) : 1;
+
+        if(!$this->core->checkPermissions("group","add","all","all")) redirect ();
         
-        $this->load->library('pagination');
-        $users = $this->users->getUsers();
-        $config['base_url'] = base_url().'group/adduserstogroup/'.$groupId.'/';
-        $config['total_rows'] = count($users);
-        $config['per_page'] = '30';
-        $config['cur_tag_open'] = '<span class="formbutton2">';
-        $config['cur_tag_close'] = '</span>';
-        $config['num_tag_open'] = '<span class="formbutton1">';
-        $config['num_tag_close'] = '</span>';
-        $config['prev_tag_open'] = '<span class="formbutton1">';
-        $config['prev_tag_close'] = '</span>';
-        $config['next_tag_open'] = '<span class="formbutton1">';
-        $config['next_tag_close'] = '</span>';
-        $config['prev_link'] = '&lt; Previous';
-        $config['next_link'] = 'next &gt;';
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
+        // Per Page
+        $per_url = 'group/adduserstogroup/' . $groupId . '/';
+        $total_results = $this->users->get_total_users();
+        $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+        
         $data['STEP'] = "addusers";
         $data['GROUPID'] = $groupId;
-        $this->db->limit(30,$start*30);
-        //$this->db->where("group_id != '".$groupId."'");
-        //print_r($this->users->getUsers());exit;
-        $data['query'] = $this->users->getUsers();
+        $data['query'] = $this->users->getUsers(30,$start);
         $data['TITLE'] = "add users to Group";
         $data['CONTENT'] = 'employee/group';
         $this->core->load_template($data);

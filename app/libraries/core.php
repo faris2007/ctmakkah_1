@@ -137,6 +137,19 @@ class Core {
         return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }
     
+    public function perpage($url = '',$total = 0,$cur_page = 0,$per_page = 30)
+    {
+        $this->CI->load->library('pagination');
+        $config['base_url'] = base_url() . $url;
+        $config['total_rows'] = $total;
+        $config['per_page'] = $per_page;
+        $config['uri_segment'] = 6;
+        $config['num_links'] = 3;
+        $config['cur_page'] = $cur_page;
+        $this->CI->pagination->initialize($config);
+        return $this->CI->pagination->create_links();        
+    }
+    
     public function message($_message = '',$_url = '',$_title = '',$_time = 200)
     {
         $data['MSG']['TITLE'] = $_title;
@@ -145,7 +158,7 @@ class Core {
         $data['MSG']['TIME'] = $_time;
         $data['TITLE'] = 'MSG';
         $data['CONTENT'] = 'message';
-        $this->load_template($data);
+        die($this->load_template($data,TRUE));
     }
 }
 

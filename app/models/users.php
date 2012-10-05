@@ -20,9 +20,15 @@ class Users extends CI_Model {
         return '';
     }*/
     
- function getUsers(){
+ function getUsers($limit = NULL,$start = NULL){
+     if ($limit && $start) $this->db->limit($limit, $start);
      $query = $this->db->get($this->_tables['users']);
      return ($query->num_rows() > 0) ? $query->result() : false;
+ }
+ 
+ function get_total_users()
+ {
+     return $this->db->count_all_results($this->_tables['users']);
  }
 
 

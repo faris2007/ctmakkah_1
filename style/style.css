@@ -172,51 +172,41 @@ body {
 }
 
 span.formbutton1 {
-    margin:1px;
-    border:none;
-    font-family:Arial, Helvetica, sans-serif;
-    border:1px solid #CCC;
-    background-color:#c5c5c5;
-    color:#ffffff;
-    font-weight:bold;
-    padding:5px 10px;
-    font-size:12px;
+    margin: 1px;
+    border: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 12px;
 }
-
-
 
 span.formbutton2 {
-    margin-right:1px;
-    border:none;
-    font-family:Arial, Helvetica, sans-serif;
-    border:1px solid #CCC;
-    background-color:#ffffff;
-    color:#c5c5c5;
-    font-weight:bold;
-    padding:5px 10px;
-    font-size:12px;
+    margin-right: 1px;
+    border: none;
+    color: #c5c5c5;
+    padding: 5px 10px;
+    font-size: 12px;
 }
 
+span.formbutton1 a {
+    text-decoration:  none;
+}
 
+span.formbutton2 a {
+    text-decoration:  none;
+}
 
 span.formbutton1 > a:link {
-    color:Inherit;
+    color: Inherit;
 }
-
-
 
 span.formbutton1 > a:hover {
-    color:inherit;
+    color: inherit;
 }
-
-
 
 span.formbutton1 > a:focus {
-    color:inherit;
-    outline:none;
+    color: inherit;
+    outline: none;
 }
-
-
 
 span.formbutton1 > a:visited {
     color:inherit;

@@ -170,7 +170,7 @@
         <table class="tbl" style="width:80%">
             <thead>
                 <tr>
-                    <td colspan="2">add new user to this group</td>
+                    <td colspan="4">add new user to this group</td>
                 </tr>
             </thead>
             <tbody>
