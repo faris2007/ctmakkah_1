@@ -4,7 +4,7 @@
 @import url("css3buttons.css");
 
 * {
-    font: normal 12px tahoma;
+    font: normal 14px tahoma;
     color: #555;
 }
 
@@ -65,7 +65,7 @@ body {
     margin: 10px auto 10px auto;
     background-color: #c5c5c5;
     width: 90%;
-    height: 31px;
+    height: 34px;
     padding: 0px 4px 0px 4px;
     -webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.20);
     -moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.20);
