@@ -9,8 +9,7 @@ $(document).ready(function(){
             $('ul', this).fadeOut();
             }
     );
-        
-        
+    
 });
 
     function deleted(URL,id, texti){

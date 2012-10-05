@@ -12,6 +12,7 @@ class Employee extends CI_Controller{
         parent::__construct();
         $this->lang->load('login', $this->core->site_language);
         $this->load->model("groups");
+        $this->load->model("employees");
     }
     
     function index()
@@ -81,6 +82,20 @@ class Employee extends CI_Controller{
     
     function Candidate(){
         
+    }
+    
+    public function signatures()
+    {
+        $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
+
+        if ($this->input->post('signature',TRUE))
+        {
+            $this->employees->signature($this->input->post('employee_id',TRUE),$this->input->post('signature',TRUE));
+        }
+        
+        $data['EMPLOYEE_ID'] = $EmployeeId;
+        $data['SIGNATURE'] = $this->employees->signature($EmployeeId);
+        $this->load->view('signature',$data);
     }
     
 }

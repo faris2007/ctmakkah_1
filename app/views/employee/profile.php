@@ -1,5 +1,7 @@
 <?php if($STEP =="view"): ?>
 <br />
+	<div id="signature1" style="width: 250px;height: 150px"></div>
+
 <form method="post">
     <table id="profile" class="tbl" style="width: 85%">
         <thead>

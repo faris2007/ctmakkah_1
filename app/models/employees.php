@@ -84,6 +84,18 @@ class employees extends CI_Model {
         return $this->db->update($this->_table,$data); 
     }
     
+    function signature($employee_id = 0,$signature_data = NULL)
+    {
+        if ($signature_data)
+        {
+            $this->db->where('id', $employee_id);
+            return $this->db->update($this->_table, array('signature' => $signature_data));            
+        }else{
+            $this->db->where('id',$employee_id);
+            $query = $this->db->get($this->_table);
+            return ($query->num_rows() > 0)? $query->row()->signature : '';             
+        }
+    }
 }
 
 ?>
