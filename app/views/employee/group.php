@@ -67,6 +67,7 @@
         </tr>
     </tbody>
 </table>
+<?php if($ISADMIN=="y"): ?>
 <br />
 <div class="message">
     permissions for this Group if you want add new permission <a href="<?=base_url()?>group/addpermissontogroup/<?=@$ID?>">click here</a>
@@ -98,6 +99,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+<?php endif; ?>
 <br />
 <div class="message">
     users in this Group if you want add new user <a href="<?=base_url()?>group/adduserstogroup/<?=@$ID?>">click here</a>

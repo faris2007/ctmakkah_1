@@ -39,7 +39,7 @@ class post extends CI_Controller {
     }
     
     function add(){
-        if($this->core->checkPermissions("post","add","all","all")){
+        if($this->users->checkIfUser() || $this->core->checkPermissions("post","add","all","all")){
             if($_POST){
                 $store = array(
                     'title'         => $this->input->post("title",true),
