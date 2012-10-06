@@ -39,6 +39,94 @@
             <?php endif; ?>
         </tbody>
     </table>
+<?php elseif($STEP == "adduser"): ?>
+    <table class="tbl" style="width:80%">
+        <thead>
+            <tr>
+                <td colspan="2">Data Of user</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>User ID</td>
+                <td><?=@$ID?></td>
+           </tr>
+           <tr>
+                <td>National ID</td>
+                <td><?=@$IDN?></td>
+           </tr>
+           <tr>
+                <td>Name</td>
+                <td><?=@$EN_NAME?></td>
+           </tr>
+           <?php if(@$SIGNATURE): ?>
+                <tr>
+                    <td>Signature</td>
+                    <td><a id="signatureurl" href="<?=base_url()?>employee/signatures/<?=@$ID?>">Please Add Signature</a></td>
+                </tr>
+           <?php endif; ?>
+        </tbody>
+    </table>
+    <div class="message" id="add" style="display:none"></div>
+    <table class="tbl" id="listA" style="width:80%">
+        <thead>
+            <tr>
+                <td colspan="4">add Testament to <?=@$EN_NAME?></td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><?=$this->lang->line('testament_view_name')?></td>
+            <td><?=$this->lang->line('testament_view_type')?></td>
+            <td><?=$this->lang->line('testament_view_price')?></td>
+            <td>Add</td>
+        </tr>
+        <?php if($queryA) : ?>
+            <?php foreach(@$queryA as $row): ?>
+                <tr id="a_testments<?=$row->id?>">
+                    <td><?=$row->name?></td>
+                    <td><?=$row->type?></td>
+                    <td><?=$row->mony?></td>
+                    <td><button onclick="addTestament('<?=base_url()?>testament/added/<?=$row->id?>/<?=@$ID?>','a_testments<?=$row->id?>')">ADD</button></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+                <tr id="a_testments0">
+                    <td colspan="4"><?=$this->lang->line('testament_view_nothing')?></td>
+                </tr>
+        <?php endif; ?>
+    </tbody>
+    </table>
+    <div class="message" id="delete" style="display:none"></div>
+    <table class="tbl" id="listR" style="width:80%">
+        <thead>
+            <tr>
+                <td colspan="4">Remove testament from <?=@$EN_NAME?></td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><?=$this->lang->line('testament_view_name')?></td>
+            <td><?=$this->lang->line('testament_view_type')?></td>
+            <td><?=$this->lang->line('testament_view_price')?></td>
+            <td>Remove</td>
+        </tr>
+        <?php if($queryR) : ?>
+            <?php foreach(@$queryR as $rowR): ?>
+                <tr id="r_testments<?=$rowR->id?>">
+                    <td><?=$rowR->name?></td>
+                    <td><?=$rowR->type?></td>
+                    <td><?=$rowR->mony?></td>
+                    <td><button onclick="deleteTestament('<?=base_url()?>testament/delete/<?=$rowR->id?>/users/<?=$ID?>','r_testments<?=$rowR->id?>')">Remove</button></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+                <tr id="r_testments0">
+                    <td colspan="4"><?=$this->lang->line('testament_view_nothing')?></td>
+                </tr>
+        <?php endif; ?>
+    </tbody>
+    </table>
 <?php elseif($STEP == "add"): ?>
     <form method="post">
         <table class="tbl" style="width:80%">
@@ -71,6 +159,23 @@
             </tbody>
         </table>
     </form>
+<?php elseif($STEP == "show"): ?>
+    <table class="tbl">
+    <thead>
+        <tr>
+            <td colspan="2">Delivery of Testament for user</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID National :</td>
+            <td><input type="text" name="IDN" id="IDN" placeholder="ID .." /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="window.location = '<?=base_url()?>testament/addtouser/'+$('#IDN').val();">Search</button></td>
+        </tr>
+    </tbody>
+</table>
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />

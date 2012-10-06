@@ -9,6 +9,13 @@ $(document).ready(function(){
             $('ul', this).fadeOut();
             }
     );
+        
+    $('#signatureurl').popupWindow({ 
+        height:300, 
+        width:400, 
+        top:50, 
+        left:50 
+    }); 
     
 });
 
@@ -43,6 +50,54 @@ $(document).ready(function(){
 
         $('#add').load(URL);
         $('#add').css( "display", "block" );
+        $('#'+id).click(function() {
+            //change the background color to red before removing
+            $(this).css("background-color","#FF3700");
+            $(this).css("color","#FFFFFF");
+            $(this).fadeOut(1000, function(){
+                $(this).remove();
+            });
+        });
+        $('#add').fadeOut(5000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+    });
+
+    }
+
+    function deleteTestament(URL,id){
+        
+        if (confirm('Are you sure you want to delete ?'))
+        {
+            $('#delete').load(URL);
+            $('#delete').css( "display", "block" );
+            $('#'+id).click(function() {
+                //change the background color to red before removing
+                $(this).css("background-color","#FF3700");
+                $(this).css("color","#FFFFFF");
+                $(this).fadeOut(1000, function(){
+                    $(this).remove();
+                });
+            });
+            var rowCount = $('#listR >tbody >tr').length;
+            if(rowCount == 2)
+                $('#listR tbody').append('<tr id="r_testament0"><td colspan="4">Not Found</td></tr>');
+
+            $('#delete').fadeOut(5000, function(){
+                $(this).css("display","none");
+                $(this).html("");
+            });
+        }
+    }
+    
+    function addTestament(URL,id){
+
+        $('#add').load(URL);
+        $('#add').css( "display", "block" );
+        var rowCount = $('#listA >tbody >tr').length;
+            if(rowCount == 2)
+                $('#listA tbody').append('<tr id="r_testament0"><td colspan="4">Not Found</td></tr>');
+            $('#a_testament0').remove();
         $('#'+id).click(function() {
             //change the background color to red before removing
             $(this).css("background-color","#FF3700");

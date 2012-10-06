@@ -72,20 +72,58 @@ class testament extends CI_Controller {
         
         $segments = $this->uri->segment_array();
         $testamentID = (isset($segments[3]))? $segments[3] : 0;
-        if($testamentID != 0){
-            $row = $this->testaments->getTestament($testamentID);
-            if(is_bool($row))
+        $type = (isset($segments[4]))? $segments[4] : "testament";
+        $userid = (isset($segments[5]))? $segments[5] : 0;
+        if($type == "testament"){
+            if($testamentID != 0){
+                $row = $this->testaments->getTestament($testamentID);
+                if(is_bool($row))
+                    echo $this->lang->line('testament_delete_error');
+
+            if($this->testaments->deleteTestament($testamentID))
+                echo $this->lang->line('testament_delete_success');    
+            else
+                echo $this->lang->line('testament_delete_error');  
+
+            }else
                 echo $this->lang->line('testament_delete_error');
-            
-           if($this->testaments->deleteTestament($testamentID))
-               echo $this->lang->line('testament_delete_success');    
-           else
-               echo $this->lang->line('testament_delete_error');  
-               
-        }else
-            echo $this->lang->line('testament_delete_error');
+        }else if($type == "users"){
+            if($testamentID != 0 && $userid != 0){
+            if($this->testaments->deleteTestamentFromUser($userid,$testamentID))
+                echo $this->lang->line('testament_delete_success');    
+            else
+                echo $this->lang->line('testament_delete_error');  
+
+            }else
+                echo $this->lang->line('testament_delete_error');
+        }
     }
 
+    function addtouser(){
+        if(!$this->core->checkPermissions("testament","add","all","all"))
+            redirect ("");
+        $this->load->model("employees");
+        $segments = $this->uri->segment_array();
+        $usersID = (isset($segments[3]))? $segments[3] : 0;
+        if($usersID == 0){
+            $data['STEP'] = "show";
+        }else{
+            $data['STEP'] = "adduser";
+            $userinfo = $this->users->get_info_user("all",$usersID);
+            $data['ID'] = $userinfo['profile']->id;
+            $data['IDN'] = $userinfo['profile']->idn;
+            $data['EN_NAME'] = $userinfo['profile']->en_name;
+            $sign = $this->employees->signature($userinfo['profile']->id);
+            $data['SIGNATURE'] = (empty($sign))? true : false ;
+            $where = "id NOT IN (SELECT Testament_id FROM Testament_has_users WHERE users_id=".$userinfo['profile']->id.")";
+            $this->db->where($where);
+            $data['queryA'] = $this->testaments->getTestaments("all");
+            $data['queryR'] = $this->testaments->getTestaments($userinfo['profile']->id);
+        }
+        $data['TITLE'] = 'Delivery Testament for users';
+        $data['CONTENT'] = 'employee/testament';
+        $this->core->load_template($data);
+    }
 
     function edit(){
         $testamentID = $this->uri->segment(3, 0);
@@ -132,6 +170,24 @@ class testament extends CI_Controller {
         $data['TITLE'] = $this->lang->line('testament_view');
         $data['CONTENT'] = 'employee/testament';
         $this->core->load_template($data);
+    }
+    
+    function added()
+    {
+        if(!$this->core->checkPermissions("testament","delete","all","all"))
+            echo "there is problem";
+        
+        $segments = $this->uri->segment_array();
+        $testamentID = (isset($segments[3]))? $segments[3] : 0;
+        $userid = (isset($segments[4]))? $segments[4] : 0;
+        if($testamentID != 0 && $userid != 0 ){
+            if($this->testaments->addTestamentToUser($userid,$testamentID,"15/12/1433"))
+                echo "added successfully";
+            else 
+                echo "there is problem";   
+        }else 
+            echo "there is problem";
+            
     }
 }
 

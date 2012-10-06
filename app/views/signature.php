@@ -15,6 +15,7 @@
                 $("#clear").click(function() {
                         $("#jSignature").jSignature("clear");
                 });
+                $("#jSignature").jSignature("setData", "data:<?=$SIGNATURE?>") 
                 $('#save').click(function() {
                         $('#signature').val($('#jSignature').jSignature('getData', 'base30'));
                         $('#form_signature').submit();
@@ -41,7 +42,6 @@
     <input type="hidden" name="signature" id="signature" value="<?=$SIGNATURE?>" />
     <div id="buttons">
         <div id="jSignature"></div>
-        <img id="img_signature" />
         <input type="button" value="Clear" id="clear" />
         <input type="button" value="Save" id="save" />
     </div>

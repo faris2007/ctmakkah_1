@@ -10,6 +10,13 @@
         </ul>
 		<div class="clear"></div>
     </li>
+    <?php if($this->core->checkPermissions("admin","all","all","all")): ?>
+        <li><a href="#">Procedures</a>
+            <ul>
+                <li><a href="<?=base_url()?>testament/addtouser">Delivery Testament</a></li>
+            </ul>
+        </li>
+    <?php endif; ?>
     <?php if($this->users->isLogin()): ?>
         <li><a href="<?=base_url()?>login/logout">Logout</a></li>
     <?php else : ?>

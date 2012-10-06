@@ -170,24 +170,10 @@ class group extends CI_Controller {
         $data['ID'] = $groupId;
         $data['services'] = $this->users->getAllPermissions($groupId);
         $this->db->where("group_id",$groupId);
-        $this->db->limit(30,$start*30);
-        $data['users'] = $this->users->getUsers();
-        $this->load->library('pagination');
-        $config['base_url'] = base_url().'group/show/'.$groupId.'/';
-        $config['total_rows'] = count($data['users']);
-        $config['per_page'] = '30';
-        $config['cur_tag_open'] = '<span class="formbutton2">';
-        $config['cur_tag_close'] = '</span>';
-        $config['num_tag_open'] = '<span class="formbutton1">';
-        $config['num_tag_close'] = '</span>';
-        $config['prev_tag_open'] = '<span class="formbutton1">';
-        $config['prev_tag_close'] = '</span>';
-        $config['next_tag_open'] = '<span class="formbutton1">';
-        $config['next_tag_close'] = '</span>';
-        $config['prev_link'] = '&lt; Previous';
-        $config['next_link'] = 'next &gt;';
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
+        $data['users'] = $this->users->getUsers(30,$start);
+        $per_url = 'group/adduserstogroup/' . $groupId . '/';
+        $total_results = count($data['users']);
+        $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
         $data['TITLE'] = "add users to Group";
         $data['CONTENT'] = 'employee/group';
         $this->core->load_template($data);
@@ -237,17 +223,35 @@ class group extends CI_Controller {
 
         if(!$this->core->checkPermissions("group","add","all","all")) redirect ();
         
-        // Per Page
-        $per_url = 'group/adduserstogroup/' . $groupId . '/';
-        $total_results = $this->users->get_total_users();
-        $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-        
-        $data['STEP'] = "addusers";
-        $data['GROUPID'] = $groupId;
-        $data['query'] = $this->users->getUsers(30,$start);
-        $data['TITLE'] = "add users to Group";
-        $data['CONTENT'] = 'employee/group';
-        $this->core->load_template($data);
+        if($_POST){
+            $idns = explode("\n", $this->input->post("IDNS",true));
+            $msg = array();
+            $store['group_id'] = $groupId;
+            foreach ($idns as $key => $value){
+                if(is_numeric($value) && strlen($value) == 10)
+                {
+                    $userinfo = $this->users->get_info_user("all",$value);
+                    $msg[$key]['idn'] = $value;
+                    $msg[$key]['message'] = ($this->users->updateUser($userinfo['profile']->id,$store)) ? "added successfully" : "there is problem";
+                }
+            }
+            $data['query'] = $msg;
+            $data['GROUPID'] = $groupId;
+            $data['TITLE'] = "add users to Group";
+            $data['CONTENT'] = 'employee/groupUsers';
+            $this->core->load_template($data);
+        }else {
+            // Per Page
+            $per_url = 'group/adduserstogroup/' . $groupId . '/';
+            $total_results = $this->users->get_total_users();
+            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+            $data['STEP'] = "addusers";
+            $data['GROUPID'] = $groupId;
+            $data['query'] = $this->users->getUsers(30,$start);
+            $data['TITLE'] = "add users to Group";
+            $data['CONTENT'] = 'employee/group';
+            $this->core->load_template($data);
+        }
     }
     
     function added($userid,$groupid)

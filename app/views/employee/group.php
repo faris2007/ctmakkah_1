@@ -167,6 +167,25 @@
 <?php elseif($STEP == "addusers"): ?>
 <div class="message" id="add" style="display:none"></div>
 <div class="message"><a href="<?=base_url()?>group/show/<?=$GROUPID?>">Back To Group</a></div>
+<form method="post">
+    <table class="tbl" style="width:80%">
+        <thead>
+            <tr>
+                <td colspan="2">add new user to this group</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>National ID :</td>
+                <td><textarea name="IDNS" style="width:80%"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit"  value="Add" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<div class="message">Another way</div>
         <table class="tbl" style="width:80%">
             <thead>
                 <tr>
