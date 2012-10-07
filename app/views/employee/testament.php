@@ -3,8 +3,10 @@
 <table class="tbl" id="list" style="width: 80%;">
         <thead>
             <tr>
-                <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('testament_view')?></td>
-                <td><a href="<?=base_url()?>testament/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                <td colspan="4"><?=$this->lang->line('testament_view')?></td>
+                <?php if(@$CONTROL): ?>
+                    <td><a href="<?=base_url()?>testament/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -79,6 +81,8 @@
             <td><?=$this->lang->line('testament_view_name')?></td>
             <td><?=$this->lang->line('testament_view_type')?></td>
             <td><?=$this->lang->line('testament_view_price')?></td>
+            <td>Size</td>
+            <td>Number</td>
             <td>Add</td>
         </tr>
         <?php if($queryA) : ?>
@@ -87,6 +91,17 @@
                     <td><?=$row->name?></td>
                     <td><?=$row->type?></td>
                     <td><?=$row->mony?></td>
+                    <td>
+                        <select name="size" id="size">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                            <option value="XXXL">XXXL</option>
+                        </select>
+                    </td>
+                    <td><input type="text" name="number" id="number" value="1" /></td>
                     <td><button onclick="addTestament('<?=base_url()?>testament/added/<?=$row->id?>/<?=@$ID?>','a_testments<?=$row->id?>')">ADD</button></td>
                 </tr>
             <?php endforeach; ?>
@@ -109,6 +124,7 @@
             <td><?=$this->lang->line('testament_view_name')?></td>
             <td><?=$this->lang->line('testament_view_type')?></td>
             <td><?=$this->lang->line('testament_view_price')?></td>
+            <td>Number</td>
             <td>Remove</td>
         </tr>
         <?php if($queryR) : ?>
@@ -117,6 +133,7 @@
                     <td><?=$rowR->name?></td>
                     <td><?=$rowR->type?></td>
                     <td><?=$rowR->mony?></td>
+                    <td><?=$rowR->number?></td>
                     <td><button onclick="deleteTestament('<?=base_url()?>testament/delete/<?=$rowR->id?>/users/<?=$ID?>','r_testments<?=$rowR->id?>')">Remove</button></td>
                 </tr>
             <?php endforeach; ?>

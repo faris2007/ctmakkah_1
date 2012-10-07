@@ -91,8 +91,10 @@ $(document).ready(function(){
     }
     
     function addTestament(URL,id){
-
-        $('#add').load(URL);
+        
+        var number = $('#number').val();
+        var size = $('#size').val();
+        $('#add').load(URL+"/"+number+"/"+size);
         $('#add').css( "display", "block" );
         var rowCount = $('#listA >tbody >tr').length;
             if(rowCount == 2)

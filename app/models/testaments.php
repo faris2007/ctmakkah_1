@@ -34,15 +34,11 @@ class testaments  extends CI_Model{
      * @param int $workid
      * @return boolean 
      */
-    function addTestamentToUser($userid,$testamentid,$deadline)
+    function addTestamentToUser($data)
     {
-        if(empty($userid) || empty($testamentid)) return false;
+        if(!is_array($data)) return false;
         
-        $data = array(
-            'users_id'      => $userid,
-            'Testament_id'  => $testamentid,
-            'deadline'      => $deadline
-        );
+        
         return $this->db->insert($this->_tables['link'], $data); 
     }
     

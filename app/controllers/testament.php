@@ -15,7 +15,10 @@ class testament extends CI_Controller {
     }
     
     function index(){
-        $this->view();
+        if($this->users->isLogin())
+            $this->view();
+        else
+            show_404 ();
     }
     
     function view(){
@@ -29,7 +32,7 @@ class testament extends CI_Controller {
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
         }else
-            redirect ("");
+            show_404 ();
         
         $data['TITLE'] = $this->lang->line('testament_view');
         $data['CONTENT'] = 'employee/testament';
@@ -180,8 +183,17 @@ class testament extends CI_Controller {
         $segments = $this->uri->segment_array();
         $testamentID = (isset($segments[3]))? $segments[3] : 0;
         $userid = (isset($segments[4]))? $segments[4] : 0;
+        $number = (isset($segments[5]))? $segments[5] : 1;
+        $size = (isset($segments[6]))? $segments[6] : 'S';
         if($testamentID != 0 && $userid != 0 ){
-            if($this->testaments->addTestamentToUser($userid,$testamentID,"15/12/1433"))
+            $data = array(
+                'users_id'      => $userid,
+                'Testament_id'  => $testamentid,
+                'deadline'      => $deadline,
+                'number'        => $number,
+                'size'          => $size
+            );
+            if($this->testaments->addTestamentToUser($data))
                 echo "added successfully";
             else 
                 echo "there is problem";   

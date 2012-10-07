@@ -100,10 +100,8 @@ class Core {
         if(empty($service_name) || empty($function_name) || empty($value) || empty($otherValue))
             return false;
         $this->CI->load->model("users");
-        if(!$this->CI->users->isLogin()){
-            $this->CI->session->set_userdata("prePage", base_url().$this->CI->uri->uri_string());
-            redirect ('login');    
-        }
+        if(!$this->CI->users->isLogin())
+            return false;
         
         if($this->CI->users->checkifUser())
             return FALSE;

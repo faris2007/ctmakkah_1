@@ -90,8 +90,11 @@ class Users extends CI_Model {
         if($query->num_rows() > 0)
         {
             $row = $query->row();
-            $this->setSession($row->id, $row->group_id);
-            return true;
+            if($row->group_id != NULL){
+                $this->setSession($row->id, $row->group_id);
+                return true;
+            }else
+                return false;
         }else
             return FALSE;
             
@@ -237,7 +240,7 @@ class Users extends CI_Model {
                 }
             }
         }
-        
+        $this->setSession($this->session->userdata('userid'),$this->session->userdata('group'));
         return ($accessGrade >= $accessAdmin)? true:false;
     }
 
