@@ -138,6 +138,19 @@ class attendances extends CI_Model {
      * @param int $id
      * @return boolean 
      */
+    function deleteAttendanceSheet($id)
+    {
+        if(empty($id)) return false;
+        
+        $this->db->where('id',$id);
+        return $this->db->delete($this->_tables['sheet']); 
+    }
+    
+    /**
+     *
+     * @param int $id
+     * @return boolean 
+     */
     function deleteAttendance($id)
     {
         if(empty($id)) return false;

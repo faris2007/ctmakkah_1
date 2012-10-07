@@ -128,9 +128,27 @@ $(document).ready(function(){
 
         $('#add').load(url);
         $('#add').css( "display", "block" );
+        url = url.replace("added","delete");
         $('#'+id).click(function() {
             var imgurl = baseurl+"style/icon/right.gif"; 
-            $(this).html('<img src="'+imgurl+'" />');
+            $(this).html('<img onclick=\'deleteattendance("'+url+'","'+id+'","'+baseurl+'")\' src="'+imgurl+'" />');
+            
+        });
+        $('#add').fadeOut(5000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+    });
+
+    }
+    
+    function deleteattendance(url,id,baseurl){
+
+        $('#add').load(url);
+        $('#add').css( "display", "block" );
+        url = url.replace("delete","added");
+        $('#'+id).click(function() {
+            var imgurl = baseurl+"style/icon/del.png"; 
+            $(this).html('<img onclick=\'attendance("'+url+'","'+id+'","'+baseurl+'")\' src="'+imgurl+'" />');
             
         });
         $('#add').fadeOut(5000, function(){

@@ -257,12 +257,12 @@
                     <td><?=$user->en_name?></td>
                     <?php if(@$attend): ?>
                         <?php foreach($attend as $row): ?>
-                            <td id="attend<?=$row->id?>">
+                            <td id="attend<?=$user->id?>">
                                 <?php if($row->id == $attendTodayId): ?>
                                     <?php if($this->attendances->getAttendanceSheet($user->id,$row->id)): ?>
-                                        <img src="<?=base_url()?>style/icon/<?=(!$this->attendances->getAttendanceSheet($user->id,$row->id))? "del.png" : "right.gif"?>" />
+                                        <img onclick="deleteattendance('<?=base_url()?>attendance/delete/<?=@$user->id?>/<?=@$attendTodayId?>/attend','attend<?=$user->id?>','<?=base_url()?>')" src="<?=base_url()?>style/icon/right.gif" />
                                     <?php else: ?>
-                                        <button onclick="attendance('<?=base_url()?>attendance/added/<?=@$user->id?>/<?=@$attendTodayId?>/attend','attend<?=$row->id?>','<?=base_url()?>')">attendance</button>
+                                        <img onclick="attendance('<?=base_url()?>attendance/added/<?=@$user->id?>/<?=@$attendTodayId?>/attend','attend<?=$user->id?>','<?=base_url()?>')" src="<?=base_url()?>style/icon/del.png" />
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <img src="<?=base_url()?>style/icon/<?=(!$this->attendances->getAttendanceSheet($user->id,$row->id))? "del.png" : "right.gif"?>" />

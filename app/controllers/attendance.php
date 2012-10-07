@@ -34,8 +34,11 @@ class attendance extends CI_Controller {
            $data['STEP'] = 'attend';
            $this->db->where("superviser",$userInfo);
            $query = $this->attendances->getAttendance("all");
-           $this->db->where("attend_id",$query[0]->id);
-           $data['query'] = $this->groups->getGroups("all");
+           if($query){
+                $this->db->where("attend_id",$query[0]->id);
+                $data['query'] = $this->groups->getGroups("all");
+           }else
+               show_404 ();
         }else{
            $groupInfo = $this->groups->getGroups($groupID);
            $attendId = $groupInfo[0]->attend_id;
@@ -156,7 +159,21 @@ class attendance extends CI_Controller {
         $segments = $this->uri->segment_array();
         $attendanceID = (isset($segments[3]))? $segments[3] : 0;
         $type = (isset($segments[4]))? $segments[4] : "attendance";
-        if($type == "attendance"){
+        $userid = (isset($segments[5]))? $segments[5] : 0;
+        if(is_numeric($type)){
+            if($attendanceID != 0 && $type !=0){
+                $row = $this->attendances->getAttendanceSheet($attendanceID,$type);
+                if(is_bool($row))
+                    echo $this->lang->line('attendance_delete_error');
+                
+                if($this->attendances->deleteAttendanceSheet($row[0]->id))
+                    echo $this->lang->line('attendance_delete_success');    
+                else
+                    echo $this->lang->line('attendance_delete_error');  
+
+                }else
+                    echo $this->lang->line('attendance_delete_error');
+        }elseif($type == "attendance"){
             if($attendanceID != 0){
                 $row = $this->attendances->getAttendance($attendanceID);
                 if(is_bool($row))
@@ -170,7 +187,6 @@ class attendance extends CI_Controller {
             }else
                 echo $this->lang->line('attendance_delete_error');
         }else if($type == "group"){
-            $this->load->model("groups");
             if($attendanceID != 0){
                 $row = $this->groups->getGroups($attendanceID);
                 if(is_bool($row))
@@ -268,7 +284,7 @@ class attendance extends CI_Controller {
         
         $data['STEP'] = "addgroups";
         $data['ID'] = $attendId;
-        $this->db->where("attend_id IS NULL");
+        $this->db->where("attend_id !=",$attendId);
         $data['query'] = $this->groups->getGroups("all");
         $data['TITLE'] = "add Group to Attend";
         $data['CONTENT'] = 'employee/attendance';
