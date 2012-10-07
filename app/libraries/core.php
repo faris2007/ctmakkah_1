@@ -133,6 +133,7 @@ class Core {
             "job"           => array("all","view","show","add","edit","delete"),
             "group"         => array("all","view","show","add","edit","delete"),
             "post"          => array("all","view","show","add","edit","delete"),
+            "attendance"    => array("all","view","show","add","edit","delete"),
             );
         return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }

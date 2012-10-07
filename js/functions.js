@@ -112,3 +112,30 @@ $(document).ready(function(){
     });
 
     }
+    
+    function StartAction(baseurl){
+        
+        var group = $('#group').val();
+        var action = $('#action').val();
+        if(action == "report")
+            window.location = baseurl+"attendance/report/"+group;
+        else
+            window.location = baseurl+"attendance/takeAttendance/"+group;
+        
+    }
+
+    function attendance(url,id,baseurl){
+
+        $('#add').load(url);
+        $('#add').css( "display", "block" );
+        $('#'+id).click(function() {
+            var imgurl = baseurl+"style/icon/right.gif"; 
+            $(this).html('<img src="'+imgurl+'" />');
+            
+        });
+        $('#add').fadeOut(5000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+    });
+
+    }

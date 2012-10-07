@@ -217,7 +217,7 @@ class Users extends CI_Model {
         
         $premission = $this->session->userdata('permissions');
         $accessGrade = (isset($premission[$service_name]))?1:0;
-        $accessAdmin = 1;
+        $accessAdmin = (isset($premission[$service_name]))?1:4;
         
         if($function_name != "all"){
             $accessGrade++;
@@ -227,13 +227,14 @@ class Users extends CI_Model {
                     $accessGrade++;
             }
         } 
-        
-        if(!is_bool($premission[$service_name])){
-            $accessAdmin++;
-            if(!is_bool($premission[$service_name][$function_name])) { 
+        if($accessAdmin == 1){
+            if(!is_bool($premission[$service_name])){
                 $accessAdmin++;
-                if(!is_bool($premission[$service_name][$function_name][$value])) 
+                if(!is_bool($premission[$service_name][$function_name])) { 
                     $accessAdmin++;
+                    if(!is_bool($premission[$service_name][$function_name][$value])) 
+                        $accessAdmin++;
+                }
             }
         }
         
