@@ -188,8 +188,8 @@ class testament extends CI_Controller {
         if($testamentID != 0 && $userid != 0 ){
             $data = array(
                 'users_id'      => $userid,
-                'Testament_id'  => $testamentid,
-                'deadline'      => $deadline,
+                'Testament_id'  => $testamentID,
+                'deadline'      => "15/12/1433",
                 'number'        => $number,
                 'size'          => $size
             );
