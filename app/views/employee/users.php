@@ -1,4 +1,4 @@
-<div class="message" id="candidate" style="display:none"></div>
+<div class="message" id="delete" style="display:none"></div>
 <table class="tbl" style="width:80%">
     <thead>
         <tr>
@@ -19,7 +19,8 @@
                     <td><?=@$row->idn?></td>
                     <td><?=@$row->en_name?></td>
                     <td>
-                        
+                        <a href="<?=base_url()?>employee/profile/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                        <a onclick="deleted('<?=base_url()?>employee/users/0/del/<?=$row->id?>','users<?=$row->id?>','NO USER')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -30,6 +31,4 @@
         <?php endif; ?>
     </tbody>
 </table>
-<?php if($pagination) : ?>
     <div class="message"><?=$pagination?></div>
-<?php endif; ?>

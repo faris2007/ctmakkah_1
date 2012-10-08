@@ -23,6 +23,7 @@ class Users extends CI_Model {
     function getCandidate($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","C");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -33,6 +34,7 @@ class Users extends CI_Model {
     function getAccpetedUsers($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -43,6 +45,7 @@ class Users extends CI_Model {
     function getRejectedUsers($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","R");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -52,6 +55,7 @@ class Users extends CI_Model {
     function getPrecautionUsers($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","P");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -345,6 +349,14 @@ class Users extends CI_Model {
             return false;
         $this->db->where("id",$userid);
         return $this->db->update($this->_tables['users'],$data);
+    }
+    
+    function deleteUser($userid)
+    {
+        if(empty($userid))
+            return false;
+        $this->db->where("id",$userid);
+        return $this->db->delete($this->_tables['users']);
     }
     
     function register($data)

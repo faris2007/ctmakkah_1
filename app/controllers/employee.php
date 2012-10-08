@@ -11,6 +11,7 @@ class Employee extends CI_Controller{
     {
         parent::__construct();
         $this->lang->load('login', $this->core->site_language);
+        $this->lang->load('global', $this->core->site_language);
         $this->load->model("groups");
         $this->load->model("employees");
     }
@@ -139,7 +140,34 @@ class Employee extends CI_Controller{
     }
     
     function users(){
-        
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            redirect ("");    
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 1;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        if($type == NULL){
+           $query = $this->users->getUsers(30,$start);
+           $per_url = 'employee/users/';
+           $total_results = $this->users->get_total_users();
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['users'] = $query;
+           $data['CONTENT'] = 'employee/users';
+           $data['TITLE'] = "List Of Candidates";
+           $this->core->load_template($data);
+        }else  if($type == "del"){
+            if($userID != 0){
+                $userInfo = $this->users->get_info_user("all",$userID);
+                if(is_bool($userInfo['profile']))
+                    echo "The user is Not Found";
+                
+                if(@$this->users->deleteUser($userID))
+                    echo "Delete successfully";
+                else
+                    echo "Delete Wrong!";
+            }else
+                echo "There is problem";
+        }
     }
 
 
