@@ -2,7 +2,7 @@
 <table class="tbl" style="width:80%">
     <thead>
         <tr>
-            <td colspan="4">list of Candidates</td>
+            <td colspan="4">list of users</td>
         </tr>
     </thead>
     <tbody>
@@ -19,9 +19,7 @@
                     <td><?=@$row->idn?></td>
                     <td><?=@$row->en_name?></td>
                     <td>
-                        <button id="users<?=@$row->id?>accept" onclick="candidate('<?=base_url()?>employee/candidate/0/accept/<?=@$row->id?>','users<?=@$row->id?>','accept')">Accept</button>
-                        <button id="users<?=@$row->id?>reject" onclick="candidate('<?=base_url()?>employee/candidate/0/reject/<?=@$row->id?>','users<?=@$row->id?>','reject')">Reject</button>
-                        <button id="users<?=@$row->id?>precau" onclick="candidate('<?=base_url()?>employee/candidate/0/precau/<?=@$row->id?>','users<?=@$row->id?>','precau')">Precaution</button>
+                        
                     </td>
                 </tr>
             <?php endforeach; ?>

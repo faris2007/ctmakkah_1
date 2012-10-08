@@ -100,7 +100,7 @@ $(document).ready(function(){
             $('#'+id+'precau').removeAttr("disabled");
         }else if(typel === "reject"){
             $('#'+id+'accept').removeAttr("disabled");
-            $('#'+id+'reject')..attr("disabled", "disabled");
+            $('#'+id+'reject').attr("disabled", "disabled");
             $('#'+id+'precau').removeAttr("disabled");
         }else{
             $('#'+id+'accept').removeAttr("disabled");

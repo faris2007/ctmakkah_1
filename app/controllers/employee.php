@@ -138,6 +138,11 @@ class Employee extends CI_Controller{
         }
     }
     
+    function users(){
+        
+    }
+
+
     public function signatures()
     {
         if(@$this->users->isLogin() && !@$this->users->checkIfUser())
