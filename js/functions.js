@@ -96,15 +96,15 @@ $(document).ready(function(){
         $('#candidate').css( "display", "block" );
         if(typel === "accept"){
             $('#'+id+'accept').attr("disabled", "disabled");
-            $('#'+id+'reject').removeAttr("Disabled");
-            $('#'+id+'precau').removeAttr("Disabled");
+            $('#'+id+'reject').removeAttr("disabled");
+            $('#'+id+'precau').removeAttr("disabled");
         }else if(typel === "reject"){
-            $('#'+id+'accept').removeAttr("Disabled");
+            $('#'+id+'accept').removeAttr("disabled");
             $('#'+id+'reject')..attr("disabled", "disabled");
-            $('#'+id+'precau').removeAttr("Disabled");
+            $('#'+id+'precau').removeAttr("disabled");
         }else{
-            $('#'+id+'accept').removeAttr("Disabled");
-            $('#'+id+'reject').removeAttr("Disabled");
+            $('#'+id+'accept').removeAttr("disabled");
+            $('#'+id+'reject').removeAttr("disabled");
             $('#'+id+'precau').attr("disabled", "disabled");
         }   
         

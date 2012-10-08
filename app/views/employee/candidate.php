@@ -1,4 +1,4 @@
-<div class="message" style="display:none"></div>
+<div class="message" id="candidate" style="display:none"></div>
 <table class="tbl" style="width:80%">
     <thead>
         <tr>

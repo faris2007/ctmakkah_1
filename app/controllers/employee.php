@@ -104,35 +104,35 @@ class Employee extends CI_Controller{
                     die("There is problem");
                 $data['isAccept'] = "A";
                 if($this->employees->updateEmployee($userInfo->id,$data))
-                    echo "accepted successfully";
+                    echo "Accepted successfully";
                 else
-                    echo "accepted wrong";
+                    echo "Accepted wrong";
             }else
                 echo "there is problem";
         }elseif($type == "reject"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployees($userID);
+                $userInfo = $this->employees->getEmployee($userID);
                 if(is_bool($userInfo))
                     die("There is problem");
                 
                 $data['isAccept'] = "R";
                 if($this->employees->updateEmployee($userInfo->id,$data))
-                    echo "accepted successfully";
+                    echo "Rejected successfully";
                 else
-                    echo "accepted wrong";
+                    echo "Rejected wrong";
             }else
                 echo "there is problem";
         }else if($type == "precau"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployees($userID);
+                $userInfo = $this->employees->getEmployee($userID);
                 if(is_bool($userInfo))
                     die("There is problem");
                 
                 $data['isAccept'] = "P";
                 if($this->employees->updateEmployee($userInfo->id,$data))
-                    echo "accepted successfully";
+                    echo "Precaution successfully";
                 else
-                    echo "accepted wrong";
+                    echo "Precaution wrong";
             }else
                 echo "there is problem";
         }
