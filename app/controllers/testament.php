@@ -27,7 +27,7 @@ class testament extends CI_Controller {
             $data['query'] = $this->testaments->getTestaments($userid);
             $data['CONTROL'] = False;
             $data['STEP'] = "view";
-        }else if($this->core->checkPermissions("testament","view")){
+        }else if(@$this->core->checkPermissions("testament","view")){
             $data['query'] = $this->testaments->getTestaments("All");
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
@@ -40,7 +40,7 @@ class testament extends CI_Controller {
     }
     
     function add(){
-        if($this->core->checkPermissions("testament","add","all","all")){
+        if(@$this->core->checkPermissions("testament","add","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
@@ -70,7 +70,7 @@ class testament extends CI_Controller {
     }
     
     function delete(){
-        if(!$this->core->checkPermissions("testament","delete","all","all"))
+        if(!@$this->core->checkPermissions("testament","delete","all","all"))
             redirect ("");
         
         $segments = $this->uri->segment_array();
@@ -103,7 +103,7 @@ class testament extends CI_Controller {
     }
 
     function addtouser(){
-        if(!$this->core->checkPermissions("testament","add","all","all"))
+        if(!@$this->core->checkPermissions("testament","add","all","all"))
             redirect ("");
         $this->load->model("employees");
         $segments = $this->uri->segment_array();
@@ -130,7 +130,7 @@ class testament extends CI_Controller {
 
     function edit(){
         $testamentID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("testament","edit",'all','all')){
+        if(@$this->core->checkPermissions("testament","edit",'all','all')){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
@@ -177,7 +177,7 @@ class testament extends CI_Controller {
     
     function added()
     {
-        if(!$this->core->checkPermissions("testament","delete","all","all"))
+        if(!@$this->core->checkPermissions("testament","delete","all","all"))
             echo "there is problem";
         
         $segments = $this->uri->segment_array();

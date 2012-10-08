@@ -19,7 +19,7 @@ class job extends CI_Controller {
     }
     
     function view(){
-         if($this->core->checkPermissions("job","view","all","all")){
+         if(@$this->core->checkPermissions("job","view","all","all")){
             $data['query'] = $this->jobs->getJobs("All");
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
@@ -32,7 +32,7 @@ class job extends CI_Controller {
     }
     
     function add(){
-        if($this->core->checkPermissions("job","add","all","all")){
+        if(@$this->core->checkPermissions("job","add","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
@@ -62,7 +62,7 @@ class job extends CI_Controller {
     }
     
     function delete(){
-        if(!$this->core->checkPermissions("job","delete","all","all"))
+        if(!@$this->core->checkPermissions("job","delete","all","all"))
             redirect ("");
         
         $segments = $this->uri->segment_array();
@@ -84,7 +84,7 @@ class job extends CI_Controller {
 
     function edit(){
         $jobID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("job","edit","all","all")){
+        if(@$this->core->checkPermissions("job","edit","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),

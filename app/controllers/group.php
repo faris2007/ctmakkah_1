@@ -20,12 +20,12 @@ class group extends CI_Controller {
     }
     
     function view(){
-         if($this->core->checkPermissions("group","view","all","all")){
+         if(@$this->core->checkPermissions("group","view","all","all")){
             $data['query'] = $this->groups->getGroups("All");
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
         }else
-            redirect ("");
+            show_404();
         
         $data['TITLE'] = $this->lang->line('group_view');
         $data['CONTENT'] = 'employee/group';
@@ -33,7 +33,7 @@ class group extends CI_Controller {
     }
     
     function add(){
-        if($this->core->checkPermissions("group","add","all","all")){
+        if(@$this->core->checkPermissions("group","add","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
@@ -55,7 +55,7 @@ class group extends CI_Controller {
             }
                 
         }else
-            redirect ("");
+            show_404();
         
         $data['TITLE'] = $this->lang->line('group_view');
         $data['CONTENT'] = 'employee/group';
@@ -63,7 +63,7 @@ class group extends CI_Controller {
     }
     
     function delete(){
-        if(!$this->core->checkPermissions("group","delete","all","all"))
+        if(!@$this->core->checkPermissions("group","delete","all","all"))
             redirect ("");
         
         $segments = $this->uri->segment_array();
@@ -111,7 +111,7 @@ class group extends CI_Controller {
 
     function edit(){
         $groupID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("group","edit","all","all")){
+        if(@$this->core->checkPermissions("group","edit","all","all")){
             if($_POST){
                 $store = array(
                     'name'      => $this->input->post("name",true),
@@ -149,7 +149,7 @@ class group extends CI_Controller {
             }
                 
         }else
-            redirect ("");
+            show_404();
         
         $data['TITLE'] = $this->lang->line('group_view');
         $data['CONTENT'] = 'employee/group';
@@ -157,8 +157,8 @@ class group extends CI_Controller {
     }
     
     function show($groupId,$start = 0){
-        if(!$this->core->checkPermissions("group","show","all","all"))
-                redirect ("");
+        if(!@$this->core->checkPermissions("group","show","all","all"))
+            show_404();
         if(empty($groupId))
             show_404 ();
         
@@ -180,8 +180,8 @@ class group extends CI_Controller {
     }
     
     function addpermissontogroup($groupId){
-        if(!$this->core->checkPermissions("group","add","all","all"))
-            redirect ("");
+        if(!@$this->core->checkPermissions("group","add","all","all"))
+            show_404 ();
         
         if(empty($groupId))
             show_404 ();
@@ -221,7 +221,7 @@ class group extends CI_Controller {
         $groupId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
         $start = (is_numeric($this->uri->segment(4, 1))) ? $this->uri->segment(4, 1) : 1;
 
-        if(!$this->core->checkPermissions("group","add","all","all")) redirect ();
+        if(!@$this->core->checkPermissions("group","add","all","all")) show_404 ();
         
         if($_POST){
             $idns = explode("\n", $this->input->post("IDNS",true));
@@ -256,8 +256,8 @@ class group extends CI_Controller {
     
     function added($userid,$groupid)
     {
-        if(!$this->core->checkPermissions("group","add","all","all"))
-            redirect ("");
+        if(!@$this->core->checkPermissions("group","add","all","all"))
+            show_404 ();
         if(empty($userid) || empty($groupid))
             echo "You have errorin parmeters";
         

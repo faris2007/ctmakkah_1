@@ -17,7 +17,7 @@ class Employee extends CI_Controller{
     
     function index()
     {
-
+        
     }
     
     function profile()
@@ -27,7 +27,7 @@ class Employee extends CI_Controller{
         $user_id = (isset($segments[3]))? $segments[3] : $this->users->get_info_user("id");
         
         if($_POST){
-            if($this->core->checkPermissions("employee","profile","all","all")){
+            if(@$this->core->checkPermissions("employee","profile","all","all")){
                 $store = array(
                     'gender'        => $this->input->post("gender",true),
                     'email'         => $this->input->post("email",true),
@@ -62,7 +62,8 @@ class Employee extends CI_Controller{
                 }
             }
         }else{
-        
+            if(!@$this->core->checkPermissions("employee","profile","all","all"))
+                redirect ("");
             $query = $this->users->get_info_user("all",$user_id);
             $data['profile'] = $query['profile'];
             if($this->core->checkPermissions("employee","profile","all","all")){
@@ -80,14 +81,69 @@ class Employee extends CI_Controller{
         $this->core->load_template($data);
     }
     
-    function Candidate(){
-        
+    function candidate(){
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            redirect ("");    
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 1;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        if($type == NULL){
+           $query = $this->users->getCandidate(30,$start);
+           $per_url = 'employee/condidate/';
+           $total_results = count($query);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['users'] = $query;
+           $data['CONTENT'] = 'employee/candidate';
+           $data['TITLE'] = "List Of Candidates";
+           $this->core->load_template($data);
+        }elseif($type == "accept"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                $data['isAccept'] = "A";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "accepted successfully";
+                else
+                    echo "accepted wrong";
+            }else
+                echo "there is problem";
+        }elseif($type == "reject"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "R";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "accepted successfully";
+                else
+                    echo "accepted wrong";
+            }else
+                echo "there is problem";
+        }else if($type == "precau"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "P";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "accepted successfully";
+                else
+                    echo "accepted wrong";
+            }else
+                echo "there is problem";
+        }
     }
     
     public function signatures()
     {
+        if(@$this->users->isLogin() && !@$this->users->checkIfUser())
+            redirect ("");
         $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
-
+        
         if ($this->input->post('signature',TRUE))
         {
             $this->employees->signature($this->input->post('employee_id',TRUE),$this->input->post('signature',TRUE));

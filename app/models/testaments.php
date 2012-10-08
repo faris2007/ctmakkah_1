@@ -80,10 +80,9 @@ class testaments  extends CI_Model{
         if(is_numeric($userid))
         {
             $this->db->order_by($this->_tables['testament'].'.id',"DESC");
-            $where = "id IN (SELECT Testament_id FROM ".$this->_tables['link'] ." WHERE users_id=".$userid.")";
-            $this->db->where($where);
-            //$this->db->where($this->_tables['link'].'.users_id',$userid);
-            //$this->db->where($this->_tables['testament'].'.id',$this->_tables['link'].'.Testament_id');
+            $this->db->group_by($this->_tables['testament'].'.id');
+            $this->db->where($this->_tables['link'].'.users_id',$userid);
+            $this->db->where($this->_tables['testament'].'.id = '.$this->_tables['link'].'.Testament_id');
             $query = $this->db->get($this->_tables['testament'].",".$this->_tables['link']);
         }else
         {

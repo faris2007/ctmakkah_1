@@ -101,7 +101,13 @@
                             <option value="XXXL">XXXL</option>
                         </select>
                     </td>
-                    <td><input type="text" name="number" id="number" value="1" /></td>
+                    <td>
+                        <select name="number" id="number">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
                     <td><button onclick="addTestament('<?=base_url()?>testament/added/<?=$row->id?>/<?=@$ID?>','a_testments<?=$row->id?>')">ADD</button></td>
                 </tr>
             <?php endforeach; ?>

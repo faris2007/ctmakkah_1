@@ -20,16 +20,55 @@ class Users extends CI_Model {
         return '';
     }*/
     
- function getUsers($limit = NULL,$start = NULL){
-     if ($limit && $start) $this->db->limit($limit, $start);
-     $query = $this->db->get($this->_tables['users']);
-     return ($query->num_rows() > 0) ? $query->result() : false;
- }
- 
- function get_total_users()
- {
-     return $this->db->count_all_results($this->_tables['users']);
- }
+    function getCandidate($limit = NULL,$start = NULL){
+        if ($limit && $start) $this->db->limit($limit, $start);
+        
+        $this->db->where($this->_tables['employee'].".isAccept","C");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+    
+    function getAccpetedUsers($limit = NULL,$start = NULL){
+        if ($limit && $start) $this->db->limit($limit, $start);
+        
+        $this->db->where($this->_tables['employee'].".isAccept","A");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+    
+    function getRejectedUsers($limit = NULL,$start = NULL){
+        if ($limit && $start) $this->db->limit($limit, $start);
+        
+        $this->db->where($this->_tables['employee'].".isAccept","R");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+    function getPrecautionUsers($limit = NULL,$start = NULL){
+        if ($limit && $start) $this->db->limit($limit, $start);
+        
+        $this->db->where($this->_tables['employee'].".isAccept","P");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+    
+    function getUsers($limit = NULL,$start = NULL){
+        if ($limit && $start) $this->db->limit($limit, $start);
+        $query = $this->db->get($this->_tables['users']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+
+    function get_total_users()
+    {
+        return $this->db->count_all_results($this->_tables['users']);
+    }
 
 
  function get_info_user($type = "all",$userid = "me")
@@ -90,11 +129,8 @@ class Users extends CI_Model {
         if($query->num_rows() > 0)
         {
             $row = $query->row();
-            if($row->group_id != NULL){
-                $this->setSession($row->id, $row->group_id);
-                return true;
-            }else
-                return false;
+            $this->setSession($row->id, $row->group_id);
+            return true;
         }else
             return FALSE;
             

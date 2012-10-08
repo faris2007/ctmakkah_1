@@ -17,7 +17,7 @@ class attendance extends CI_Controller {
     }
     
     function index(){
-        if($this->core->checkPermissions("attendance","view","all","all"))
+        if(@$this->core->checkPermissions("attendance","view","all","all"))
             $this->view();
         else if($this->users->isLogin() && !$this->users->checkIfuser())
             $this->takeAttendance ();
@@ -105,7 +105,7 @@ class attendance extends CI_Controller {
 
 
     function view(){
-         if($this->core->checkPermissions("attendance","view","all","all")){
+         if(@$this->core->checkPermissions("attendance","view","all","all")){
             $data['query'] = $this->attendances->getAttendance("All");
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
@@ -118,7 +118,7 @@ class attendance extends CI_Controller {
     }
     
     function add(){
-        if($this->core->checkPermissions("attendance","add","all","all")){
+        if(@$this->core->checkPermissions("attendance","add","all","all")){
             if($_POST){
                 $store = array(
                     'name'        => $this->input->post("name",true),
@@ -153,7 +153,7 @@ class attendance extends CI_Controller {
     }
     
     function delete(){
-        if(!$this->core->checkPermissions("attendance","delete","all","all"))
+        if(!@$this->core->checkPermissions("attendance","delete","all","all"))
             redirect ("");
         
         $segments = $this->uri->segment_array();
@@ -206,7 +206,7 @@ class attendance extends CI_Controller {
 
     function edit(){
         $attendanceID = $this->uri->segment(3, 0);
-        if($this->core->checkPermissions("attendance","edit","all","all")){
+        if(@$this->core->checkPermissions("attendance","edit","all","all")){
             if($_POST){
                 $store = array(
                     'name'        => $this->input->post("name",true),
@@ -253,7 +253,7 @@ class attendance extends CI_Controller {
     }
     
     function show($attendanceId,$start = 0){
-        if(!$this->core->checkPermissions("attendance","show","all","all"))
+        if(!@$this->core->checkPermissions("attendance","show","all","all"))
                 redirect ("");
         if(empty($attendanceId))
             show_404 ();
@@ -279,7 +279,7 @@ class attendance extends CI_Controller {
         $attendId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
         $start = (is_numeric($this->uri->segment(4, 1))) ? $this->uri->segment(4, 1) : 1;
 
-        if(!$this->core->checkPermissions("attendance","add","all","all")) redirect ();
+        if(!@$this->core->checkPermissions("attendance","add","all","all")) redirect ();
         
         
         $data['STEP'] = "addgroups";
@@ -293,7 +293,7 @@ class attendance extends CI_Controller {
 
     function added($groupid,$attendanceid,$attendTodatId = 'group')
     {
-        if(!$this->core->checkPermissions("attendance","add","all","all"))
+        if(!@$this->core->checkPermissions("attendance","add","all","all"))
             redirect ("");
         if(empty($groupid) || empty($attendanceid))
             echo "You have errorin parmeters";

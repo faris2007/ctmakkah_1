@@ -90,6 +90,30 @@ $(document).ready(function(){
         }
     }
     
+    function candidate(URL,id,typel){
+        
+        $('#candidate').load(URL);
+        $('#candidate').css( "display", "block" );
+        if(typel === "accept"){
+            $('#'+id+'accept').attr("disabled", "disabled");
+            $('#'+id+'reject').removeAttr("Disabled");
+            $('#'+id+'precau').removeAttr("Disabled");
+        }else if(typel === "reject"){
+            $('#'+id+'accept').removeAttr("Disabled");
+            $('#'+id+'reject')..attr("disabled", "disabled");
+            $('#'+id+'precau').removeAttr("Disabled");
+        }else{
+            $('#'+id+'accept').removeAttr("Disabled");
+            $('#'+id+'reject').removeAttr("Disabled");
+            $('#'+id+'precau').attr("disabled", "disabled");
+        }   
+        
+        $('#candidate').fadeOut(5000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+        });
+    }
+    
     function addTestament(URL,id){
         
         var number = $('#number').val();

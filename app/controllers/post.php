@@ -26,7 +26,7 @@ class post extends CI_Controller {
             $data['query'] = $this->posts->getPosts($userid);
             $data['CONTROL'] = False;
             $data['STEP'] = "view";
-        }else if($this->core->checkPermissions("post","view")){
+        }else if(@$this->core->checkPermissions("post","view")){
             $data['query'] = $this->posts->getPosts("All");
             $data['CONTROL'] = true;
             $data['STEP'] = "view";
@@ -39,7 +39,7 @@ class post extends CI_Controller {
     }
     
     function add(){
-        if($this->users->checkIfUser() || $this->core->checkPermissions("post","add","all","all")){
+        if(($this->user->isLogin() && $this->users->checkIfUser()) || @$this->core->checkPermissions("post","add","all","all")){
             if($_POST){
                 $store = array(
                     'title'         => $this->input->post("title",true),
@@ -71,7 +71,7 @@ class post extends CI_Controller {
     }
     
     function delete(){
-        if(!$this->core->checkPermissions("post","delete","all","all"))
+        if(!@$this->core->checkPermissions("post","delete","all","all"))
             redirect ("");
         
         $segments = $this->uri->segment_array();

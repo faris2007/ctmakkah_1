@@ -5,13 +5,13 @@
             <?php if($this->users->isLogin()): ?>
                 <li><a href="<?=base_url()?>employee/profile">Profile</a></li>
                 <li><a href="<?=base_url()?>testament">Testaments</a></li>
-                <?php if($this->core->checkPermissions("group","view")): ?>
+                <?php if(@$this->core->checkPermissions("group","view")): ?>
                     <li><a href="<?=base_url()?>group">Group</a></li>
                 <?php endif; ?>
-                <?php if($this->core->checkPermissions("job","view")): ?>
+                <?php if(@$this->core->checkPermissions("job","view")): ?>
                     <li><a href="<?=base_url()?>job">Job</a></li>
                 <?php endif; ?>
-                <?php if($this->core->checkPermissions("attendance","view")): ?>
+                <?php if(@$this->core->checkPermissions("attendance","view")): ?>
                     <li><a href="<?=base_url()?>attendance">Attendance</a></li>
                 <?php endif; ?>
                 <li><a href="<?=base_url()?>post">Post</a></li>
