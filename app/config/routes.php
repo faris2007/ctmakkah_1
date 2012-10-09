@@ -42,5 +42,8 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 
 
+/** Show Files (Store) **/
+$route['files/(:any)'] = "files/show/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
