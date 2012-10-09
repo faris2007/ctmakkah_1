@@ -86,17 +86,188 @@ class Employee extends CI_Controller{
         if(!@$this->core->checkPermissions("employee","edit","all","all"))
             redirect ("");    
         $segments = $this->uri->segment_array();
-        $start = (isset($segments[3]))? $segments[3] : 1;
+        $start = (isset($segments[3]))? $segments[3] : 0;
         $type = (isset($segments[4]))? $segments[4] : NULL;
         $userID = (isset($segments[5]))? $segments[5] : 0;
         if($type == NULL){
-           $query = $this->users->getCandidate(30,$start);
+           $query = $this->users->getCandidate();
            $per_url = 'employee/condidate/';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-           $data['users'] = $query;
+           $data['users'] = $this->users->getCandidate(30,$start);;
            $data['CONTENT'] = 'employee/candidate';
            $data['TITLE'] = "List Of Candidates";
+           $this->core->load_template($data);
+        }elseif($type == "accept"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                $data['isAccept'] = "A";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Accepted successfully";
+                else
+                    echo "Accepted wrong";
+            }else
+                echo "there is problem";
+        }elseif($type == "reject"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "R";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Rejected successfully";
+                else
+                    echo "Rejected wrong";
+            }else
+                echo "there is problem";
+        }else if($type == "precau"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "P";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Precaution successfully";
+                else
+                    echo "Precaution wrong";
+            }else
+                echo "there is problem";
+        }
+    }
+    
+    function accepted(){
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            redirect ("");    
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 0;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        if($type == NULL){
+           $query = $this->users->getAccpetedUsers();
+           $per_url = 'employee/accepted/';
+           $total_results = count($query);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['users'] = $this->users->getAccpetedUsers(30,$start);;
+           $data['CONTENT'] = 'employee/accepted';
+           $data['TITLE'] = "List Of Accepted";
+           $this->core->load_template($data);
+        }elseif($type == "accept"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                $data['isAccept'] = "A";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Accepted successfully";
+                else
+                    echo "Accepted wrong";
+            }else
+                echo "there is problem";
+        }elseif($type == "reject"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "R";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Rejected successfully";
+                else
+                    echo "Rejected wrong";
+            }else
+                echo "there is problem";
+        }else if($type == "precau"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "P";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Precaution successfully";
+                else
+                    echo "Precaution wrong";
+            }else
+                echo "there is problem";
+        }
+    }
+    
+    function rejected(){
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            redirect ("");    
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 0;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        if($type == NULL){
+           $query = $this->users->getRejectedUsers();
+           $per_url = 'employee/accepted/';
+           $total_results = count($query);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['users'] = $this->users->getRejectedUsers(30,$start);
+           $data['CONTENT'] = 'employee/rejected';
+           $data['TITLE'] = "List Of Rejected";
+           $this->core->load_template($data);
+        }elseif($type == "accept"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                $data['isAccept'] = "A";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Accepted successfully";
+                else
+                    echo "Accepted wrong";
+            }else
+                echo "there is problem";
+        }elseif($type == "reject"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "R";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Rejected successfully";
+                else
+                    echo "Rejected wrong";
+            }else
+                echo "there is problem";
+        }else if($type == "precau"){
+            if($userID != 0){
+                $userInfo = $this->employees->getEmployee($userID);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                
+                $data['isAccept'] = "P";
+                if($this->employees->updateEmployee($userInfo->id,$data))
+                    echo "Precaution successfully";
+                else
+                    echo "Precaution wrong";
+            }else
+                echo "there is problem";
+        }
+    }
+    
+    function precaution(){
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            redirect ("");    
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 0;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        if($type == NULL){
+           $query = $this->users->getPrecautionUsers();
+           $per_url = 'employee/precaution/';
+           $total_results = count($query);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['users'] = $this->users->getPrecautionUsers(30,$start);;
+           $data['CONTENT'] = 'employee/precaution';
+           $data['TITLE'] = "List Of Precaution";
            $this->core->load_template($data);
         }elseif($type == "accept"){
             if($userID != 0){
