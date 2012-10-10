@@ -13,6 +13,7 @@ class Employee extends CI_Controller{
         $this->lang->load('login', $this->core->site_language);
         $this->lang->load('global', $this->core->site_language);
         $this->load->model("groups");
+        $this->load->model("jobs");
         $this->load->model("employees");
     }
     
