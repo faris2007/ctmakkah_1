@@ -358,6 +358,32 @@ class Employee extends CI_Controller{
         $this->load->view('signature',$data);
     }
     
+    public function cards()
+    {
+
+        $action = (in_array($this->input->post('do',TRUE),array('main','print'))) ? $this->input->post('do',TRUE) : 'main';
+        
+        $data['TYPE'] = $action;
+            
+        if ($action == 'print'){
+           $employee_id = ($this->input->post('employee_id',TRUE) != '') ? $this->input->post('employee_id',TRUE) : '0';
+           $emp_data = $this->users->get_card_data($employee_id);
+           if ($emp_data)
+           {
+               $data['idn'] = $emp_data->idn;
+               $data['name'] = $emp_data->en_name;
+               $data['job'] = $this->jobs->job_name($emp_data->jobs_id);
+			   die($this->load->view('employee/card',$data,TRUE));
+           }else{
+               $data['MSG'] = 'ID Error';
+               $data['TYPE'] = 'main';
+           }
+        }
+		$data['CONTENT'] = 'employee/card';
+		$this->core->load_template($data);
+		
+    }
+    
 }
 
 ?>
