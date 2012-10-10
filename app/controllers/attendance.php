@@ -296,7 +296,7 @@ class attendance extends CI_Controller {
         if(!@$this->core->checkPermissions("attendance","add","all","all"))
             redirect ("");
         if(empty($groupid) || empty($attendanceid))
-            echo "You have errorin parmeters";
+            echo "You have error in parmeters";
         
         if($attendTodatId == "group"){
             $data['attend_id'] = $attendanceid;
