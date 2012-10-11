@@ -383,6 +383,8 @@ class Users extends CI_Model {
     function get_card_data($employee_id = 0)
     {
         $this->db->where($this->_tables['users'].".idn",$employee_id);
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
         
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
         return ($query->num_rows() > 0) ? $query->row() : false;

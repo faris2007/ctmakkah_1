@@ -24,7 +24,7 @@
             <ul>
                 <li><a href="<?=base_url()?>testament/addtouser">Delivery Testament</a></li>
                 <li><a href="<?=base_url()?>attendance/takeattendance">take Attendance</a></li>
-                <li><a href="<?=base_url()?>employee/card">Cards</a></li>
+                <li><a href="<?=base_url()?>employee/cards">Cards</a></li>
             </ul>
         </li>
     <?php endif; ?>
