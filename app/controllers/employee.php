@@ -94,7 +94,7 @@ class Employee extends CI_Controller{
                     );
                     if($this->users->updateUser($query->id,$store)){
                         $emps = $this->employees->getEmployees($query->id);
-                        $this->employees->updateEmploee($emps[0]->id,array("jobs_id"=>$this->input->post("job",true)));
+                        $this->employees->updateEmployee($emps[0]->id,array("jobs_id"=>$this->input->post("job",true)));
                         $data['STEP'] = "success";
                         $data['MSG'] = $this->lang->line('profile_edit_success');
                         $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
