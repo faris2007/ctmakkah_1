@@ -259,7 +259,7 @@ class group extends CI_Controller {
         if(!@$this->core->checkPermissions("group","add","all","all"))
             show_404 ();
         if(empty($userid) || empty($groupid))
-            echo "You have errorin parmeters";
+            echo "You have an error in a parmeters";
         
         $data['group_id'] = $groupid;
         if($this->users->updateUser($userid,$data))
