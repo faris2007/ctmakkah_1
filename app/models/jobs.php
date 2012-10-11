@@ -70,6 +70,13 @@ class jobs extends CI_Model {
         return $this->db->update($this->_table,$data); 
     }
     
+    function job_name($job_id = 0)
+    {
+            $this->db->where('id',$job_id);
+            $query = $this->db->get($this->_table);
+            return ($query->num_rows() > 0)? $query->row()->name : '';             
+    }
+    
 }
 
 ?>
