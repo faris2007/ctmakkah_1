@@ -22,65 +22,120 @@ class Employee extends CI_Controller{
         
     }
     
+    function uploadPicture(){
+        if(!$this->core->checkPermissions("employee","edit","all","all"))
+            show_404();
+        
+        $segments = $this->uri->segment_array();
+        $idn = (isset($segments[3]))? $segments[3]: 0;
+        if($_FILES){
+            $config['upload_path'] = './store/personal_img/';
+            $config['allowed_types'] = 'jpg|png';
+            $config['max_size'] = '2048';
+            $config['max_width'] = '1024';
+            $config['max_height'] = '768';
+            $config['file_name'] = $idn;
+
+            $this->load->library('upload', $config);
+            if($this->upload->do_upload()){
+                $data['STEP'] = "success";
+                $data['MSG'] = $this->lang->line('profile_edit_success');
+                $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$idn, 'type' => 'equiv'));
+            }else {
+                $this->core->message("we can't upload file maybe there is problem",  base_url ()."employee/profile/".$idn,"upload Problem",2); 
+            }
+        }else
+            show_404();
+        $data['CONTENT'] = 'employee/profile';
+        $data['TITLE'] = "Profile";
+        $this->core->load_template($data);
+    }
+
+
     function profile()
     {
         // Get User ID
         $segments = $this->uri->segment_array();
-        $user_id = (isset($segments[3]))? $segments[3] : $this->users->get_info_user("id");
+        if($this->users->isLogin() && $this->users->checkIfUser())
+            $user_id = $this->users->get_info_user("id");
+        else if(@$this->core->checkPermissions("employee","edit","all","all"))
+            $user_id = (isset($segments[3]))? $segments[3] : $this->users->get_info_user("id");
+        else
+            show_404 ();
+            
+        $prev = (isset($segments[4]))? $segments[4] : NULL;
         
-        if($_POST){
-            if(@$this->core->checkPermissions("employee","profile","all","all")){
-                $store = array(
-                    'gender'        => $this->input->post("gender",true),
-                    'email'         => $this->input->post("email",true),
-                    'mobile'        => $this->input->post("mobile",true),
-                    'nationality'   => $this->input->post("nationality",true),
-                    'group_id'      => $this->input->post("group",true),
-                    'idn'           => $this->input->post("national_id",true),
-                    'ar_name'       => $this->input->post("arName",true),
-                    'en_name'       => $this->input->post("enName",true),
-                );
-                if($this->users->updateUser($user_id,$store)){
-                    $data['STEP'] = "success";
-                    $data['MSG'] = $this->lang->line('profile_edit_success');
-                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+        $query1 = $this->users->get_info_user("all",$user_id);
+        if(is_bool($query1['profile']))
+        {    
+            if(is_null($prev))
+                show_404 ();
+            else
+                $this->core->message("This user Not Found In Database",  base_url ()."employee/users","user Not Found",1); 
+        }
+        else{
+            $emp = $this->employees->getEmployees($query1['profile']->id);
+            if($emp[0]->jobs_id != NULL){
+                $query = $this->users->getProfileUser($query1['profile']->id);
+            }else {
+                $query = $query1['profile'];
+            }
+            if($_POST){
+                if(@$this->core->checkPermissions("employee","profile","all","all")){
+                    $store = array(
+                        'gender'        => $this->input->post("gender",true),
+                        'email'         => $this->input->post("email",true),
+                        'mobile'        => $this->input->post("mobile",true),
+                        'nationality'   => $this->input->post("nationality",true),
+                        'group_id'      => $this->input->post("group",true),
+                        'idn'           => $this->input->post("national_id",true),
+                        'ar_name'       => $this->input->post("arName",true),
+                        'en_name'       => $this->input->post("enName",true),
+                    );
+                    if($this->users->updateUser($query->id,$store)){
+                        $emps = $this->employees->getEmployees($query->id);
+                        $this->employees->updateEmploee($emps[0]->id,array("jobs_id"=>$this->input->post("job",true)));
+                        $data['STEP'] = "success";
+                        $data['MSG'] = $this->lang->line('profile_edit_success');
+                        $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+                    }else{
+                        $data['STEP'] = "view";
+                        $data['ERROR'] = true;
+                    }
                 }else{
-                    $data['STEP'] = "view";
-                    $data['ERROR'] = true;
+                    $store = array(
+                        'gender'        => $this->input->post("gender",true),
+                        'email'         => $this->input->post("email",true),
+                        'mobile'        => $this->input->post("mobile",true),
+                        'nationality'   => $this->input->post("nationality",true)
+                    );
+                    if($this->users->updateUser($query->id,$store)){
+                        $data['STEP'] = "success";
+                        $data['MSG'] = $this->lang->line('profile_edit_success');
+                    }else{
+                        $data['STEP'] = "view";
+                        $data['ERROR'] = true;
+                    }
                 }
             }else{
-                $store = array(
-                    'gender'        => $this->input->post("gender",true),
-                    'email'         => $this->input->post("email",true),
-                    'mobile'        => $this->input->post("mobile",true),
-                    'nationality'   => $this->input->post("nationality",true)
-                );
-                if($this->users->updateUser($user_id,$store)){
-                    $data['STEP'] = "success";
-                    $data['MSG'] = $this->lang->line('profile_edit_success');
-                }else{
-                    $data['STEP'] = "view";
-                    $data['ERROR'] = true;
+                
+                $data['profile'] = $query;
+                if($this->core->checkPermissions("employee","profile","all","all")){
+                    $data['group'] = $this->groups->getGroups("all");
+                    $data['jobs'] = $this->jobs->getJobs("all");
+                    $data['ADMIN'] = TRUE;
+                }else {
+                    $data['group'] = false;
+                    $data['jobs'] = false;
+                    $data['ADMIN'] = false;
                 }
+                $data['STEP'] = "view";
+                $data['ERROR'] = FALSE;
             }
-        }else{
-            if(!@$this->core->checkPermissions("employee","profile","all","all"))
-                redirect ("");
-            $query = $this->users->get_info_user("all",$user_id);
-            $data['profile'] = $query['profile'];
-            if($this->core->checkPermissions("employee","profile","all","all")){
-                $data['group'] = $this->groups->getGroups("all");
-                $data['ADMIN'] = TRUE;
-            }else {
-                $data['group'] = false;
-                $data['ADMIN'] = false;
-            }
-            $data['STEP'] = "view";
-            $data['ERROR'] = FALSE;
+            $data['CONTENT'] = 'employee/profile';
+            $data['TITLE'] = "Profile";
+            $this->core->load_template($data);
         }
-        $data['CONTENT'] = 'employee/profile';
-        $data['TITLE'] = "Profile";
-        $this->core->load_template($data);
     }
     
     function candidate(){
@@ -315,19 +370,20 @@ class Employee extends CI_Controller{
         if(!@$this->core->checkPermissions("employee","edit","all","all"))
             redirect ("");    
         $segments = $this->uri->segment_array();
-        $start = (isset($segments[3]))? $segments[3] : 1;
+        $start = (isset($segments[3]))? $segments[3] : 0;
         $type = (isset($segments[4]))? $segments[4] : NULL;
         $userID = (isset($segments[5]))? $segments[5] : 0;
-        if($type == NULL){
+        if($type == NULL && is_numeric($start)){
            $query = $this->users->getUsers(30,$start);
            $per_url = 'employee/users/';
            $total_results = $this->users->get_total_users();
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
            $data['users'] = $query;
+           $data['STEP'] = "users";
            $data['CONTENT'] = 'employee/users';
            $data['TITLE'] = "List Of Candidates";
            $this->core->load_template($data);
-        }else  if($type == "del"){
+        }else  if($type == "del" && is_numeric($start)){
             if($userID != 0){
                 $userInfo = $this->users->get_info_user("all",$userID);
                 if(is_bool($userInfo['profile']))
@@ -339,13 +395,23 @@ class Employee extends CI_Controller{
                     echo "Delete Wrong!";
             }else
                 echo "There is problem";
+        }else if($start == "no_pic"){
+           $query = $this->users->getAccpetedUsers(100,$type);
+           $per_url = 'employee/users/no_pic';
+           $total_results = $this->users->get_total_users();
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
+           $data['users'] = $query->result();
+           $data['STEP'] = "list";
+           $data['CONTENT'] = 'employee/users';
+           $data['TITLE'] = "List Of Candidates";
+           $this->core->load_template($data);
         }
     }
 
 
     public function signatures()
     {
-        if(@$this->users->isLogin() && !@$this->users->checkIfUser())
+        if(!(@$this->users->isLogin() && !@$this->users->checkIfUser()))
             redirect ("");
         $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
         
@@ -361,7 +427,9 @@ class Employee extends CI_Controller{
     
     public function cards()
     {
-
+        if(!(@$this->users->isLogin() && !@$this->users->checkIfUser()))
+            redirect ("");
+        
         $action = (in_array($this->input->post('do',TRUE),array('main','print'))) ? $this->input->post('do',TRUE) : 'main';
         
         $data['TYPE'] = $action;

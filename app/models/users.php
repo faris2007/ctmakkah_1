@@ -42,6 +42,18 @@ class Users extends CI_Model {
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     
+    function getProfileUser($userid){
+        if(empty($userid))
+            return false;
+        
+        $this->db->where($this->_tables['users'].".id",$userid);
+        $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);
+        return ($query->num_rows() > 0) ? $query->row() : false;
+    }
+    
     function getRejectedUsers($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         

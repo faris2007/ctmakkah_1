@@ -52,7 +52,7 @@ class employees extends CI_Model {
         {
             $this->db->where('users_id',$userid);
         }
-        $this->db->order_by("id"); 
+        $this->db->order_by("id","DESC"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;
     }
