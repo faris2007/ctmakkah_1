@@ -38,7 +38,7 @@
                     <td><?=@$row->idn?></td>
                     <td><?=@$row->en_name?></td>
                     <td>
-                        <a href="<?=base_url()?>employee/profile/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                        <a href="<?=base_url()?>employee/profile/<?=$row->idn?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
                         <a onclick="deleted('<?=base_url()?>employee/users/0/del/<?=$row->id?>','users<?=$row->id?>','NO USER')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
                     </td>
                 </tr>
@@ -75,7 +75,7 @@
                         <td><?=@$row->en_name?></td>
                         <td>0<?=@$row->mobile?></td>
                         <td>
-                            <a href="<?=base_url()?>employee/profile/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                            <a href="<?=base_url()?>employee/profile/<?=$row->idn?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
                             <a onclick="deleted('<?=base_url()?>employee/users/0/del/<?=$row->id?>','users<?=$row->id?>','NO USER')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
                         </td>
                     </tr>

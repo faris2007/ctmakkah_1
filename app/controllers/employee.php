@@ -87,14 +87,16 @@ class Employee extends CI_Controller{
                         'email'         => $this->input->post("email",true),
                         'mobile'        => $this->input->post("mobile",true),
                         'nationality'   => $this->input->post("nationality",true),
-                        'group_id'      => $this->input->post("group",true),
+                        'group_id'      => ($this->input->post("group",true)==0)?NULL :$this->input->post("group",true) ,
                         'idn'           => $this->input->post("national_id",true),
                         'ar_name'       => $this->input->post("arName",true),
                         'en_name'       => $this->input->post("enName",true),
                     );
                     if($this->users->updateUser($query->id,$store)){
                         $emps = $this->employees->getEmployees($query->id);
-                        $this->employees->updateEmployee($emps[0]->id,array("jobs_id"=>$this->input->post("job",true)));
+                        $this->employees->updateEmployee($emps[0]->id,array(
+                            "jobs_id"   => ($this->input->post("job",true)==0)?NULL : $this->input->post("job",true)
+                            ));
                         $data['STEP'] = "success";
                         $data['MSG'] = $this->lang->line('profile_edit_success');
                         $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
@@ -400,7 +402,7 @@ class Employee extends CI_Controller{
            $per_url = 'employee/users/no_pic';
            $total_results = $this->users->get_total_users();
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
-           $data['users'] = $query->result();
+           $data['users'] = $query;
            $data['STEP'] = "list";
            $data['CONTENT'] = 'employee/users';
            $data['TITLE'] = "List Of Candidates";

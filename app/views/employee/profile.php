@@ -53,7 +53,7 @@
                     <td>Group</td>
                     <td>
                         <select name="group" id="group" style="width: 70%">
-                            <option>Select Group</option>
+                            <option value="0">Select Group</option>
                             <?php if(@$group): ?>
                                 <?php foreach ($group as $value): ?>
                                     <option<?=(@$profile->group_id == $value->id)? " selected=\"selected\"":""?> value="<?=$value->id?>"><?=$value->name?></option>
