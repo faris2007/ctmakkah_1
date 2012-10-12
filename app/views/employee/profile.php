@@ -1,6 +1,4 @@
 <?php if($STEP =="view"): ?>
-<br />
-	<div id="signature1" style="width: 250px;height: 150px"></div>
 
 <form method="post">
     <table id="profile" class="tbl" style="width: 85%">
@@ -10,10 +8,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>User ID</td>
-                <td><input type="text" name="user_id" id="user_id" value="<?=@$profile->id?>" style="width: 70%" disabled="1" /></td>
-            </tr>
             <tr>
                 <td><?=@$this->lang->line('register_name_arabic');?></td>
                 <td><input type="text" name="arName" id="arName" placeholder="Name" value="<?=@$profile->ar_name?>" style="width: 70%"<?=(@$ADMIN)? "" : ' disabled="1"'?> /></td>
@@ -68,6 +62,19 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td>Job Name</td>
+                    <td>
+                        <select name="job" id="job" style="width: 70%">
+                            <option value="0">Select job</option>
+                            <?php if(@$jobs): ?>
+                                <?php foreach ($jobs as $value): ?>
+                                    <option<?=(@$profile->jobs_id == $value->id)? " selected=\"selected\"":""?> value="<?=$value->id?>"><?=$value->name?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </td>
+                </tr>
             <?php endif; ?>
             <?php if(@$ERROR): ?>
                 <tr>
@@ -80,7 +87,28 @@
         </tbody>
     </table>
 </form>
-
+<?php $folder = 'store/personal_img/'; if(@$ADMIN & (!file_exists($folder.@$profile->idn.".jpg") && !file_exists($folder.@$profile->idn.".jpeg") && !file_exists($folder.@$profile->idn.".png")
+                   && !file_exists($folder.@$profile->idn." .png") && !file_exists($folder.@$profile->idn." .jpg" ) && !file_exists($folder.@$profile->idn.".PNG") && !file_exists($folder.@$profile->idn.".JPG"))): ?>
+    <div class="message">Upload Personal Picture</div>
+    <form action="<?=base_url()?>employee/uploadPicture/<?=@$profile->idn?>" method="post" enctype="multipart/form-data">
+        <table class="tbl" style="width:85%">
+            <thead>
+                <tr>
+                    <td colspan="2">Upload Personal Picture for <?=@$profile->en_name?></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Select Picture</td>
+                    <td><input type="file" name="userfile" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Upload" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+<?php endif;?>
 <?php elseif (@$STEP == "success") : ?>
     <div class="message">
         <?=@$MSG?>

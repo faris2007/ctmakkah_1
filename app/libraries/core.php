@@ -155,6 +155,7 @@ class Core {
         $data['MSG']['MESSAGE'] = $_message;
         $data['MSG']['URL'] = $_url;
         $data['MSG']['TIME'] = $_time;
+        $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => $_time.';url='.$_url, 'type' => 'equiv'));
         $data['TITLE'] = 'MSG';
         $data['CONTENT'] = 'message';
         die($this->load_template($data,TRUE));

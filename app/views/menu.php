@@ -24,6 +24,18 @@
             <ul>
                 <li><a href="<?=base_url()?>testament/addtouser">Delivery Testament</a></li>
                 <li><a href="<?=base_url()?>attendance/takeattendance">take Attendance</a></li>
+                <li><a href="<?=base_url()?>employee/cards">Cards</a></li>
+            </ul>
+        </li>
+    <?php endif; ?>
+    <?php if(@$this->core->checkPermissions("employee","view")): ?>
+        <li><a href="#">Employers</a>
+            <ul>
+                <li><a href="<?=base_url()?>employee/candidate">Candidate</a></li>
+                <li><a href="<?=base_url()?>employee/accepted">Accepted</a></li>
+                <li><a href="<?=base_url()?>employee/rejected">Rejected</a></li>
+                <li><a href="<?=base_url()?>employee/precaution">Precaution</a></li>
+                <li><a href="<?=base_url()?>employee/users">Users</a></li>
             </ul>
         </li>
     <?php endif; ?>
