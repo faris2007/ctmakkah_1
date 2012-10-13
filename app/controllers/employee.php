@@ -129,7 +129,7 @@ class Employee extends CI_Controller{
                 }else
                     $result[$i]['doing'] = 'n';
 
-                $result[$i]['name'] = $col[$i][$headFile['name']];
+                $result[$i]['name'] = isset($col[$i][$headFile['name']]) ? $col[$i][$headFile['name']] : NULL;
             }
 
             $data['STEP'] = "last";
