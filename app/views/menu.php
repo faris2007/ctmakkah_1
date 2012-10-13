@@ -36,6 +36,7 @@
                 <li><a href="<?=base_url()?>employee/rejected">Rejected</a></li>
                 <li><a href="<?=base_url()?>employee/precaution">Precaution</a></li>
                 <li><a href="<?=base_url()?>employee/users">Users</a></li>
+                <li><a href="<?=base_url()?>employee/uploadusers">Upload Users</a></li>
             </ul>
         </li>
     <?php endif; ?>

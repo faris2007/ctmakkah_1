@@ -160,6 +160,27 @@ class Core {
         $data['CONTENT'] = 'message';
         die($this->load_template($data,TRUE));
     }
+    
+    public function getHeadFile($data){
+        
+        $result = array();
+        foreach ($data as $key => $value){
+            if(@ereg("ID", strtoupper($value)))
+                $result['id'] = $key;
+            elseif(@ereg("NAME", strtoupper($value))){
+                $result['name'] = $key;
+            }elseif(@ereg("POSITION", strtoupper($value)))
+                $result['position'] = $key;
+            elseif(@ereg("MOPIL", strtoupper($value)))
+                $result['mobile'] = $key;
+            elseif(@ereg("MOBILE", strtoupper($value)))
+                $result['mobile'] = $key;
+            elseif(@ereg("PHONE", strtoupper($value)))
+                $result['mobile'] = $key;
+        }
+        
+        return $result;
+    }
 }
 
 ?>
