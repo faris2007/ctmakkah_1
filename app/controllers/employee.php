@@ -52,28 +52,28 @@ class Employee extends CI_Controller{
                         if($this->users->register($data)){
                             $userid = $this->db->insert_id();
                             $store = array(
-                                'year'        => date("Y"),
+                                'year'        => ($_POST['is_old']=="n")? date("Y") : date("Y")-1,
                                 'isAccept'    => "A" ,
                                 'grade'       => $col[$i][$headFile['position']] ,
                                 'users_id'    => $userid ,
                             );
-                            if(@ereg("ROVING",$col[$i][$headFile['position']]))
+                            if(@ereg("ROVING",  strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 1;
-                            elseif(@ereg("TRAIN",$col[$i][$headFile['position']]))
+                            elseif(@ereg("TRAIN",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 2;
-                            elseif(@ereg("PSD",$col[$i][$headFile['position']]))
+                            elseif(@ereg("PSD",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 3;
-                            elseif(@ereg("PLATFORM",$col[$i][$headFile['position']]))
+                            elseif(@ereg("PLATFORM",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 4;
-                            elseif(@ereg("LIFT",$col[$i][$headFile['position']]))
+                            elseif(@ereg("LIFT",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 5;
-                            elseif(@ereg("RAMP",$col[$i][$headFile['position']]))
+                            elseif(@ereg("RAMP",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 6;
-                            elseif(@ereg("FOOTBRIDGE",$col[$i][$headFile['position']]))
+                            elseif(@ereg("FOOTBRIDGE",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 7;
-                            elseif(@ereg("WAITING",$col[$i][$headFile['position']]))
+                            elseif(@ereg("WAITING",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 9;
-                            elseif(@ereg("ESCALATOR",$col[$i][$headFile['position']]))
+                            elseif(@ereg("ESCALATOR",strtoupper($col[$i][$headFile['position']])))
                                     $store['jobs_id'] = 9;
                             else
                                     $store['jobs_id'] = NULL;
@@ -86,8 +86,45 @@ class Employee extends CI_Controller{
                                 $result[$i]['doing'] = 'n'; 
                             }
 
-                        }else
-                            $result[$i]['doing'] = 'n';
+                        }else {
+                            $userid = $user['profile']->id;
+                            $this->db->where("year",date("Y"));
+                            $emp = $this->employees->getEmployees($userid);
+                            if(is_bool($emp)){
+                                $store = array(
+                                    'year'        => date("Y") ,
+                                    'isAccept'    => "A" ,
+                                    'grade'       => $col[$i][$headFile['position']] ,
+                                    'users_id'    => $userid ,
+                                );
+                                if(@ereg("ROVING",  strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 1;
+                                elseif(@ereg("TRAIN",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 2;
+                                elseif(@ereg("PSD",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 3;
+                                elseif(@ereg("PLATFORM",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 4;
+                                elseif(@ereg("LIFT",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 5;
+                                elseif(@ereg("RAMP",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 6;
+                                elseif(@ereg("FOOTBRIDGE",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 7;
+                                elseif(@ereg("WAITING",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 9;
+                                elseif(@ereg("ESCALATOR",strtoupper($col[$i][$headFile['position']])))
+                                        $store['jobs_id'] = 9;
+                                else
+                                        $store['jobs_id'] = NULL;
+
+                                if($this->employees->addNewEmployee($store))
+                                    $result[$i]['doing'] = 'y';
+                                else
+                                    $result[$i]['doing'] = 'n';
+                            }else
+                                 $result[$i]['doing'] = 'n';
+                        }
 
                 }else
                     $result[$i]['doing'] = 'n';
