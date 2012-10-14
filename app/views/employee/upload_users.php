@@ -28,7 +28,7 @@
 
 </form>
 <?php elseif(@$STEP == "second"): ?>
-<form method="post" action="<?=base_url()?>employee/uploadusers/1">
+<form method="post" action="<?=base_url()?>employee/uploadusers/0">
     <input type="hidden" name="is_old" value="<?=@$isOld?>" />
     <input type="hidden" name="filename" value="<?=@$FILENAME?>" />
     <table class="tbl">

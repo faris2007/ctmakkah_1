@@ -77,6 +77,32 @@ class Users extends CI_Model {
         return ($query->num_rows() > 0) ? $query->row() : false;
     }
     
+    function get_total_info_users(){
+        
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
+        $this->db->where($this->_tables['employee'].".isAccept","A");
+        $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);
+        return $query->num_rows() ;
+    }
+    
+    function getAllInfoUser($limit = NULL,$start = NULL){
+        
+        //$this->db->where($this->_tables['users'].".id",$userid);
+        if ($limit && $start) $this->db->limit($limit, $start);
+        
+        $this->db->where($this->_tables['employee'].".year",date("Y"));
+        $this->db->where($this->_tables['employee'].".isAccept","A");
+        $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
+        $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['employee'].".grade as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
+        $this->db->group_by($this->_tables['users'].".id");
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
+    
     function getRejectedUsers($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         

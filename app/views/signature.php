@@ -10,7 +10,7 @@
         var base_url = '<?=base_url()?>';
       
         $(document).ready(function() {
-                $("#jSignature").jSignature({width:400,height:200,color:'#E13300'});
+                $("#jSignature").jSignature({width:400,height:400,color:'#E13300'});
                 $("#signature").attr("src",$('#signature').val());
                 $("#clear").click(function() {
                         $("#jSignature").jSignature("clear");
@@ -33,7 +33,7 @@
             width: 400px;
         }
     </style>
-
+    <meta charset="utf-8" />
 </head>
 
 <body>

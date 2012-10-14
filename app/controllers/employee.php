@@ -459,14 +459,35 @@ class Employee extends CI_Controller{
         $type = (isset($segments[4]))? $segments[4] : NULL;
         $userID = (isset($segments[5]))? $segments[5] : 0;
         if($type == NULL){
-           $query = $this->users->getAccpetedUsers();
-           $per_url = 'employee/accepted/';
-           $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-           $data['users'] = $this->users->getAccpetedUsers(30,$start);;
-           $data['CONTENT'] = 'employee/accepted';
-           $data['TITLE'] = "List Of Accepted";
-           $this->core->load_template($data);
+           if($_POST){
+                $idns = explode("\n", $this->input->post("IDNS",true));
+                $msg = array();
+                $store['isAccept'] = "A";
+                foreach ($idns as $key => $value){
+                    if(is_numeric($value) && strlen($value) == 10)
+                    {
+                        $userinfo = $this->users->get_info_user("all",$value);
+                        $emp = $this->employees->getEmployees($userinfo['profile']->id);
+                        $msg[$key]['idn'] = $value;
+                        $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                    }
+                }
+                $data['query'] = $msg;
+                $data['STEP'] = "accept";
+                $data['CONTENT'] = 'employee/accepted';
+                $data['TITLE'] = "Accepted new Employees";
+                $this->core->load_template($data);
+           }else {
+                $query = $this->users->getAccpetedUsers();
+                $per_url = 'employee/accepted/';
+                $total_results = $this->users->get_total_info_users();
+                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+                $data['users'] = $this->users->getAllInfoUser(30,$start);
+                $data['CONTENT'] = 'employee/accepted';
+                $data['TITLE'] = "List Of Accepted";
+                $data['STEP'] = "list";
+                $this->core->load_template($data);
+           }
         }elseif($type == "accept"){
             if($userID != 0){
                 $userInfo = $this->employees->getEmployee($userID);
@@ -652,9 +673,19 @@ class Employee extends CI_Controller{
             }else
                 echo "There is problem";
         }else if($start == "no_pic"){
-           $query = $this->users->getAccpetedUsers(100,$type);
+           $query = $this->users->getAllInfoUser(100,$type);
            $per_url = 'employee/users/no_pic';
-           $total_results = $this->users->get_total_users();
+           $total_results = $this->users->get_total_info_users();
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
+           $data['users'] = $query;
+           $data['STEP'] = "list_no";
+           $data['CONTENT'] = 'employee/users';
+           $data['TITLE'] = "List Of Candidates";
+           $this->core->load_template($data);
+        }else if($start == "pic"){
+           $query = $this->users->getAllInfoUser(100,$type);
+           $per_url = 'employee/users/no_pic';
+           $total_results = $this->users->get_total_info_users();
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
            $data['users'] = $query;
            $data['STEP'] = "list";
