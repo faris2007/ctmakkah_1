@@ -44,7 +44,7 @@
             position: absolute;
             left: 120px;
             margin-top: 60px;
-            width: 180px;
+            width: 200px;
             text-justify: distribute;
             text-align: center;
         }
@@ -53,7 +53,7 @@
             font-size: 16px;
             position: absolute;
             left: 110px;
-            margin-top: 90px;
+            margin-top: 100px;
             text-justify: distribute;
             text-align: center;
             width: 200px;

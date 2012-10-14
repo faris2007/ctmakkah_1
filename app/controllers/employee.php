@@ -696,7 +696,9 @@ class Employee extends CI_Controller{
            if ($emp_data)
            {
                $data['idn'] = $emp_data->idn;
-               $data['name'] = $emp_data->en_name;
+               $name = explode(" ", $emp_data->en_name);
+               $emp_name = (count($name) > 2)? $name[0].' '.$name[count($name)-1]:$emp_data->en_name;
+               $data['name'] = $emp_name;
                $data['job'] = $this->jobs->job_name($emp_data->jobs_id);
 			   die($this->load->view('employee/card',$data,TRUE));
            }else{
