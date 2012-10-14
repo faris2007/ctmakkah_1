@@ -1,6 +1,6 @@
 <?php if($STEP =="view"): ?>
 
-<form method="post">
+<form method="post" action="<?=base_url()?>employee/profile/<?=@$ID?>">
     <table id="profile" class="tbl" style="width: 85%">
         <thead>
             <tr>
