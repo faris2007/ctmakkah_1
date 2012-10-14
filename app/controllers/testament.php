@@ -117,7 +117,7 @@ class testament extends CI_Controller {
             $data['IDN'] = $userinfo['profile']->idn;
             $data['EN_NAME'] = $userinfo['profile']->en_name;
             $sign = $this->employees->signature($userinfo['profile']->id);
-            $data['SIGNATURE'] = (empty($sign))? true : false ;
+            $data['SIGNATURE'] = true  ;
             $where = "id NOT IN (SELECT Testament_id FROM Testament_has_users WHERE users_id=".$userinfo['profile']->id.")";
             $this->db->where($where);
             $data['queryA'] = $this->testaments->getTestaments("all");
@@ -177,7 +177,7 @@ class testament extends CI_Controller {
     
     function added()
     {
-        if(!@$this->core->checkPermissions("testament","delete","all","all"))
+        if(!@$this->core->checkPermissions("testament","add","all","all"))
             echo "there is problem";
         
         $segments = $this->uri->segment_array();

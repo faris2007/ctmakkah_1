@@ -45,8 +45,8 @@ class Core {
     public function check_token($redirect = TRUE,$token = '')
     {
             $redirect = (is_bool($redirect)) ? $redirect : FALSE;
-            $token = ($token == '') ? $this->input->post('token', TRUE) : $token;
-            if ($this->input->post('token', TRUE) == $this->Token)
+            $token = ($token == '') ? $this->CI->input->post('token', TRUE) : $token;
+            if ($this->CI->input->post('token', TRUE) == $this->Token)
             {
                 return TRUE;
             }else{

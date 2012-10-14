@@ -37,6 +37,7 @@
                 <li><a href="<?=base_url()?>employee/precaution">Precaution</a></li>
                 <li><a href="<?=base_url()?>employee/users">Users</a></li>
                 <li><a href="<?=base_url()?>employee/uploadusers">Upload Users</a></li>
+                <li><a href="<?=base_url()?>employee/uploadpictures">Upload Pictures</a></li>
             </ul>
         </li>
     <?php endif; ?>

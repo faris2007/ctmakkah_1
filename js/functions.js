@@ -11,7 +11,7 @@ $(document).ready(function(){
     );
         
     $('#signatureurl').popupWindow({ 
-        height:300, 
+        height:350, 
         width:400, 
         top:50, 
         left:50 

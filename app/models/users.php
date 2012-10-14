@@ -20,6 +20,29 @@ class Users extends CI_Model {
         return '';
     }*/
     
+    private function ecrypt_password($pass){
+        return sha1($pass);
+    } 
+
+
+    public function change_password($userid,$oldPass,$newPass){
+        if(empty($userid)||empty($oldPass)||empty($newPass))
+            return false;
+        
+        $this->db->where("password",  $this->ecrypt_password($oldPass));
+        $this->db->where("id",$userid);
+        $query = $this->db->get($this->_tables['users']);
+        if($query->num_rows() > 0){
+            $data['password'] = $this->ecrypt_password($newPass);
+            if($this->updateUser($userid, $data)){
+                return true;
+            }else
+                return false;
+        }else
+            return false;
+    } 
+
+
     function getCandidate($limit = NULL,$start = NULL){
         if ($limit && $start) $this->db->limit($limit, $start);
         
@@ -140,7 +163,7 @@ class Users extends CI_Model {
             return FALSE;
         
         $this->db->where("idn",$id);
-        $this->db->where("password", $password);
+        $this->db->where("password", $this->ecrypt_password($password));
         $query = $this->db->get($this->_tables['users']);
         if($query->num_rows() > 0)
         {
@@ -376,6 +399,7 @@ class Users extends CI_Model {
         if(!is_array($data))
             return false;
         
+        $data['password'] = $this->ecrypt_password($data['password']);
         return $this->db->insert($this->_tables['users'], $data); 
         
     }

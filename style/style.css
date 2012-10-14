@@ -171,6 +171,14 @@ body {
     border-top-left-radius: 5px;
 }
 
+#personal_img {
+    width: 90px;
+    height: 90px;
+    margin-top: 25px;
+    margin-left: 10px;
+    border: 1px #000 solid;
+}
+
 span.formbutton1 {
     margin: 1px;
     border: none;

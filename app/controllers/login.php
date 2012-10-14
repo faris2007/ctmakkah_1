@@ -23,7 +23,7 @@ class Login extends CI_Controller{
         {
             if($_POST){
                 $username = $this->input->post('loginID',TRUE);
-                $password = sha1($this->input->post('password',TRUE));
+                $password = $this->input->post('password',TRUE);
                 if($this->users->login($username,$password))
                 {
                     $data['ERROR'] = FALSE;
@@ -111,7 +111,7 @@ class Login extends CI_Controller{
                         'birth_date'        => $this->input->post("birthDate",true),
                         'nationality'       => $this->input->post("nationality",true),
                         'mobile'            => $this->input->post("mobile",true),
-                        'password'          => sha1($password),
+                        'password'          => $password,
                         'email'             => $this->input->post("email",true),
                         'certificate'       => $this->input->post("certificate",true),
                         'specialisatie'     => $this->input->post("specialization",true),

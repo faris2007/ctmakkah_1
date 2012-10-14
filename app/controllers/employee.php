@@ -19,9 +19,40 @@ class Employee extends CI_Controller{
     
     function index()
     {
-        
+        $this->profile(); 
     }
     
+    function change_password(){
+        $segments = $this->uri->segment_array();
+        if(@$this->core->checkPermissions("employee","edit","all","all"))
+            $user_id = (isset($segments[3]))? $segments[3] : $this->users->get_info_user("id");
+        else if($this->users->isLogin())
+            $user_id = $this->users->get_info_user("id");
+        else 
+            show_404 ();
+        
+        if($_POST){
+            $oldPass = $this->input->post("oldpass",true);
+            $newPass = $this->input->post("newpass",true);
+            $renewPass = $this->input->post("renewpass",true);
+            if($newPass == $renewPass){
+                if($this->users->change_password($user_id,$oldPass,$newPass)){
+                    $data['STEP'] = "success";
+                    $data['MSG'] = $this->lang->line('profile_edit_success');
+                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+                }else
+                    $this->core->message("the old password is wrong",  base_url ()."employee/profile/".$user_id,"upload Problem",2); 
+            }else
+                $this->core->message("the new pass and retype new pass not same",  base_url ()."employee/profile/".$user_id,"upload Problem",2);
+        }else
+            show_404 ();
+        
+        $data['CONTENT'] = 'employee/profile';
+        $data['TITLE'] = "Profile";
+        $this->core->load_template($data);
+    }
+
+
     function uploadusers(){
         if(!$this->core->checkPermissions("employee","add","all","all"))
             show_404();
@@ -180,7 +211,53 @@ class Employee extends CI_Controller{
         $this->core->load_template($data);
     }
 
-
+    function uploadpictures(){
+        if(!$this->core->checkPermissions("employee","edit","all","all"))
+            show_404();
+        
+        $segments = $this->uri->segment_array();
+        $type = (isset($segments[3]))? $segments[3]: NULL;
+        if($type != NULL){
+            $zip = new ZipArchive;
+            if ($zip->open('./uploads/'.$this->input->post("filename",true)) === TRUE) {
+                if($zip->extractTo('./store/personal_img/')){
+                    $zip->close();
+                    $data['STEP'] = "success";
+                    $data['MSG'] = "extract file done, we will transfer you automatically";
+                }else {
+                    $zip->close();
+                    $this->core->message("Unable to extract the file.",  base_url ()."employee/uploadpictures","upload Problem",2); 
+                }
+            } else {
+                $this->core->message("Unable to read the file.",  base_url ()."employee/uploadpictures","upload Problem",2); 
+            }
+            $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/uploadpictures', 'type' => 'equiv'));
+        }else{
+            if($_FILES){
+                $config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'zip';
+                $config['max_size'] = '25600';
+                $config['encrypt_name'] = true;
+                
+                $this->load->library('upload', $config);
+                if($this->upload->do_upload()){
+                    $data['STEP'] = "extract";
+                    $file = $this->upload->data();
+                    $data['FILENAME'] = $file['file_name'];
+                }else {
+                    $this->core->message("we can't upload file <br />".$this->upload->display_errors(),  base_url ()."employee/uploadpictures","upload Problem",2); 
+                }
+            }else{
+                $data['STEP'] = "upload";
+            }
+                
+        }
+        $data['CONTENT'] = 'employee/upload_pictures';
+        $data['TITLE'] = "Profile";
+        $this->core->load_template($data);
+    }
+    
+    
     function uploadPicture(){
         if(!$this->core->checkPermissions("employee","edit","all","all"))
             show_404();
@@ -188,13 +265,29 @@ class Employee extends CI_Controller{
         $segments = $this->uri->segment_array();
         $idn = (isset($segments[3]))? $segments[3]: 0;
         if($_FILES){
+            $folder = 'store/personal_img/';
+            if(file_exists($folder.$idn.".jpg"))
+                @unlink($folder.$idn.".jpg");
+            elseif(file_exists($folder.$idn.".jpeg"))
+                @unlink($folder.$idn.".jpeg");
+            elseif(file_exists($folder.$idn.".png"))
+                @unlink($folder.$idn.".png");
+            elseif(file_exists($folder.$idn." .png"))
+                @unlink($folder.$idn." .png");
+            elseif(file_exists($folder.$idn." .jpg"))
+                @unlink($folder.$idn." .jpg");
+            elseif(file_exists($folder.$idn.".PNG"))
+                @unlink($folder.$idn.".PNG");
+            elseif(file_exists($folder.$idn.".JPG"))
+                @unlink($folder.$idn.".JPG");
             $config['upload_path'] = './store/personal_img/';
             $config['allowed_types'] = 'jpg|png';
             $config['max_size'] = '2048';
             $config['max_width'] = '1024';
             $config['max_height'] = '768';
             $config['file_name'] = $idn;
-
+            $config['overwrite'] = true;
+            
             $this->load->library('upload', $config);
             if($this->upload->do_upload()){
                 $data['STEP'] = "success";
@@ -215,11 +308,11 @@ class Employee extends CI_Controller{
     {
         // Get User ID
         $segments = $this->uri->segment_array();
-        if($this->users->isLogin() && $this->users->checkIfUser())
-            $user_id = $this->users->get_info_user("id");
-        else if(@$this->core->checkPermissions("employee","edit","all","all"))
+        if(@$this->core->checkPermissions("employee","edit","all","all"))
             $user_id = (isset($segments[3]))? $segments[3] : $this->users->get_info_user("id");
-        else
+        else if($this->users->isLogin())
+            $user_id = $this->users->get_info_user("id");
+        else 
             show_404 ();
             
         $prev = (isset($segments[4]))? $segments[4] : NULL;
@@ -271,7 +364,7 @@ class Employee extends CI_Controller{
                         'mobile'        => $this->input->post("mobile",true),
                         'nationality'   => $this->input->post("nationality",true)
                     );
-                    if($this->users->updateUser($query->id,$store)){
+                    if($this->users->updateUser($userID,$store)){
                         $data['STEP'] = "success";
                         $data['MSG'] = $this->lang->line('profile_edit_success');
                     }else{
@@ -282,6 +375,7 @@ class Employee extends CI_Controller{
             }else{
                 
                 $data['profile'] = $query;
+                $data['ID'] = $userID;
                 if($this->core->checkPermissions("employee","profile","all","all")){
                     $data['group'] = $this->groups->getGroups("all");
                     $data['jobs'] = $this->jobs->getJobs("all");

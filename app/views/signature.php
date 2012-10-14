@@ -45,6 +45,16 @@
         <input type="button" value="Clear" id="clear" />
         <input type="button" value="Save" id="save" />
     </div>
+    <div style="direction: rtl ">
+        ارجوا الانتباه الى التالي:
+        <ul itemtype="*">
+            <li>أستلام العهدة سليم</li>
+            <li>وقت التسليم مغسولة ومكوية وحالتها</li>
+            <li>إستلام السديري وتسليمها</li>
+            <li>في حالة عدم تسليم العهدة مبكراً يخصم من راتبه</li>
+            <li>25% أجور مصاريف عقد</li>
+        </ul>
+    </div>
     </form>
 </body>
 

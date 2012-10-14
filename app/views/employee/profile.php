@@ -87,9 +87,43 @@
         </tbody>
     </table>
 </form>
-<?php $folder = 'store/personal_img/'; if(@$ADMIN & (!file_exists($folder.@$profile->idn.".jpg") && !file_exists($folder.@$profile->idn.".jpeg") && !file_exists($folder.@$profile->idn.".png")
-                   && !file_exists($folder.@$profile->idn." .png") && !file_exists($folder.@$profile->idn." .jpg" ) && !file_exists($folder.@$profile->idn.".PNG") && !file_exists($folder.@$profile->idn.".JPG"))): ?>
-    <div class="message">Upload Personal Picture</div>
+<div class="message">Change Password</div>
+<form action="<?=base_url()?>employee/change_password/<?=@$ID?>" method="post">
+    <input type="hidden" name="token" value="<?=$this->core->token(TRUE)?>" />
+    <table class="tbl">
+        <thead>
+            <tr>
+                <td colspan="2">Change password for <?=@$profile->en_name?></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Old Password</td>
+                <td><input type="password" name="oldpass" placeholder="old password" /></td>
+            </tr>
+            <tr>
+                <td>New Password</td>
+                <td><input type="password" name="newpass" placeholder="new password" /></td>
+            </tr>
+            <tr>
+                <td>Retype new Password</td>
+                <td><input type="password" name="renewpass" placeholder="retype new password" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Change" /></td>
+            </tr>
+
+        </tbody>
+    </table>
+</form>
+
+<?php $folder = 'store/personal_img/'; if(@$ADMIN):?>
+    <div class="message">
+    <?php if((file_exists($folder.@$profile->idn.".jpg") || file_exists($folder.@$profile->idn.".jpeg") || file_exists($folder.@$profile->idn.".png")
+                   || file_exists($folder.@$profile->idn." .png") || file_exists($folder.@$profile->idn." .jpg" ) || file_exists($folder.@$profile->idn.".PNG") || file_exists($folder.@$profile->idn.".JPG"))): ?>
+        <img id="personal_img" src="<?=base_url()?>files/personal_img/<?=@$profile->idn?>" /><br />
+    <?php endif; ?>    
+    Upload Personal Picture</div>
     <form action="<?=base_url()?>employee/uploadPicture/<?=@$profile->idn?>" method="post" enctype="multipart/form-data">
         <table class="tbl" style="width:85%">
             <thead>
