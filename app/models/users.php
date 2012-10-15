@@ -142,6 +142,7 @@ class Users extends CI_Model {
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","R");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['employee'].".grade as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
         return ($query->num_rows() > 0) ? $query->result() : false;
@@ -152,13 +153,14 @@ class Users extends CI_Model {
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","P");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
+        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['employee'].".grade as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     
     function getUsers($limit = NULL,$start = NULL){
-        if ($limit && $start) $this->db->limit($limit, $start);
+        if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         $query = $this->db->get($this->_tables['users']);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
