@@ -39,7 +39,7 @@
         <?php if($users):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
-                    <td><?=@$row->id?></td>
+                    <td><?=@$row->contract_id?></td>
                     <td><?=@$row->idn?></td>
                     <td><?=@$row->en_name?></td>
                     <td><?=@$row->grade?></td>
