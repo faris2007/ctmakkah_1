@@ -1,5 +1,7 @@
 <?php if(@$STEP == "list") : ?>
 <div class="message" id="candidate" style="display:none"></div>
+<div class="message">If you want Search on user who don't have personal picture <a href="<?=base_url()?>employee/users/no_pic">Click Here</a></div>
+<div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
 <form method="post">
     <table class="tbl" style="width:80%">
         <thead>

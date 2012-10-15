@@ -44,7 +44,7 @@ class Users extends CI_Model {
 
 
     function getCandidate($limit = NULL,$start = NULL){
-        if ($limit && $start) $this->db->limit($limit, $start);
+         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","C");
@@ -55,7 +55,7 @@ class Users extends CI_Model {
     }
     
     function getAccpetedUsers($limit = NULL,$start = NULL){
-        if ($limit && $start) $this->db->limit($limit, $start);
+         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","A");
@@ -88,10 +88,42 @@ class Users extends CI_Model {
         return $query->num_rows() ;
     }
     
+    function getAllUserByPictures($type = "no"){
+        if(empty($type))
+            return false;
+        
+        $folder = 'store/personal_img/';
+        $query = $this->getAllInfoUser();
+        $data = array();
+        $count = 0;
+        if($type == "no"){
+            foreach ($query as $row){
+                if(!file_exists($folder.$row->idn.".jpg") && !file_exists($folder.$row->idn.".jpeg") && !file_exists($folder.$row->idn.".png")
+                   && !file_exists($folder.$row->idn." .png") && !file_exists($folder.$row->idn." .jpg" ) && !file_exists($folder.$row->idn.".PNG") && !file_exists($folder.$row->idn.".JPG"))
+                {
+                    $data[$count] = $row;
+                    $count++;
+                }
+            }
+        }elseif($type == "yes"){
+            
+                    foreach ($query as $row){
+                if(file_exists($folder.$row->idn.".jpg") || file_exists($folder.$row->idn.".jpeg") || file_exists($folder.$row->idn.".png")
+                   || file_exists($folder.$row->idn." .png")  || file_exists($folder.$row->idn." .jpg" ) || file_exists($folder.$row->idn.".PNG") || file_exists($folder.$row->idn.".JPG"))
+                {
+                    $data[$count] = $row;
+                    $count++;
+                }
+            }
+        }
+        return $data;
+    }
+
+
     function getAllInfoUser($limit = NULL,$start = NULL){
         
         //$this->db->where($this->_tables['users'].".id",$userid);
-        if ($limit && $start) $this->db->limit($limit, $start);
+        if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","A");
@@ -99,12 +131,13 @@ class Users extends CI_Model {
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['employee'].".grade as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
+        $this->db->order_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     
     function getRejectedUsers($limit = NULL,$start = NULL){
-        if ($limit && $start) $this->db->limit($limit, $start);
+         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","R");
@@ -114,7 +147,7 @@ class Users extends CI_Model {
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     function getPrecautionUsers($limit = NULL,$start = NULL){
-        if ($limit && $start) $this->db->limit($limit, $start);
+         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","P");

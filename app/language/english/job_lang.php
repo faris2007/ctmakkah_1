@@ -7,7 +7,7 @@
 
 $lang['job_add'] = "add a new job";
 $lang['job_name'] = "job name ";
-$lang['job_date'] = "Deadline for this job";
+$lang['job_date'] = "bounce";
 $lang['job_mony'] = "Salary for this job";
 $lang['job_button_add'] = "Add";
 $lang['job_edit'] = "editing a job";
@@ -15,7 +15,7 @@ $lang['job_button_edit'] = "Edit";
 $lang['job_view'] = "List of jobs";
 $lang['job_view_name'] = "Name";
 $lang['job_view_type'] = "Type";
-$lang['job_view_date'] = "Deadline";
+$lang['job_view_date'] = "Bounce";
 $lang['job_view_control'] = "Control";
 $lang['job_add'] = "Add jobs page";
 $lang['job_add_error'] = "There is problem in data entry";

@@ -472,6 +472,7 @@ class Employee extends CI_Controller{
                         $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
                     }
                 }
+                $error = $this->core->retypeContractNumber();
                 $data['query'] = $msg;
                 $data['STEP'] = "accept";
                 $data['CONTENT'] = 'employee/accepted';
@@ -498,6 +499,8 @@ class Employee extends CI_Controller{
                     echo "Accepted successfully";
                 else
                     echo "Accepted wrong";
+                $error = $this->core->retypeContractNumber();
+                print_r($error);
             }else
                 echo "there is problem";
         }elseif($type == "reject"){
@@ -555,6 +558,8 @@ class Employee extends CI_Controller{
                     echo "Accepted successfully";
                 else
                     echo "Accepted wrong";
+                $error = $this->core->retypeContractNumber();
+                print_r($error);
             }else
                 echo "there is problem";
         }elseif($type == "reject"){
@@ -673,21 +678,27 @@ class Employee extends CI_Controller{
             }else
                 echo "There is problem";
         }else if($start == "no_pic"){
-           $query = $this->users->getAllInfoUser(100,$type);
+           $type = ($type == NULL)? 0 : $type;
+           $query = $this->users->getAllUserByPictures("no");
+           if($type == 0)
+               $this->core->createCSV($query);
            $per_url = 'employee/users/no_pic';
-           $total_results = $this->users->get_total_info_users();
+           $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
            $data['users'] = $query;
+           $data['START'] = $type;
            $data['STEP'] = "list_no";
            $data['CONTENT'] = 'employee/users';
            $data['TITLE'] = "List Of Candidates";
            $this->core->load_template($data);
         }else if($start == "pic"){
-           $query = $this->users->getAllInfoUser(100,$type);
+           $type = ($type == NULL)? 0 : $type;
+           $query = $this->users->getAllUserByPictures("yes");
            $per_url = 'employee/users/no_pic';
-           $total_results = $this->users->get_total_info_users();
+           $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
            $data['users'] = $query;
+           $data['START'] = $type;
            $data['STEP'] = "list";
            $data['CONTENT'] = 'employee/users';
            $data['TITLE'] = "List Of Candidates";

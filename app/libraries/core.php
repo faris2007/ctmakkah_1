@@ -120,7 +120,7 @@ class Core {
     }
     
     public function getServicesName(){
-        $data = array("testament","employee","job","group","post","attendance");
+        $data = array("testament","employee","job","group","post","attendance","notification");
         return $data;
     }
     
@@ -132,6 +132,7 @@ class Core {
             "group"         => array("all","view","show","add","edit","delete"),
             "post"          => array("all","view","show","add","edit","delete"),
             "attendance"    => array("all","view","show","add","edit","delete"),
+            "notification"    => array("all","view","show","add","edit","delete")
             );
         return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }
@@ -181,6 +182,63 @@ class Core {
         
         return $result;
     }
+    
+    public function getInfoNotification($type,$to){
+        if(empty($type) || empty($to))
+            return false;
+        
+        //$this->CI->load->model("notifications");
+        if($type == "group"){
+            $this->CI->load->model("groups");
+            $data = $this->CI->groups->getGroups($to);
+            return (!is_bool($data))? $data[0]->name : false;
+        }elseif ($type == "users") {
+            $data = $this->CI->users->get_info_user("all",$to);
+            return (!is_bool($data['profile']))? $data['profile']->en_name : false;
+        }else
+            return false;
+        
+    }
+    
+    public function retypeContractNumber(){
+        $this->CI->load->model("employees");
+        $error = array();
+        $query = $this->CI->users->getAllInfoUser();
+        if(!is_bool($query)){
+            foreach ($query as $key =>$row){
+                if(($key+1) < 10)
+                    $data['contract_id'] = "000".($key+1);
+                elseif(($key+1) >= 10 && ($key+1)<100)
+                    $data['contract_id'] = "00".($key+1);
+                elseif (($key+1) >= 100 && ($key+1)<1000)
+                    $data['contract_id'] = "0".($key+1);
+                elseif (($key+1) >= 1000)
+                    $data['contract_id'] = ($key+1);
+                
+                if(!$this->CI->employees->updateEmployee($row->ide,$data))
+                    $error[$key] = "Can't update the user number (".$row->id.")";
+            }
+        }
+        
+        return $error;
+    }
+    
+    public function createCSV($data)
+    {
+        $string = "NO#;National ID;Name;Position;Mobile\n";
+        foreach ($data as $key => $value){
+            $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile."\n";
+        }
+        $path = "./uploads/no_pictures.csv";
+        if(file_exists($path)){
+            unlink($path);
+        }
+        if(write_file($path, $string))
+            return true;
+        else
+            return false;
+    }
+    
 }
 
 ?>

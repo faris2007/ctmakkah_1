@@ -130,6 +130,7 @@
             <td><?=$this->lang->line('testament_view_name')?></td>
             <td><?=$this->lang->line('testament_view_type')?></td>
             <td><?=$this->lang->line('testament_view_price')?></td>
+            <td>Size</td>
             <td>Number</td>
             <td>Remove</td>
         </tr>
@@ -139,6 +140,7 @@
                     <td><?=$rowR->name?></td>
                     <td><?=$rowR->type?></td>
                     <td><?=$rowR->mony?></td>
+                    <td><?=$rowR->size?></td>
                     <td><?=$rowR->number?></td>
                     <td><button onclick="deleteTestament('<?=base_url()?>testament/delete/<?=$rowR->id?>/users/<?=$ID?>','r_testments<?=$rowR->id?>')">Remove</button></td>
                 </tr>
