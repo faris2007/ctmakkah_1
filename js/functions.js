@@ -114,10 +114,22 @@ $(document).ready(function(){
         });
     }
     
+    function Search(URL,id){
+        
+        var value = $('#idn').val();
+        $('#'+id).load(URL+"/"+value);
+        $('#'+id).css( "display", "block" );  
+        
+        $('#'+id).fadeOut(10000, function(){
+            $(this).css("display","none");
+            $(this).html("");
+        });
+    }
+    
     function addTestament(URL,id){
         
-        var number = $('#number').val();
-        var size = $('#size').val();
+        var number = $('#'+id+'_number').val();
+        var size = $('#'+id+'_size').val();
         $('#add').load(URL+"/"+number+"/"+size);
         $('#add').css( "display", "block" );
         var rowCount = $('#listA >tbody >tr').length;

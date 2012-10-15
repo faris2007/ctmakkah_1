@@ -15,11 +15,12 @@
                 $("#clear").click(function() {
                         $("#jSignature").jSignature("clear");
                 });
-                $("#jSignature").jSignature("setData", "data:<?=$SIGNATURE?>") 
+                /*$("#jSignature").jSignature("setData", "data:<?=$SIGNATURE?>"); */ 
                 $('#save').click(function() {
                         $('#signature').val($('#jSignature').jSignature('getData', 'base30'));
                         $('#form_signature').submit();
                 });
+                $("#jSignature").jSignature("setData", "data:<?=$SIGNATURE?>");
         });
     </script>
     <style>

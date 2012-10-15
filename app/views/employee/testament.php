@@ -92,7 +92,7 @@
                     <td><?=$row->type?></td>
                     <td><?=$row->mony?></td>
                     <td>
-                        <select name="size" id="size">
+                        <select name="size" id="a_testments<?=$row->id?>_size">
                             <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
@@ -102,7 +102,7 @@
                         </select>
                     </td>
                     <td>
-                        <select name="number" id="number">
+                        <select name="number" id="a_testments<?=$row->id?>_number">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

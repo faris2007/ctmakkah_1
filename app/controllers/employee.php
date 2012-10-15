@@ -529,6 +529,20 @@ class Employee extends CI_Controller{
                     echo "Precaution wrong";
             }else
                 echo "there is problem";
+        }else if($type == "search"){
+            if($userID != 0){
+                $info = $this->users->get_info_user("all",$userID);
+                $userInfo = $this->employees->getEmployee($info['profile']->id);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                else{
+                    if($userInfo->isAccept == "A"){
+                        echo "he is accepted if you wnat go to profile <a href=\"".base_url()."employee/profile/".$userInfo->users_id."\">Click here</a>";
+                    }else
+                        echo "he is not accepted";
+                }
+            }else
+                echo "there is problem";
         }
     }
     
@@ -694,6 +708,8 @@ class Employee extends CI_Controller{
         }else if($start == "pic"){
            $type = ($type == NULL)? 0 : $type;
            $query = $this->users->getAllUserByPictures("yes");
+           if($type == 0)
+               $this->core->createCSV($query,"pictures.csv");
            $per_url = 'employee/users/no_pic';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
@@ -711,8 +727,9 @@ class Employee extends CI_Controller{
     {
         if(!(@$this->users->isLogin() && !@$this->users->checkIfUser()))
             redirect ("");
-        $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
         
+        $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
+        print_r($_POST);
         if ($this->input->post('signature',TRUE))
         {
             $this->employees->signature($this->input->post('employee_id',TRUE),$this->input->post('signature',TRUE));

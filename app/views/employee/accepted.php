@@ -2,6 +2,23 @@
 <div class="message" id="candidate" style="display:none"></div>
 <div class="message">If you want Search on user who don't have personal picture <a href="<?=base_url()?>employee/users/no_pic">Click Here</a></div>
 <div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
+<table class="tbl"  style="width:80%">
+    <thead>
+        <tr>
+            <td colspan="2">Search on users if is accepted</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>National ID :</td>
+            <td><input type="text" id="idn" name="idn" placeholder="ID .." /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="Search('<?=base_url()?>employee/accepted/0/search','candidate');">Search</button></td>
+        </tr>
+    </tbody>
+</table>
+<br />
 <form method="post">
     <table class="tbl" style="width:80%">
         <thead>

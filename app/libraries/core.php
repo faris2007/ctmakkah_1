@@ -223,13 +223,13 @@ class Core {
         return $error;
     }
     
-    public function createCSV($data)
+    public function createCSV($data,$fileName ="no_pictures.csv" )
     {
         $string = "NO#;National ID;Name;Position;Mobile\n";
         foreach ($data as $key => $value){
             $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile."\n";
         }
-        $path = "./uploads/no_pictures.csv";
+        $path = "./uploads/".$fileName;
         if(file_exists($path)){
             unlink($path);
         }
