@@ -239,6 +239,17 @@ class Core {
             return false;
     }
     
+    public function getNameOfContract($ext)
+    {
+        if(empty($ext))
+            return "No";
+        $data = array(
+            'N' => "No",
+            'R' => "Resignation",
+            'Y' => "Yes"
+        );
+        return (isset($data[$ext]))? $data[$ext] : $data['N'] ;
+    }
 }
 
 ?>

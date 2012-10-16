@@ -33,8 +33,9 @@
             <ul>
                 <li><a href="<?=base_url()?>employee/candidate">Candidate</a></li>
                 <li><a href="<?=base_url()?>employee/accepted">Accepted</a></li>
-                <li><a href="<?=base_url()?>employee/rejected">Rejected</a></li>
-                <li><a href="<?=base_url()?>employee/precaution">Precaution</a></li>
+                <!--<li><a href="<?=base_url()?>employee/rejected">Rejected</a></li>
+                <li><a href="<?=base_url()?>employee/precaution">Precaution</a></li>-->
+                <li><a href="<?=base_url()?>employee/contract">Contract</a></li>
                 <li><a href="<?=base_url()?>employee/users">Users</a></li>
                 <li><a href="<?=base_url()?>employee/uploadusers">Upload Users</a></li>
                 <li><a href="<?=base_url()?>employee/uploadpictures">Upload Pictures</a></li>

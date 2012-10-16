@@ -54,6 +54,9 @@
     <div class="message"><?=$pagination?></div>
 <?php elseif ($STEP == "list"): ?>
 <div class="message" id="delete" style="display:none"></div>
+<?php if($users):?>
+    <div class="message"><a href="<?=base_url()?>uploads/pictures.csv">Download AS CSV</a></div>
+<?php endif; ?>
 <table class="tbl" style="width:80%">
     <thead>
         <tr>
@@ -93,7 +96,9 @@
     <?php endif; ?>
 <?php elseif ($STEP == "list_no"): ?>
 <div class="message" id="delete" style="display:none"></div>
-<div class="message"><a href="<?=base_url()?>uploads/no_pictures.csv">Download AS CSV</a></div>
+<?php if($users):?>
+    <div class="message"><a href="<?=base_url()?>uploads/no_pictures.csv">Download AS CSV</a></div>
+<?php endif; ?>
 <table class="tbl" style="width:80%">
     <thead>
         <tr>

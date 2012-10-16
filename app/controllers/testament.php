@@ -109,6 +109,8 @@ class testament extends CI_Controller {
         $segments = $this->uri->segment_array();
         $usersID = (isset($segments[3]))? $segments[3] : 0;
         if($usersID == 0){
+            $this->core->createCSV($this->testaments->getUsersHasNotTestaments(),"users_has_not_testament.csv");
+            $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_testament.csv");
             $data['STEP'] = "show";
         }else{
             $data['STEP'] = "adduser";

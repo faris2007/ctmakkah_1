@@ -2,7 +2,7 @@
 <div class="message" id="candidate" style="display:none"></div>
 <div class="message">If you want Search on user who don't have personal picture <a href="<?=base_url()?>employee/users/no_pic">Click Here</a></div>
 <div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
-<table class="tbl"  style="width:80%">
+<table class="tbl"  style="width:95%">
     <thead>
         <tr>
             <td colspan="2">Search on users if is accepted</td>
@@ -20,7 +20,7 @@
 </table>
 <br />
 <form method="post">
-    <table class="tbl" style="width:80%">
+    <table class="tbl" style="width:95%">
         <thead>
             <tr>
                 <td colspan="2">Accept Employees</td>
@@ -32,13 +32,26 @@
                 <td><textarea name="IDNS" style="width:80%"></textarea></td>
             </tr>
             <tr>
+                <td>Change Jobs</td>
+                <td>
+                    <select name="jobs">
+                        <option selected="selected" value="0">None</option>
+                        <?php if(@$jobs): ?>
+                            <?php foreach(@$jobs as $row): ?>
+                            <option value="<?=$row->id?>"><?=$row->name?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2"><input type="submit"  value="Add" /></td>
             </tr>
         </tbody>
     </table>
 </form>
 
-<table class="tbl" style="width:80%">
+<table class="tbl" style="width:95%">
     <thead>
         <tr>
             <td colspan="4">list of Accepted Employee</td>
@@ -79,7 +92,7 @@
     <div class="message"><?=$pagination?></div>
 <?php endif; ?>
 <?php elseif(@$STEP == "accept") : ?>
-<div class="message"><a href="<?=base_url()?>employee/accepted">Back To Group</a></div>
+<div class="message"><a href="<?=base_url()?>employee/accepted">Back To Accepted list</a></div>
 <table class="tbl">
     <thead>
         <tr>

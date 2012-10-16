@@ -303,6 +303,76 @@ class Employee extends CI_Controller{
         $this->core->load_template($data);
     }
 
+    
+    function contract()
+    {
+        if(!@$this->core->checkPermissions("employee","edit","all","all"))
+            show_404 ();
+        $segments = $this->uri->segment_array();
+        $start = (isset($segments[3]))? $segments[3] : 0;
+        $type = (isset($segments[4]))? $segments[4] : NULL;
+        $userID = (isset($segments[5]))? $segments[5] : 0;
+        
+        if($type == NULL){
+            if($_POST){
+                $idns = explode("\n", $this->input->post("IDNS",true));
+                $msg = array();
+                $store['isContract'] = "Y";
+                foreach ($idns as $key => $value){
+                    if(is_numeric($value) && strlen($value) == 10)
+                    {
+                        $userinfo = $this->users->get_info_user("all",$value);
+                        $emp = $this->employees->getEmployees($userinfo['profile']->id);
+                        $msg[$key]['idn'] = $value;
+                        $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                    }
+                }
+                $data['query'] = $msg;
+                $data['STEP'] = "contract";
+            }else{
+            
+                $data['STEP'] = "list";
+                $per_url = 'employee/contract/';
+                $total_results = $this->users->get_total_info_users();
+                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+                $data['users'] = $this->users->getAllInfoUser(30,$start);
+            }
+            $data['CONTENT'] = 'employee/contract';
+            $data['TITLE'] = "Profile";
+            $this->core->load_template($data);
+        }else if($type == "search"){
+            if($userID != 0){
+                $info = $this->users->get_info_user("all",$userID);
+                $userInfo = $this->employees->getEmployees($info['profile']->id);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                else{
+                    if($userInfo[0]->isContract == "Y"){
+                        echo "he is Contract if you wnat go to profile <a href=\"".base_url()."employee/profile/".$userInfo[0]->users_id."\">Click here</a>";
+                    }else
+                        echo "he is not Contract <button onclick=\"Search('".base_url()."employee/contract/0/Contract/".$userID."','contract');\">Contract</button>";
+                }
+            }else
+                echo "there is problem";
+        }else if($type == "Contract"){
+            if($userID != 0){
+                $info = $this->users->get_info_user("all",$userID);
+                $userInfo = $this->employees->getEmployees($info['profile']->id);
+                if(is_bool($userInfo))
+                    die("There is problem");
+                else{
+                    $store['isContract'] = "Y";
+                    if($this->employees->updateEmployee($userInfo[0]->id,$store)){
+                        echo "contract successfully";
+                    }else
+                        echo "contract wrong";
+                }
+            }else
+                echo "there is problem";
+        }
+        
+    }
+
 
     function profile()
     {
@@ -462,6 +532,8 @@ class Employee extends CI_Controller{
            if($_POST){
                 $idns = explode("\n", $this->input->post("IDNS",true));
                 $msg = array();
+                if($this->input->post("jobs",true) != 0)
+                        $store['jobs_id'] = $this->input->post("jobs",true);
                 $store['isAccept'] = "A";
                 foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
@@ -484,6 +556,7 @@ class Employee extends CI_Controller{
                 $total_results = $this->users->get_total_info_users();
                 $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
                 $data['users'] = $this->users->getAllInfoUser(30,$start);
+                $data['jobs'] = $this->jobs->getJobs("all");
                 $data['CONTENT'] = 'employee/accepted';
                 $data['TITLE'] = "List Of Accepted";
                 $data['STEP'] = "list";
@@ -532,12 +605,12 @@ class Employee extends CI_Controller{
         }else if($type == "search"){
             if($userID != 0){
                 $info = $this->users->get_info_user("all",$userID);
-                $userInfo = $this->employees->getEmployee($info['profile']->id);
+                $userInfo = $this->employees->getEmployees($info['profile']->id);
                 if(is_bool($userInfo))
                     die("There is problem");
                 else{
-                    if($userInfo->isAccept == "A"){
-                        echo "he is accepted if you wnat go to profile <a href=\"".base_url()."employee/profile/".$userInfo->users_id."\">Click here</a>";
+                    if($userInfo[0]->isAccept == "A"){
+                        echo "he is accepted if you wnat go to profile <a href=\"".base_url()."employee/profile/".$userInfo[0]->users_id."\">Click here</a>";
                     }else
                         echo "he is not accepted";
                 }
@@ -729,7 +802,6 @@ class Employee extends CI_Controller{
             redirect ("");
         
         $EmployeeId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
-        print_r($_POST);
         if ($this->input->post('signature',TRUE))
         {
             $this->employees->signature($this->input->post('employee_id',TRUE),$this->input->post('signature',TRUE));

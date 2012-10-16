@@ -185,6 +185,8 @@
         </table>
     </form>
 <?php elseif($STEP == "show"): ?>
+    <div class="message"><a href="<?=base_url()?>uploads/users_has_not_testament.csv">Download users has not Testament as CSV</a></div>
+    <div class="message"><a href="<?=base_url()?>uploads/users_has_testament.csv">Download users has Testament as CSV</a></div>
     <table class="tbl">
     <thead>
         <tr>

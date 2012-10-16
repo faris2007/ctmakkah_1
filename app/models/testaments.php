@@ -92,6 +92,43 @@ class testaments  extends CI_Model{
         return ($query->num_rows() > 0)?$query->result():false;
     }
     
+    function getUsersHasTestaments()
+    {
+      
+        $this->db->order_by('users.id',"DESC");
+        $this->db->group_by('users.id');
+        //$this->db->where($this->_tables['testament'].'.id = '.$this->_tables['link'].'.Testament_id');
+        $this->db->where('users.id = '.$this->_tables['link'].'.users_id');
+        $this->db->where('users.id = Employee.users_id');
+        $this->db->select("users.idn as idn,users.en_name as en_name,Employee.grade as grade, users.mobile as mobile");
+        $query = $this->db->get($this->_tables['link'].",users,Employee");//$this->_tables['testament'].",".
+   
+        return ($query->num_rows() > 0)?$query->result():false;
+    }
+    
+    
+    function getUsersHasNotTestaments()
+    {
+      
+        $this->db->order_by('users.id',"DESC");
+        $this->db->group_by('users.id');
+        $this->db->where('users.id = '.$this->_tables['link'].'.users_id');
+        $this->db->where('users.id = Employee.users_id');
+        $this->db->where('Employee.isAccept',"A");
+        $this->db->where("Employee.year","2012");
+        $this->db->select($this->_tables['link'].'.users_id');
+        $query1 = $this->db->get($this->_tables['link'].",users,Employee");
+        $where = "users.id NOT IN (".$this->db->last_query().")";
+        $this->db->where($where);
+        $this->db->where('users.id = Employee.users_id');
+        $this->db->where('Employee.isAccept',"A");
+        $this->db->where("Employee.year","2012");
+        $this->db->group_by("users.id");
+        $this->db->select("users.idn as idn,users.en_name as en_name,Employee.grade as grade, users.mobile as mobile");
+        $query = $this->db->get("users,Employee");
+        return ($query->num_rows() > 0)?$query->result():false;
+    }
+    
     function deleteTestament($id)
     {
         if(empty($id)) return false;
