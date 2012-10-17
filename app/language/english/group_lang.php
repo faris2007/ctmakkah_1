@@ -31,5 +31,23 @@ $lang['group_add_users_to_group'] = "add a user to any Group";
 $lang['group_added'] = "You have a problem in a parameter ";
 $lang['group_added_success'] = "Additive process was successful";
 $lang['group_added_error'] = " There is a problem , check again";
+//From view diructly
+$lang['group_view_message'] = "permissions for this Group if you want add new permission";
+$lang['group_view_add_permission'] = "Add a new permission for this Group";
+$lang['group_view_service_name'] = "Services Name";
+$lang['group_view_permission'] = "Permission";
+$lang['group_view_remove'] = "Remove";
+$lang['group_view_bottom_delete'] = "Delete";
+$lang['group_view_not_found'] = "Not Found";
+$lang['group_view_add_user'] = "Add a new User in This Group";
+$lang['group_view_id'] = "National ID";
+$lang['group_view_name'] = "Name";
+$lang['group_view_remove'] = "Remove";
+$lang['group_view_back_to_group'] = "Back to Group";
+$lang['group_view_another_way'] = "Another Way";
+$lang['group_view_id'] = "National ID";
+$lang['group_view_name'] = "Name";
+$lang['group_view_select'] = "Select";
+$lang['group_view_bottom_add'] = "Add";
 ?>
 
