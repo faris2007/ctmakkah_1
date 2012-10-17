@@ -246,6 +246,7 @@ class Core {
         $data = array(
             'N' => "No",
             'R' => "Resignation",
+            'T' => "Reject",
             'Y' => "Yes"
         );
         return (isset($data[$ext]))? $data[$ext] : $data['N'] ;

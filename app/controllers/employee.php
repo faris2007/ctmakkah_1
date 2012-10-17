@@ -282,9 +282,7 @@ class Employee extends CI_Controller{
                 @unlink($folder.$idn.".JPG");
             $config['upload_path'] = './store/personal_img/';
             $config['allowed_types'] = 'jpg|png';
-            $config['max_size'] = '2048';
-            $config['max_width'] = '1024';
-            $config['max_height'] = '768';
+            $config['max_size'] = '10240';
             $config['file_name'] = $idn;
             $config['overwrite'] = true;
             
@@ -416,13 +414,20 @@ class Employee extends CI_Controller{
                         'en_name'       => $this->input->post("enName",true),
                     );
                     if($this->users->updateUser($userID,$store)){
+                        $this->db->where("year",date("Y"));
                         $emps = $this->employees->getEmployees($userID);
-                        $this->employees->updateEmployee($emps[0]->id,array(
-                            "jobs_id"   => ($this->input->post("job",true)==0)? NULL : $this->input->post("job",true)
-                            ));
-                        $data['STEP'] = "success";
-                        $data['MSG'] = $this->lang->line('profile_edit_success');
-                        $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+                        if(!is_bool($emps)){
+                            $this->employees->updateEmployee($emps[0]->id,array(
+                                "jobs_id"   => ($this->input->post("job",true)==0)? NULL : $this->input->post("job",true)
+                                ));
+                            $data['STEP'] = "success";
+                            $data['MSG'] = $this->lang->line('profile_edit_success');
+                            $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+                        }else {
+                            $data['STEP'] = "success";
+                            $data['MSG'] = "This user isn't accepted this year";
+                            $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
+                        }
                     }else{
                         $data['STEP'] = "view";
                         $data['ERROR'] = true;
@@ -535,14 +540,40 @@ class Employee extends CI_Controller{
                 if($this->input->post("jobs",true) != 0)
                         $store['jobs_id'] = $this->input->post("jobs",true);
                 $store['isAccept'] = "A";
+                $store['year'] = date("Y");
+                if($_POST['add']){
                 foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
                     {
                         $userinfo = $this->users->get_info_user("all",$value);
-                        $emp = $this->employees->getEmployees($userinfo['profile']->id);
-                        $msg[$key]['idn'] = $value;
-                        $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                        if(!is_bool($userinfo['profile'])){
+                            $emp = $this->employees->getEmployees($userinfo['profile']->id);
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                        }else{
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = "this user isn't add before in database";
+                        }
                     }
+                }
+                
+                }elseif($_POST['check']){
+                    foreach ($idns as $key => $value){
+                    if(is_numeric($value) && strlen($value) == 10)
+                    {
+                        $info = $this->users->get_info_user("all",$userID);
+                        $this->db->where("year",date("Y"));
+                        $userInfo = $this->employees->getEmployees($info['profile']->id);
+                        if(!is_bool($userinfo)){
+                            $emp = $this->employees->getEmployees($userinfo['profile']->id);
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = "he is accept" ;
+                        }else{
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = "he isn't accept";
+                        }
+                    }
+                }
                 }
                 $error = $this->core->retypeContractNumber();
                 $data['query'] = $msg;
@@ -605,11 +636,12 @@ class Employee extends CI_Controller{
         }else if($type == "search"){
             if($userID != 0){
                 $info = $this->users->get_info_user("all",$userID);
+                $this->db->where("year",date("Y"));
                 $userInfo = $this->employees->getEmployees($info['profile']->id);
                 if(is_bool($userInfo))
                     die("There is problem");
                 else{
-                    if($userInfo[0]->isAccept == "A"){
+                    if($userInfo[0]->isAccept == "A" ){
                         echo "he is accepted if you wnat go to profile <a href=\"".base_url()."employee/profile/".$userInfo[0]->users_id."\">Click here</a>";
                     }else
                         echo "he is not accepted";

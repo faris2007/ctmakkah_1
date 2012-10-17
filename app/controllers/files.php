@@ -24,7 +24,7 @@ class Files extends CI_Controller{
         $folder_id = $this->uri->segment(2, NULL);
         $file_id = $this->uri->segment(3, NULL);
         $full_path = 'store/' . $folder_id . '/' . $file_id ;
-        $ext = array('.jpg','.JPG','.png','PNG','jpeg','JPEG');
+        $ext = array('.jpg','.JPG','.png','PNG','jpeg','JPEG','gif','GIF','bmp','BMP');
         $folders = array('card','personal_img');
         
         if (in_array($folder_id,$folders))

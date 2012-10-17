@@ -45,7 +45,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit"  value="Add" /></td>
+                <td colspan="2"><input type="submit" name="add"  value="Add" />&nbsp;<input type="submit" name="check"  value="Check" /></td>
             </tr>
         </tbody>
     </table>

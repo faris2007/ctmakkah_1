@@ -171,8 +171,10 @@ class group extends CI_Controller {
         $data['services'] = $this->users->getAllPermissions($groupId);
         $this->db->where("group_id",$groupId);
         $data['users'] = $this->users->getUsers(30,$start);
-        $per_url = 'group/adduserstogroup/' . $groupId . '/';
-        $total_results = count($data['users']);
+        $this->db->where("group_id",$groupId);
+        $query = $this->users->getUsers();
+        $per_url = 'group/show/' . $groupId . '/';
+        $total_results = count($query);
         $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
         $data['TITLE'] = "add users to Group";
         $data['CONTENT'] = 'employee/group';
