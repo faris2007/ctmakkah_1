@@ -26,4 +26,26 @@ $lang['testament_view_nothing'] = "Do not have any testament yet";
 $lang['testament_add_to_user'] = "Delivery Testament for users";
 $lang['testament_added_success'] = "Done";
 $lang['testament_added_error'] = "Sorry There is a Problem";
+// From  view dir
+
+
+$lang['testament_view_data'] = "Data Of User";
+$lang['testament_view_id'] = "National ID";
+$lang['testament_view_name'] = "Name";
+$lang['testament_view_signature'] = "Signature";
+$lang['testament_view_add_testament'] = "add Testament to";
+$lang['testament_view_size_s'] = "S";
+$lang['testament_view_size_m'] = "M";
+$lang['testament_view_size_L'] = "L";
+$lang['testament_view_size_xl'] = "XL";
+$lang['testament_view_size_xxl'] = "XXL";
+$lang['testament_view_size_xxxl'] = "XXXL";
+$lang['testament_view_number_1'] = "1";
+$lang['testament_view_number_2'] = "2";
+$lang['testament_view_number_3'] = "3";
+$lang['testament_view_bottom_add'] = "ADD";
+$lang['testament_view_remove_testament'] = "Remove Testament to";
+$lang['testament_view_bottom_remove'] = "Remove";
+$lang['testament_view_delivery'] = " Delivery of Testament for user";
+$lang['testament_view_bottom_search'] = "Search";
 ?>

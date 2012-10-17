@@ -23,4 +23,7 @@ $lang['post_delete_success'] = "The item has been deleted";
 $lang['post_delete_error'] = "There is a problem in the process of deletion";
 $lang['post_view_nothing'] = "Do not have any post yet";
 
+// From view dir
+$lang['post_view_replays'] = "Replays";
+
 ?>
