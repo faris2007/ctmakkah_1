@@ -15,6 +15,7 @@ class Employee extends CI_Controller{
         $this->load->model("groups");
         $this->load->model("jobs");
         $this->load->model("employees");
+        $this->load->model("testaments");
     }
     
     function index()
@@ -75,7 +76,7 @@ class Employee extends CI_Controller{
                     if(is_bool($user['profile'])){
                         $data = array(
                             'idn'           => isset($col[$i][$headFile['id']]) ? $col[$i][$headFile['id']] : NULL,
-                            'password'      => sha1($col[$i][$headFile['id']]),
+                            'password'      => $col[$i][$headFile['id']],
                             'en_name'       => isset($col[$i][$headFile['name']]) ? $col[$i][$headFile['name']] : NULL,
                             'mobile'        => isset($col[$i][$headFile['mobile']]) ? $col[$i][$headFile['mobile']] : NULL,
                             'is_old'        => $_POST['is_old']
@@ -386,7 +387,7 @@ class Employee extends CI_Controller{
         $prev = (isset($segments[4]))? $segments[4] : NULL;
         
         $query1 = $this->users->get_info_user("all",$user_id);
-        $userID = $query1['profile']->id;
+        $userID = ($query1['profile']->id)? $query1['profile']->id :NULL;
         if(is_bool($query1['profile']))
         {    
             if(is_null($prev))
@@ -541,7 +542,7 @@ class Employee extends CI_Controller{
                         $store['jobs_id'] = $this->input->post("jobs",true);
                 $store['isAccept'] = "A";
                 $store['year'] = date("Y");
-                if($_POST['add']){
+                if(@$_POST['add']){
                 foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
                     {
@@ -561,16 +562,25 @@ class Employee extends CI_Controller{
                     foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
                     {
-                        $info = $this->users->get_info_user("all",$userID);
-                        $this->db->where("year",date("Y"));
-                        $userInfo = $this->employees->getEmployees($info['profile']->id);
-                        if(!is_bool($userinfo)){
-                            $emp = $this->employees->getEmployees($userinfo['profile']->id);
-                            $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = "he is accept" ;
+                        $info = $this->users->get_info_user("all",$value);
+                        if(!is_bool($info['profile'])){
+                            $this->db->where("year",date("Y"));
+                            $userInfo = $this->employees->getEmployees($info['profile']->id);
+                            if(!is_bool($userInfo)){
+                                if($userInfo[0]->isAccept == "A"){
+                                    $msg[$key]['idn'] = $value;
+                                    $msg[$key]['message'] = "he is accept" ;
+                                }else{
+                                    $msg[$key]['idn'] = $value;
+                                    $msg[$key]['message'] = "he isn't accept";    
+                                }
+                            }else{
+                                $msg[$key]['idn'] = $value;
+                                $msg[$key]['message'] = "he isn't accept this year";
+                            }
                         }else{
                             $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = "he isn't accept";
+                            $msg[$key]['message'] = "he isn't exist in database";
                         }
                     }
                 }
@@ -858,18 +868,29 @@ class Employee extends CI_Controller{
            $emp_data = $this->users->get_card_data($employee_id);
            if ($emp_data)
            {
-               $data['idn'] = $emp_data->idn;
-               $name = explode(" ", $emp_data->en_name);
-               $emp_name = (count($name) > 2)? $name[0].' '.$name[count($name)-1]:$emp_data->en_name;
-               $data['name'] = $emp_name;
-               $data['job'] = $this->jobs->job_name($emp_data->jobs_id);
-			   die($this->load->view('employee/card',$data,TRUE));
+               $this->db->where("id","12");
+               $checkTestament = $this->testaments->getTestaments($emp_data->users_id);
+               if(is_bool($checkTestament)){
+                    $data['idn'] = $emp_data->idn;
+                    $name = explode(" ", $emp_data->en_name);
+                    $emp_name = (count($name) > 2)? $name[0].' '.$name[count($name)-1]:$emp_data->en_name;
+                    $data['name'] = $emp_name;
+                    $data['job'] = $emp_data->name;
+                    die($this->load->view('employee/card',$data,TRUE));
+               }else{
+                   $data['MSG'] = 'print card before for this user';
+                   $data['TYPE'] = 'main';
+               }
            }else{
                $data['MSG'] = 'ID Error';
                $data['TYPE'] = 'main';
            }
         }
-		$data['CONTENT'] = 'employee/card';
+		$this->db->where("Testament_id","12");
+                $this->core->createCSV($this->testaments->getUsersHasNotTestaments(),"users_has_not_card.csv");
+                $this->db->where("Testament_id","12");
+                $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_card.csv");
+                $data['CONTENT'] = 'employee/card';
 		$this->core->load_template($data);
 		
     }

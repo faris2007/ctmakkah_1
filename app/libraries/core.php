@@ -226,8 +226,10 @@ class Core {
     public function createCSV($data,$fileName ="no_pictures.csv" )
     {
         $string = "NO#;National ID;Name;Position;Mobile\n";
-        foreach ($data as $key => $value){
-            $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile."\n";
+        if($data){
+            foreach ($data as $key => $value){
+                $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile."\n";
+            }
         }
         $path = "./uploads/".$fileName;
         if(file_exists($path)){
@@ -250,6 +252,33 @@ class Core {
             'Y' => "Yes"
         );
         return (isset($data[$ext]))? $data[$ext] : $data['N'] ;
+    }
+    
+    public function getNotification(){
+        $this->CI->load->model("notifications");
+        if($this->CI->users->isLogin()){
+            $userInfo = $this->CI->users->get_info_user("all");
+            $dataNotification = "";
+            $first = true;
+            $groupNotification = $this->CI->notifications->getNotifications("group",$userInfo->group_id);
+            $personalNotification = $this->CI->notifications->getNotifications("users",$userInfo->idn);
+            if(!is_bool($personalNotification)){
+                foreach ($personalNotification as $value){
+                    $dataNotification .= ($first)? $value->message : " || ".$value->message;
+                    $first = false;
+                }
+            }
+
+            if(!is_bool($groupNotification)){
+                foreach ($groupNotification as $value){
+                    $dataNotification .= ($first)? $value->message : " || ".$value->message;
+                    $first = false;
+                }
+            }
+
+            return $dataNotification;
+        }else
+            return "";
     }
 }
 

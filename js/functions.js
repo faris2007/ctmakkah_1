@@ -19,6 +19,15 @@ $(document).ready(function(){
     
 });
 
+    function notificationType(url,id){
+        var newurl = "";
+        if(id == 0)
+            newurl = url+"notification/getTo/"+$("#type").val();
+        else
+            newurl = url+"notification/getTo/"+$("#type").val()+"/"+id;
+        
+        $("#dataTo").load(newurl);
+    }
     function deleted(URL,id, texti){
         if(texti == "")
             texti = "Not Found";

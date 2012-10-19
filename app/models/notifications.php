@@ -50,7 +50,24 @@ class notifications extends CI_Model {
         if(empty($id) || empty($type)) return false;
        
         $this->db->where('to_type',$type);
-        $this->db->where('to',$id);
+        if($type == "group")
+            $this->db->where('to',$id);
+        else
+            $this->db->like('to', $id); 
+        $this->db->order_by("id"); 
+        $query = $this->db->get($this->_table);
+        return ($query->num_rows() > 0)? $query->result() : false;
+    }
+    
+    /**
+     *
+     * @param string $type
+     * @param int $id
+     * @return boolean 
+     */
+    function getAllNotifications()
+    {
+       
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_table);
         return ($query->num_rows() > 0)? $query->result() : false;

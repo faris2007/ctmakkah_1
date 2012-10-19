@@ -74,6 +74,8 @@
 <body>
     <?php if ($TYPE == 'main') : ?>
     <div style="color: #F00;text-align: center;"><?=(isset($MSG)) ? $MSG : '' ?></div>
+    <div class="message">Download users who was print a card as CSV <a href="<?=base_url()?>uploads/users_has_card.csv">Click Here</a></div>
+    <div class="message">Download users who was not print a card as CSV <a href="<?=base_url()?>uploads/users_has_not_card.csv">Click Here</a></div>
     <form method="post" target="_blank">
         <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
             <span>Employee ID : </span>
