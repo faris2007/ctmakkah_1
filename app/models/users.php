@@ -146,10 +146,11 @@ class Users extends CI_Model {
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","R");
+        $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
-        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].','.$this->_tables['jobs']);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     function getPrecautionUsers($limit = NULL,$start = NULL){
@@ -157,10 +158,11 @@ class Users extends CI_Model {
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","P");
+        $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
-        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee']);
+        $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].','.$this->_tables['jobs']);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     
@@ -235,7 +237,15 @@ class Users extends CI_Model {
         {
             $row = $query->row();
             $this->setSession($row->id, $row->group_id);
-            return true;
+            if($this->session->userdata('groupType') == "user"){
+                if($this->checkIfEmployee("accepted", $row->id))
+                    return true;
+                else{
+                    $this->unsetSession();
+                    return false;
+                }
+            }else
+                return true;
         }else
             return FALSE;
             
@@ -398,7 +408,7 @@ class Users extends CI_Model {
     {
         $this->db->where("users_id",$userid);
         $this->db->where("year",date('Y'));
-        $value = ($type == "rejected") ? 0:(($type =="accepted")?1:2);
+        $value = ($type == "rejected") ? 'R':(($type =="accepted")? 'A':'P');
         $this->db->where("isAccept",$value);
         $query = $this->db->get($this->_tables['employee']);
         return ($query->num_rows() > 0)? true:false;

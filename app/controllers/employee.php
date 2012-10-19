@@ -670,7 +670,7 @@ class Employee extends CI_Controller{
         $userID = (isset($segments[5]))? $segments[5] : 0;
         if($type == NULL){
            $query = $this->users->getRejectedUsers();
-           $per_url = 'employee/accepted/';
+           $per_url = 'employee/rejected/';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
            $data['users'] = $this->users->getRejectedUsers(30,$start);
