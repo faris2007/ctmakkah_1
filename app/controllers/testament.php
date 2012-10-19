@@ -105,13 +105,15 @@ class testament extends CI_Controller {
     function addtouser(){
         if(!@$this->core->checkPermissions("testament","add","all","all"))
             redirect ("");
+        
         $this->load->model("employees");
         $segments = $this->uri->segment_array();
         $usersID = (isset($segments[3]))? $segments[3] : 0;
         if($usersID == 0){
-            $this->core->createCSV($this->testaments->getUsersHasNotTestaments(),"users_has_not_testament.csv");
-            $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_testament.csv");
             $data['STEP'] = "show";
+            $data['TITLE'] = 'Delivery Testament for users';
+            $data['CONTENT'] = 'employee/testament';
+            $this->core->load_template($data);
         }else{
             $data['STEP'] = "adduser";
             $userinfo = $this->users->get_info_user("all",$usersID);
@@ -124,10 +126,10 @@ class testament extends CI_Controller {
             $this->db->where($where);
             $data['queryA'] = $this->testaments->getTestaments("all");
             $data['queryR'] = $this->testaments->getTestaments($userinfo['profile']->id);
+            $data['TITLE'] = 'Delivery Testament for users';
+            $data['CONTENT'] = 'employee/testament';
+            $this->core->load_template($data);
         }
-        $data['TITLE'] = 'Delivery Testament for users';
-        $data['CONTENT'] = 'employee/testament';
-        $this->core->load_template($data);
     }
 
     function edit(){
@@ -202,6 +204,22 @@ class testament extends CI_Controller {
         }else 
             echo "there is problem";
             
+    }
+    
+    function download(){
+        if(!@$this->core->checkPermissions("testament","add","all","all"))
+            redirect ("");
+        
+        $segments = $this->uri->segment_array();
+        $type = (isset($segments[3]))? $segments[3] : 0;
+        if($type == "users_has_not_testament.csv"){
+            $this->core->createCSV($this->testaments->getUsersHasNotTestaments(),"users_has_not_testament.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/users_has_not_testament.csv"));
+        }elseif($type == "users_has_testament.csv"){
+            $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_testament.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/users_has_testament.csv"));
+        }else
+            show_404 ();
     }
 }
 
