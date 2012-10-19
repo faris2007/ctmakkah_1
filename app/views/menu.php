@@ -14,6 +14,9 @@
                 <?php if(@$this->core->checkPermissions("attendance","view")): ?>
                     <li><a href="<?=base_url()?>attendance">Attendance</a></li>
                 <?php endif; ?>
+                <?php if(@$this->core->checkPermissions("job","view")): ?>
+                    <li><a href="<?=base_url()?>notification">Notification</a></li>
+                <?php endif; ?>
                 <li><a href="<?=base_url()?>post">Post</a></li>
             <?php endif; ?>
         </ul>
