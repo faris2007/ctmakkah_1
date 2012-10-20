@@ -1,3 +1,88 @@
+<?php if ($TYPE == 'main') : ?>
+        <div style="color: #F00;text-align: center;"><?=(isset($MSG)) ? $MSG : '' ?></div>
+        <div class="message">Download users who was print a card as CSV <a href="<?=base_url()?>uploads/users_has_card.csv">Click Here</a></div>
+        <div class="message">Download users who was not print a card as CSV <a href="<?=base_url()?>uploads/users_has_not_card.csv">Click Here</a></div>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+        <form method="post" target="_blank">
+            <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
+                <span>Employee ID : </span>
+                <input type="text" name="employee_id" />
+                <input type="hidden" name="do" value="print" />
+                <input type="submit" value="  Ok  " />
+            </div>
+        </form>
+<?php elseif ($TYPE == 'print') : ?>
 <html>
 
 <head>
@@ -72,19 +157,6 @@
 </head>
 
 <body>
-    <?php if ($TYPE == 'main') : ?>
-    <div style="color: #F00;text-align: center;"><?=(isset($MSG)) ? $MSG : '' ?></div>
-    <div class="message">Download users who was print a card as CSV <a href="<?=base_url()?>uploads/users_has_card.csv">Click Here</a></div>
-    <div class="message">Download users who was not print a card as CSV <a href="<?=base_url()?>uploads/users_has_not_card.csv">Click Here</a></div>
-    <form method="post" target="_blank">
-        <div style="margin: auto;width: 400px;margin-top: 5px;color: #000;">
-            <span>Employee ID : </span>
-            <input type="text" name="employee_id" />
-            <input type="hidden" name="do" value="print" />
-            <input type="submit" value="  Ok  " />
-        </div>
-    </form>
-    <?php elseif ($TYPE == 'print') : ?>
     <div id="card">
         <img id="logo" src="<?=base_url()?>files/card/crccjpg">
         <img id="personal_img" src="<?=base_url()?>files/personal_img/<?=$idn?>">
@@ -93,7 +165,7 @@
         <span id="job"><?=$job?></span>
         <span id="idn">ID : <?=$idn?></span>
     </div>
-    <?php endif; ?>
-</body>
+    </body>
 
 </html>
+    <?php endif; ?>

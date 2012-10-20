@@ -542,21 +542,24 @@ class Employee extends CI_Controller{
                         $store['jobs_id'] = $this->input->post("jobs",true);
                 $store['isAccept'] = "A";
                 $store['year'] = date("Y");
+                $action = $this->input->post("action",true);
                 if(@$_POST['add']){
-                foreach ($idns as $key => $value){
-                    if(is_numeric($value) && strlen($value) == 10)
-                    {
-                        $userinfo = $this->users->get_info_user("all",$value);
-                        if(!is_bool($userinfo['profile'])){
-                            $emp = $this->employees->getEmployees($userinfo['profile']->id);
-                            $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
-                        }else{
-                            $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = "this user isn't add before in database";
+                    if($action == 'change')
+                        $this->employees->updateALLAcceptedEmployee(array('isAccept'=>'R'));
+                    foreach ($idns as $key => $value){
+                        if(is_numeric($value) && strlen($value) == 10)
+                        {
+                            $userinfo = $this->users->get_info_user("all",$value);
+                            if(!is_bool($userinfo['profile'])){
+                                $emp = $this->employees->getEmployees($userinfo['profile']->id);
+                                $msg[$key]['idn'] = $value;
+                                $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                            }else{
+                                $msg[$key]['idn'] = $value;
+                                $msg[$key]['message'] = "this user isn't add before in database";
+                            }
                         }
                     }
-                }
                 
                 }elseif($_POST['check']){
                     foreach ($idns as $key => $value){
@@ -891,6 +894,7 @@ class Employee extends CI_Controller{
                 $this->db->where("Testament_id","12");
                 $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_card.csv");
                 $data['CONTENT'] = 'employee/card';
+                $data['TITLE'] = "Cards";
 		$this->core->load_template($data);
 		
     }

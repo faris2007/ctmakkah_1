@@ -115,20 +115,29 @@ class testament extends CI_Controller {
             $data['CONTENT'] = 'employee/testament';
             $this->core->load_template($data);
         }else{
-            $data['STEP'] = "adduser";
             $userinfo = $this->users->get_info_user("all",$usersID);
-            $data['ID'] = $userinfo['profile']->id;
-            $data['IDN'] = $userinfo['profile']->idn;
-            $data['EN_NAME'] = $userinfo['profile']->en_name;
-            $sign = $this->employees->signature($userinfo['profile']->id);
-            $data['SIGNATURE'] = true  ;
-            $where = "id NOT IN (SELECT Testament_id FROM Testament_has_users WHERE users_id=".$userinfo['profile']->id.")";
-            $this->db->where($where);
-            $data['queryA'] = $this->testaments->getTestaments("all");
-            $data['queryR'] = $this->testaments->getTestaments($userinfo['profile']->id);
-            $data['TITLE'] = 'Delivery Testament for users';
-            $data['CONTENT'] = 'employee/testament';
-            $this->core->load_template($data);
+            $this->db->where(array(
+                'year'      => date('Y'),
+                'isAccept'  => 'A'
+            ));
+            $checkIfAccept = $this->employees->getEmployees($userinfo['profile']->id);
+            if(is_bool($checkIfAccept))
+                $this->core->message("this user isn't accepted",  base_url ()."testament/addtouser","testament problem",2);
+            else {
+                $data['STEP'] = "adduser";
+                $data['ID'] = $userinfo['profile']->id;
+                $data['IDN'] = $userinfo['profile']->idn;
+                $data['EN_NAME'] = $userinfo['profile']->en_name;
+                $sign = $this->employees->signature($userinfo['profile']->id);
+                $data['SIGNATURE'] = true  ;
+                $where = "id NOT IN (SELECT Testament_id FROM Testament_has_users WHERE users_id=".$userinfo['profile']->id.")";
+                $this->db->where($where);
+                $data['queryA'] = $this->testaments->getTestaments("all");
+                $data['queryR'] = $this->testaments->getTestaments($userinfo['profile']->id);
+                $data['TITLE'] = 'Delivery Testament for users';
+                $data['CONTENT'] = 'employee/testament';
+                $this->core->load_template($data);
+            }
         }
     }
 

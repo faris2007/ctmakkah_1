@@ -45,6 +45,15 @@
                 </td>
             </tr>
             <tr>
+                <td>Accept Action</td>
+                <td>
+                    <select name="action">
+                        <option selected="selected" value="add">add as new accepted</option>
+                        <option value="change">reject all before</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2"><input type="submit" name="add"  value="Add" />&nbsp;<input type="submit" name="check"  value="Check" /></td>
             </tr>
         </tbody>

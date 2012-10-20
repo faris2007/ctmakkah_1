@@ -84,6 +84,20 @@ class employees extends CI_Model {
         return $this->db->update($this->_table,$data); 
     }
     
+    /**
+     *
+     * @param array $data
+     * @return boolean 
+     */
+    function updateALLAcceptedEmployee($data)
+    {
+        if(!is_array($data)) return false;
+        
+        $this->db->where('year',date("Y"));
+        $this->db->where('isAccept','A');
+        return $this->db->update($this->_table,$data); 
+    }
+    
     function signature($employee_id = 0,$signature_data = NULL)
     {
         if ($signature_data)
