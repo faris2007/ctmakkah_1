@@ -563,30 +563,30 @@ class Employee extends CI_Controller{
                 
                 }elseif($_POST['check']){
                     foreach ($idns as $key => $value){
-                    if(is_numeric($value) && strlen($value) == 10)
-                    {
-                        $info = $this->users->get_info_user("all",$value);
-                        if(!is_bool($info['profile'])){
-                            $this->db->where("year",date("Y"));
-                            $userInfo = $this->employees->getEmployees($info['profile']->id);
-                            if(!is_bool($userInfo)){
-                                if($userInfo[0]->isAccept == "A"){
-                                    $msg[$key]['idn'] = $value;
-                                    $msg[$key]['message'] = "he is accept" ;
+                        if(is_numeric($value) && strlen($value) == 10)
+                        {
+                            $info = $this->users->get_info_user("all",$value);
+                            if(!is_bool($info['profile'])){
+                                $this->db->where("year",date("Y"));
+                                $userInfo = $this->employees->getEmployees($info['profile']->id);
+                                if(!is_bool($userInfo)){
+                                    if($userInfo[0]->isAccept == "A"){
+                                        $msg[$key]['idn'] = $value;
+                                        $msg[$key]['message'] = "he is accept" ;
+                                    }else{
+                                        $msg[$key]['idn'] = $value;
+                                        $msg[$key]['message'] = "he isn't accept";    
+                                    }
                                 }else{
                                     $msg[$key]['idn'] = $value;
-                                    $msg[$key]['message'] = "he isn't accept";    
+                                    $msg[$key]['message'] = "he isn't accept this year";
                                 }
                             }else{
                                 $msg[$key]['idn'] = $value;
-                                $msg[$key]['message'] = "he isn't accept this year";
+                                $msg[$key]['message'] = "he isn't exist in database";
                             }
-                        }else{
-                            $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = "he isn't exist in database";
                         }
                     }
-                }
                 }
                 $error = $this->core->retypeContractNumber();
                 $data['query'] = $msg;

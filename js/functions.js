@@ -28,9 +28,11 @@ $(document).ready(function(){
         
         $("#dataTo").load(newurl);
     }
-    function deleted(URL,id, texti){
+    function deleted(URL,id, texti,tableId){
         if(texti == "")
             texti = "Not Found";
+        tableId = typeof tableId !== 'undefined' ? tableId : 'list';
+
         
         if (confirm('Are you sure you want to delete ?'))
         {
@@ -44,9 +46,9 @@ $(document).ready(function(){
                     $(this).remove();
                 });
             });
-            var rowCount = $('#list >tbody >tr').length;
+            var rowCount = $('#'+tableId+' >tbody >tr').length;
             if(rowCount == 2)
-                $('#list tbody').append('<tr><td colspan="5">'+texti+'</td></tr>');
+                $('#'+tableId+' tbody').append('<tr><td colspan="5">'+texti+'</td></tr>');
 
             $('#delete').fadeOut(5000, function(){
                 $(this).css("display","none");

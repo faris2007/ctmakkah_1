@@ -120,7 +120,7 @@ class Core {
     }
     
     public function getServicesName(){
-        $data = array("testament","employee","job","group","post","attendance","notification");
+        $data = array("testament","employee","job","group","post","attendance","notification","work");
         return $data;
     }
     
@@ -132,7 +132,8 @@ class Core {
             "group"         => array("all","view","show","add","edit","delete"),
             "post"          => array("all","view","show","add","edit","delete"),
             "attendance"    => array("all","view","show","add","edit","delete"),
-            "notification"    => array("all","view","show","add","edit","delete")
+            "notification"  => array("all","view","show","add","edit","delete"),
+            "work"          => array("all","view","show","add","edit","delete")
             );
         return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }
@@ -279,6 +280,24 @@ class Core {
             return $dataNotification;
         }else
             return "";
+    }
+    
+    public function getGroupOfWorkByDay(){
+        $this->CI->load->model("works");
+        $data = array();
+        for($i=7;$i<=13;$i++){
+            $data[$i] = $this->CI->works->getTablesByDay($i);
+        }
+        return $data;
+    }
+    
+    public function getTimeAsArray($time){
+        $timeH = explode(":", $time);
+        $data['hour'] = $timeH[0];
+        $timeM = explode(" ", $timeH[1]);
+        $data['min'] = $timeM[0];
+        $data['am'] = $timeM[1];
+        return $data;
     }
 }
 
