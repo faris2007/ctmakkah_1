@@ -25,21 +25,22 @@ class Users extends CI_Model {
     } 
 
 
-    public function change_password($userid,$oldPass,$newPass){
+    public function change_password($userid,$oldPass,$newPass,$admin = false){
         if(empty($userid)||empty($oldPass)||empty($newPass))
             return false;
-        
-        $this->db->where("password",  $this->ecrypt_password($oldPass));
-        $this->db->where("id",$userid);
-        $query = $this->db->get($this->_tables['users']);
-        if($query->num_rows() > 0){
-            $data['password'] = $this->ecrypt_password($newPass);
-            if($this->updateUser($userid, $data)){
-                return true;
-            }else
+        if(!$admin){
+            $this->db->where("password",  $this->ecrypt_password($oldPass));
+            $this->db->where("id",$userid);
+            $query = $this->db->get($this->_tables['users']);
+            if($query->num_rows() == 0)
                 return false;
+        }
+        $data['password'] = $this->ecrypt_password($newPass);
+        if($this->updateUser($userid, $data)){
+            return true;
         }else
             return false;
+            
     } 
 
 

@@ -285,7 +285,7 @@ class Core {
     public function getGroupOfWorkByDay(){
         $this->CI->load->model("works");
         $data = array();
-        for($i=7;$i<=13;$i++){
+        for($i=6;$i<=13;$i++){
             $data[$i] = $this->CI->works->getTablesByDay($i);
         }
         return $data;

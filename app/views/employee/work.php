@@ -2,7 +2,7 @@
 <div class="message" id="delete" style="display:none"></div>
     <?php if(@$ADMIN): ?>
         <br />
-        <?php for($i=7;$i<=13;$i++):?>
+        <?php for($i=6;$i<=13;$i++):?>
             <table class="tbl" id="list<?=$i?>" style="width: 85%">
                 <thead>
                     <tr>
@@ -53,7 +53,7 @@
                         <td>Start Time</td>
                         <td>End Time</td>
                     </tr>
-                    <?php if(isset($tables)): ?>
+                    <?php if(@$tables): ?>
                         <?php foreach($tables as $row): ?>
                             <tr>
                                 <td><?=@$row->day?>th</td>
@@ -104,12 +104,12 @@
                     <td>
                         <select name="start_hour">
                             <?php for($i=1;$i<13;$i++): ?>
-                                <option value="<?=$i?>"><?=$i?></option>
+                                <option value="<?=str_pad($i, 2, "0", STR_PAD_LEFT)?>"><?=str_pad($i, 2, "0", STR_PAD_LEFT)?></option>
                             <?php endfor; ?>
                         </select>
                         <select name="start_min">
                             <?php for($i=0;$i<60;$i++): ?>
-                                <option value="<?=$i?>"><?=$i?></option>
+                                <option value="<?=str_pad($i, 2, "0", STR_PAD_LEFT)?>"><?=str_pad($i, 2, "0", STR_PAD_LEFT)?></option>
                             <?php endfor; ?>
                         </select>
                         <select name="start_am">

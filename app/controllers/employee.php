@@ -37,7 +37,7 @@ class Employee extends CI_Controller{
             $newPass = $this->input->post("newpass",true);
             $renewPass = $this->input->post("renewpass",true);
             if($newPass == $renewPass){
-                if($this->users->change_password($user_id,$oldPass,$newPass)){
+                if($this->users->change_password($user_id,$oldPass,$newPass,@$this->core->checkPermissions("employee","edit","all","all"))){
                     $data['STEP'] = "success";
                     $data['MSG'] = $this->lang->line('profile_edit_success');
                     $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$user_id, 'type' => 'equiv'));
@@ -828,7 +828,7 @@ class Employee extends CI_Controller{
            $query = $this->users->getAllUserByPictures("yes");
            if($type == 0)
                $this->core->createCSV($query,"pictures.csv");
-           $per_url = 'employee/users/no_pic';
+           $per_url = 'employee/users/pic';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
            $data['users'] = $query;

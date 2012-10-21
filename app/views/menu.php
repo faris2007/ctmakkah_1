@@ -5,6 +5,7 @@
             <?php if($this->users->isLogin()): ?>
                 <li><a href="<?=base_url()?>employee/profile">Profile</a></li>
                 <li><a href="<?=base_url()?>testament">Testaments</a></li>
+                <li><a href="<?=base_url()?>work">Table Of Work</a></li>
                 <?php if(@$this->core->checkPermissions("group","view")): ?>
                     <li><a href="<?=base_url()?>group">Group</a></li>
                 <?php endif; ?>
