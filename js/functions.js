@@ -17,7 +17,14 @@ $(document).ready(function(){
         left:50 
     }); 
     
+    $('#list').dataTable({
+        "aLengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
+        "sPaginationType": "full_numbers",
+        "bJQueryUI": true
+    });
+    
 });
+
 
     function notificationType(url,id){
         var newurl = "";

@@ -52,6 +52,18 @@ class works extends CI_Model {
         return $this->db->insert($this->_tables['link'], $data); 
     }
     
+    
+    function checkIfUserHaveTable($userId,$tableId){
+        if(empty($userId) || empty($tableId))
+            return false;
+        
+        $this->db->where($this->_tables['link'].'.users_id',$userId);
+        $this->db->where($this->_tables['link'].'.work_id',$tableId);
+        $query = $this->db->get($this->_tables['link']);
+        return ($query->num_rows() > 0)? true : false;
+    }
+    
+    
     function getTable($id)
     {
         if(empty($id)) return false;

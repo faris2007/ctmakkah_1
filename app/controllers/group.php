@@ -246,10 +246,10 @@ class group extends CI_Controller {
             // Per Page
             $per_url = 'group/adduserstogroup/' . $groupId . '/';
             $total_results = $this->users->get_total_users();
-            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
             $data['STEP'] = "addusers";
             $data['GROUPID'] = $groupId;
-            $data['query'] = $this->users->getUsers(30,$start);
+            $data['query'] = $this->users->getUsers(1000,$start);
             $data['TITLE'] = "add users to Group";
             $data['CONTENT'] = 'employee/group';
             $this->core->load_template($data);

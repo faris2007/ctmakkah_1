@@ -277,14 +277,14 @@ class attendance extends CI_Controller {
     
     function addgrouptoattend(){
         $attendId = is_numeric($this->uri->segment(3, 0)) ? $this->uri->segment(3, 0) : 0;
-        $start = (is_numeric($this->uri->segment(4, 1))) ? $this->uri->segment(4, 1) : 1;
+        //$start = (is_numeric($this->uri->segment(4, 1))) ? $this->uri->segment(4, 1) : 1;
 
         if(!@$this->core->checkPermissions("attendance","add","all","all")) redirect ();
         
         
         $data['STEP'] = "addgroups";
         $data['ID'] = $attendId;
-        $this->db->where("attend_id !=",$attendId);
+        $this->db->where("attend_id IS NULL");
         $data['query'] = $this->groups->getGroups("all");
         $data['TITLE'] = "add Group to Attend";
         $data['CONTENT'] = 'employee/attendance';

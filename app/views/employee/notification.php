@@ -1,19 +1,20 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;text-align:center" ></div>
-<table class="tbl" id="list" style="width: 80%;">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
     <thead>
         <tr>
             <td colspan="3">List of notification</td>
             <td><a href="<?=base_url()?>notification/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
         </tr>
-    </thead>
-    <tbody>
         <tr>
             <td>#</td>
             <td>for type</td>
             <td>message</td>
             <td>Control</td>
         </tr>
+    </thead>
+    <tbody>
         <?php if(@$query): ?>
             <?php foreach(@$query as $row): ?>
                 <tr id="notification<?=$row->id?>">
@@ -33,6 +34,7 @@
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php elseif($STEP == "add"): ?>
 <form method="post">
     <table class="tbl" style="width:85%">

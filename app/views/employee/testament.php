@@ -1,6 +1,7 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;text-align:center" ></div>
-<table class="tbl" id="list" style="width: 80%;">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width: 100%;">
         <thead>
             <tr>
                 <td colspan="4"><?=$this->lang->line('testament_view')?></td>
@@ -8,17 +9,20 @@
                     <td><a href="<?=base_url()?>testament/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
                 <?php endif; ?>
             </tr>
-        </thead>
-        <tbody>
             <tr>
-                <td>#</td>
-                <td><?=$this->lang->line('testament_view_name')?></td>
-                <td><?=$this->lang->line('testament_view_type')?></td>
-                <td><?=$this->lang->line('testament_view_price')?></td>
+                <th>#</th>
+                <th><?=$this->lang->line('testament_view_name')?></th>
+                <th><?=$this->lang->line('testament_view_type')?></th>
+                <th><?=$this->lang->line('testament_view_price')?></th>
                 <?php if(@$CONTROL): ?>
-                    <td><?=$this->lang->line('testament_view_control')?></td>
+                    <th><?=$this->lang->line('testament_view_control')?></th>
                 <?php endif; ?>
             </tr>
+        </thead>
+        <tfoot>
+            
+        </tfoot>
+        <tbody>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
                     <tr id="testments<?=$row->id?>">
@@ -40,7 +44,7 @@
                     </tr>
             <?php endif; ?>
         </tbody>
-    </table>
+</table></div>
 <?php elseif($STEP == "adduser"): ?>
     <table class="tbl" style="width:80%">
         <thead>

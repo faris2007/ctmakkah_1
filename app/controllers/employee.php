@@ -333,8 +333,8 @@ class Employee extends CI_Controller{
                 $data['STEP'] = "list";
                 $per_url = 'employee/contract/';
                 $total_results = $this->users->get_total_info_users();
-                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-                $data['users'] = $this->users->getAllInfoUser(30,$start);
+                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+                $data['users'] = $this->users->getAllInfoUser(1000,$start);
             }
             $data['CONTENT'] = 'employee/contract';
             $data['TITLE'] = "Profile";
@@ -479,7 +479,7 @@ class Employee extends CI_Controller{
         $userID = (isset($segments[5]))? $segments[5] : 0;
         if($type == NULL){
            $query = $this->users->getCandidate();
-           $per_url = 'employee/condidate/';
+           $per_url = 'employee/candidate/';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
            $data['users'] = $this->users->getCandidate(30,$start);;
@@ -598,8 +598,8 @@ class Employee extends CI_Controller{
                 $query = $this->users->getAccpetedUsers();
                 $per_url = 'employee/accepted/';
                 $total_results = $this->users->get_total_info_users();
-                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-                $data['users'] = $this->users->getAllInfoUser(30,$start);
+                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+                $data['users'] = $this->users->getAllInfoUser(1000,$start);
                 $data['jobs'] = $this->jobs->getJobs("all");
                 $data['CONTENT'] = 'employee/accepted';
                 $data['TITLE'] = "List Of Accepted";
@@ -675,8 +675,8 @@ class Employee extends CI_Controller{
            $query = $this->users->getRejectedUsers();
            $per_url = 'employee/rejected/';
            $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-           $data['users'] = $this->users->getRejectedUsers(30,$start);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+           $data['users'] = $this->users->getRejectedUsers(1000,$start);
            $data['CONTENT'] = 'employee/rejected';
            $data['TITLE'] = "List Of Rejected";
            $this->core->load_template($data);
@@ -734,8 +734,8 @@ class Employee extends CI_Controller{
            $query = $this->users->getPrecautionUsers();
            $per_url = 'employee/precaution/';
            $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-           $data['users'] = $this->users->getPrecautionUsers(30,$start);;
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+           $data['users'] = $this->users->getPrecautionUsers(1000,$start);;
            $data['CONTENT'] = 'employee/precaution';
            $data['TITLE'] = "List Of Precaution";
            $this->core->load_template($data);
@@ -788,10 +788,10 @@ class Employee extends CI_Controller{
         $type = (isset($segments[4]))? $segments[4] : NULL;
         $userID = (isset($segments[5]))? $segments[5] : 0;
         if($type == NULL && is_numeric($start)){
-           $query = $this->users->getUsers(30,$start);
+           $query = $this->users->getUsers(1000,$start);
            $per_url = 'employee/users/';
            $total_results = $this->users->get_total_users();
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
            $data['users'] = $query;
            $data['STEP'] = "users";
            $data['CONTENT'] = 'employee/users';
@@ -816,7 +816,7 @@ class Employee extends CI_Controller{
                $this->core->createCSV($query);
            $per_url = 'employee/users/no_pic';
            $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,1000);
            $data['users'] = $query;
            $data['START'] = $type;
            $data['STEP'] = "list_no";
@@ -830,7 +830,7 @@ class Employee extends CI_Controller{
                $this->core->createCSV($query,"pictures.csv");
            $per_url = 'employee/users/pic';
            $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,100);
+           $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,1000);
            $data['users'] = $query;
            $data['START'] = $type;
            $data['STEP'] = "list";

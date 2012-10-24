@@ -1,6 +1,7 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
         <thead>
             <tr>
                 <td colspan="4"><?=$this->lang->line('job_view')?></td>
@@ -8,17 +9,17 @@
                     <td><a href="<?=base_url()?>job/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
                 <?php endif; ?>
             </tr>
-        </thead>
-        <tbody>
             <tr>
-                <td>#</td>
-                <td><?=$this->lang->line('job_view_name')?></td>
-                <td><?=$this->lang->line('job_view_date')?></td>
-                <td><?=$this->lang->line('job_view_price')?></td>
+                <th>#</th>
+                <th><?=$this->lang->line('job_view_name')?></th>
+                <th><?=$this->lang->line('job_view_date')?></th>
+                <th><?=$this->lang->line('job_view_price')?></th>
                 <?php if(@$CONTROL): ?>
-                    <td><?=$this->lang->line('job_view_control')?></td>
+                    <th><?=$this->lang->line('job_view_control')?></th>
                 <?php endif; ?>
             </tr>
+        </thead>
+        <tbody>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
                     <tr id="jobs<?=$row->id?>">
@@ -34,13 +35,9 @@
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                    <tr>
-                        <td colspan="<?=(@$CONTROL)?5:4?>"><?=$this->lang->line('job_view_nothing')?></td>
-                    </tr>
             <?php endif; ?>
         </tbody>
-    </table>
+</table></div>
 <?php elseif($STEP == "add"): ?>
     <form method="post">
         <table class="tbl" style="width:80%">
@@ -56,7 +53,7 @@
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('job_date')?></td>
-                    <td><input type="text" placeholder="DD/MM/YYYY" name="date" id="date" maxlength="10" /></td>
+                    <td><input type="text" name="date" id="date" maxlength="10" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('job_mony')?></td>

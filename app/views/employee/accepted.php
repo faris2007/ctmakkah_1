@@ -2,23 +2,6 @@
 <div class="message" id="candidate" style="display:none"></div>
 <div class="message">If you want Search on user who don't have personal picture <a href="<?=base_url()?>employee/users/no_pic">Click Here</a></div>
 <div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
-<table class="tbl"  style="width:95%">
-    <thead>
-        <tr>
-            <td colspan="2">Search on users if is accepted</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>National ID :</td>
-            <td><input type="text" id="idn" name="idn" placeholder="ID .." /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button onclick="Search('<?=base_url()?>employee/accepted/0/search','candidate');">Search</button></td>
-        </tr>
-    </tbody>
-</table>
-<br />
 <form method="post">
     <table class="tbl" style="width:95%">
         <thead>
@@ -59,22 +42,23 @@
         </tbody>
     </table>
 </form>
-
-<table class="tbl" style="width:95%">
+<br />
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
     <thead>
         <tr>
-            <td colspan="4">list of Accepted Employee</td>
+            <th colspan="5">list of Accepted Employee</th>
+        </tr>
+        <tr>
+            <th>#</th>
+            <th>National ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>mobile</th>
+            <?/*--<td>Control</td>--> ?>*/?>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>#</td>
-            <td>National ID</td>
-            <td>Name</td>
-            <td>Position</td>
-            <td>mobile</td>
-            <?/*--<td>Control</td>--> ?>*/?>
-        </tr>
         <?php if($users):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
@@ -90,13 +74,10 @@
                     </td> */?>
                 </tr>
             <?php endforeach; ?>
-        <?php else: ?>
-                <tr>
-                    <td colspan="4">Not Found</td>
-                </tr>
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php if($pagination) : ?>
     <div class="message"><?=$pagination?></div>
 <?php endif; ?>

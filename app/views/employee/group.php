@@ -1,6 +1,7 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list" style="width:80%">
+<div class="demo_jui">    
+<table class="tbl" id="list" style="width:100%">
         <thead>
             <tr>
                 <td colspan="4"><?=$this->lang->line('group_view')?></td>
@@ -8,17 +9,17 @@
                     <td><a href="<?=base_url()?>group/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
                 <?php endif; ?>
             </tr>
-        </thead>
-        <tbody>
             <tr>
-                <td>#</td>
-                <td><?=$this->lang->line('group_view_name')?></td>
-                <td><?=$this->lang->line('group_view_location')?></td>
-                <td><?=$this->lang->line('group_view_admin')?></td>
+                <th>#</th>
+                <th><?=$this->lang->line('group_view_name')?></th>
+                <th><?=$this->lang->line('group_view_location')?></th>
+                <th><?=$this->lang->line('group_view_admin')?></th>
                 <?php if(@$CONTROL): ?>
-                    <td><?=$this->lang->line('group_view_control')?></td>
+                    <th><?=$this->lang->line('group_view_control')?></th>
                 <?php endif; ?>
             </tr>
+        </thead>
+        <tbody>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
                     <tr id="groups<?=$row->id?>">
@@ -41,7 +42,7 @@
                     </tr>
             <?php endif; ?>
         </tbody>
-    </table>
+</table></div>
 <?php elseif($STEP == "show"): ?>
 <div class="message" id="delete" style="display:none"></div>
 <table class="tbl" style="width:80%">
@@ -104,19 +105,20 @@
 <div class="message">
     users in this Group if you want add new user <a href="<?=base_url()?>group/adduserstogroup/<?=@$ID?>">click here</a>
 </div>
-        <table class="tbl" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
             <thead>
                 <tr>
-                    <td colspan="2">add new user to this group</td>
+                    <th colspan="2">add new user to this group</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>National ID</th>
+                    <th>Name</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>#</td>
-                    <td>National ID</td>
-                    <td>Name</td>
-                    <td>Remove</td>
-                </tr>
                 <?php if($users):?>
                     <?php foreach ($users as $row): ?>
                         <tr id="users<?=@$row->id?>">
@@ -133,6 +135,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+</div>
         <?php if($pagination) : ?>
             <div class="message"><?=$pagination?></div>
         <?php endif; ?>
@@ -188,19 +191,20 @@
     </table>
 </form>
 <div class="message">Another way</div>
-        <table class="tbl" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
             <thead>
                 <tr>
-                    <td colspan="4">add new user to this group</td>
+                    <th colspan="4">add new user to this group</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>National ID</th>
+                    <th>Name</th>
+                    <th>select</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>#</td>
-                    <td>National ID</td>
-                    <td>Name</td>
-                    <td>select</td>
-                </tr>
                 <?php if($query):?>
                     <?php foreach ($query as $row): ?>
                         <?php if($row->group_id != $GROUPID):?>
@@ -215,6 +219,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
+</div>
         <?php if($pagination) : ?>
             <div class="message"><?=$pagination?></div>
         <?php endif; ?>

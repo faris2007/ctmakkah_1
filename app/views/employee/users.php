@@ -2,36 +2,18 @@
 <div class="message" id="delete" style="display:none"></div>
 <div class="message">If you want Search on user who don't have personal picture <a href="<?=base_url()?>employee/users/no_pic">Click Here</a></div>
 <div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
-<table class="tbl">
-    <thead>
-        <tr>
-            <td colspan="2">Search for any user By ID National</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ID National :</td>
-            <td><input type="text" name="IDN" id="IDN" placeholder="ID .." /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button onclick="window.location = '<?=base_url()?>employee/profile/'+$('#IDN').val()+'/users';">Search</button></td>
-        </tr>
-    </tbody>
-</table>
 
-<table class="tbl" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
     <thead>
         <tr>
-            <td colspan="4">list of users</td>
+            <th>#</th>
+            <th>National ID</th>
+            <th>Name</th>
+            <th>Control</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>#</td>
-            <td>National ID</td>
-            <td>Name</td>
-            <td>Control</td>
-        </tr>
         <?php if($users):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
@@ -44,35 +26,34 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-        <?php else: ?>
-                <tr>
-                    <td colspan="4">Not Found</td>
-                </tr>
         <?php endif; ?>
     </tbody>
 </table>
+</div>
     <div class="message"><?=$pagination?></div>
 <?php elseif ($STEP == "list"): ?>
 <div class="message" id="delete" style="display:none"></div>
 <?php if($users):?>
     <div class="message"><a href="<?=base_url()?>uploads/pictures.csv">Download AS CSV</a></div>
 <?php endif; ?>
-<table class="tbl" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
     <thead>
         <tr>
-            <td colspan="4">list of users who have picture</td>
+            <td colspan="5">list of users who have picture</td>
+        </tr>
+        <tr>
+            <th>National ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>mobile</th>
+            <th>Control</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>National ID</td>
-            <td>Name</td>
-            <td>Position</td>
-            <td>mobile</td>
-            <td>Control</td>
-        </tr>
+        
         <?php if($users):?>
-            <?php for($i=$START;$i<($START+100) && $i<count($users);$i++): ?>
+            <?php for($i=$START;$i<($START+1000) && $i<count($users);$i++): ?>
                     <tr id="users<?=@$users[$i]->id?>">
                         <td><?=@$users[$i]->idn?></td>
                         <td><?=@$users[$i]->en_name?></td>
@@ -84,13 +65,10 @@
                         </td>
                     </tr>
             <?php endfor; ?>
-        <?php else: ?>
-                <tr>
-                    <td colspan="4">Not Found</td>
-                </tr>
         <?php endif; ?>
     </tbody>
 </table>
+</div>
     <?php if($pagination): ?>
         <div class="message"><?=$pagination?></div>
     <?php endif; ?>
@@ -99,22 +77,23 @@
 <?php if($users):?>
     <div class="message"><a href="<?=base_url()?>uploads/no_pictures.csv">Download AS CSV</a></div>
 <?php endif; ?>
-<table class="tbl" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
     <thead>
         <tr>
-            <td colspan="4">list of users who don't have picture</td>
+            <td colspan="5">list of users who have picture</td>
+        </tr>
+        <tr>
+            <th>National ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>mobile</th>
+            <th>Control</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>National ID</td>
-            <td>Name</td>
-            <td>Position</td>
-            <td>mobile</td>
-            <td>Control</td>
-        </tr>
         <?php if($users):?>
-            <?php for($i=$START;$i<($START+100)&& $i<count($users);$i++): ?>
+            <?php for($i=$START;$i<($START+1000)&& $i<count($users);$i++): ?>
                     <tr id="users<?=@$users[$i]->id?>">
                         <td><?=@$users[$i]->idn?></td>
                         <td><?=@$users[$i]->en_name?></td>
@@ -126,13 +105,10 @@
                         </td>
                     </tr>
             <?php endfor; ?>
-        <?php else: ?>
-                <tr>
-                    <td colspan="4">Not Found</td>
-                </tr>
         <?php endif; ?>
     </tbody>
 </table>
+</div>
     <?php if($pagination): ?>
         <div class="message"><?=$pagination?></div>
     <?php endif; ?>

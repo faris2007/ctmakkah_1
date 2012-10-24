@@ -40,7 +40,7 @@
             <br />
         <?php endfor; ?>
     <?php else: ?>
-            <table class="tbl" style="width: 85%">
+            <table class="tbl1" style="width: 85%">
                 <thead>
                     <tr>
                         <td colspan="4">Table of works</td>
@@ -236,6 +236,10 @@
         </thead>
         <tbody>
             <tr>
+                <td>Day : </td>
+                <td><?=@$DAY?>th</td>
+            </tr>
+            <tr>
                 <td>Name : </td>
                 <td><?=@$NAME?></td>
             </tr>
@@ -246,6 +250,23 @@
             <tr>
                 <td>Time : </td>
                 <td>From <?=@$START?> To <?=@$END?></td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table class="tbl"  style="width:85%">
+        <thead>
+            <tr>
+                <td colspan="2">Search on users if he is here or not</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>National ID :</td>
+                <td><input type="text" id="idn" name="idn" placeholder="ID .." /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="Search('<?=base_url()?>work/show/<?=@$ID?>/search','delete');">Search</button></td>
             </tr>
         </tbody>
     </table>

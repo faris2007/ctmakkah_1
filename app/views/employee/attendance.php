@@ -1,23 +1,24 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list" style="width:80%">
+<div class="demo_jui">
+<table class="tbl" id="list" style="width:100%">
         <thead>
             <tr>
-                <td colspan="3"><?=$this->lang->line('attendance_view')?></td>
+                <th colspan="3"><?=$this->lang->line('attendance_view')?></th>
                 <?php if(@$CONTROL): ?>
-                    <td><a href="<?=base_url()?>attendance/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                    <th><a href="<?=base_url()?>attendance/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></th>
+                <?php endif; ?>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th><?=$this->lang->line('attendance_view_name')?></th>
+                <th><?=$this->lang->line('attendance_view_superviser')?></th>
+                <?php if(@$CONTROL): ?>
+                    <th><?=$this->lang->line('attendance_view_control')?></th>
                 <?php endif; ?>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>#</td>
-                <td><?=$this->lang->line('attendance_view_name')?></td>
-                <td><?=$this->lang->line('attendance_view_superviser')?></td>
-                <?php if(@$CONTROL): ?>
-                    <td><?=$this->lang->line('attendance_view_control')?></td>
-                <?php endif; ?>
-            </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): ?>
                     <tr id="attendances<?=$row->id?>">
@@ -39,13 +40,10 @@
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                    <tr>
-                        <td colspan="<?=(@$CONTROL)?4:3?>"><?=$this->lang->line('attendance_view_nothing')?></td>
-                    </tr>
             <?php endif; ?>
         </tbody>
     </table>
+</div>
 <?php elseif($STEP == "show"): ?>
 <div class="message" id="delete" style="display:none"></div>
 <table class="tbl" style="width:80%">
