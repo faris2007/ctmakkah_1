@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-// From view
+// From view 
 $lang['precaution_view_list_of_precaution_employee'] = "list of Precaution Employee";
 $lang['precaution_view_id'] = "National ID";
 $lang['precaution_view_name'] =  "Name";

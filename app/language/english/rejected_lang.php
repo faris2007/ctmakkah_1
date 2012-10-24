@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-// From view dir
+// From view dir 
 $lang['rejected_view_list_of_rejected'] = "list of Rejected Employee";
 $lang['rejectd_view_id'] = "National ID";
 $lang['reject_view_name'] = "Name";

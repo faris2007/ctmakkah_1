@@ -4,6 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+//      file  _ function name
 $lang['attendance_takeattendance'] = "Show attendance";
 $lang['attendance_report'] = "Show report";
 $lang['attendance_add'] = "add new attendance";
@@ -25,15 +26,17 @@ $lang['attendance_delete_error'] = "There is a problem , Can't delete it";
 $lang['attendance_view_nothing'] = "Do not have any attendance yet";
 $lang['attendance_yes'] = "Yes";
 $lang['attendance_no'] = "No";
-$lang['attendance_show'] = "Show the information";
+$lang['attendance_show'] = "Add user to attend him ";
 $lang['attendance_superviser_nothing'] = "Nothing superviser";
 $lang['attendance_add_group_to_attend'] = "add Group to take Attendance for them";
 $lang['attendance_added_parameter'] = "You Miss a paramter , Again Enter a paramter ";
 $lang['attendance_added_success'] = "Good job , added successfully";
 $lang['attendance_added_problem'] = "you have a Problem , Check The data  ";
-// From views diroctly
+// From views diroctly 
+// file name  _  dir  _ message in html tag
+
 $lang['attendance_view_nothing'] = "Nothing";
-$lang['attendance_view_message'] = " groups in this attendance if you want add new group to this attendance ";
+$lang['attendance_view_message'] = " groups in this attendance if you want add new group atended ";
 $lang['attendance_view_group'] = "group in this attendance";
 $lang['attendance_view_name'] = "Name";
 $lang['attendance_view_remove'] = "Remove";

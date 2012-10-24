@@ -32,7 +32,7 @@ $lang['testament_added_error'] = "Sorry There is a Problem";
 $lang['testament_view_data'] = "Data Of User";
 $lang['testament_view_id'] = "National ID";
 $lang['testament_view_name'] = "Name";
-$lang['testament_view_signature'] = "Signature";
+$lang['testament_view_signature'] = "Please add your Signature";
 $lang['testament_view_add_testament'] = "add Testament to";
 $lang['testament_view_size_s'] = "S";
 $lang['testament_view_size_m'] = "M";
@@ -46,6 +46,12 @@ $lang['testament_view_number_3'] = "3";
 $lang['testament_view_bottom_add'] = "ADD";
 $lang['testament_view_remove_testament'] = "Remove Testament to";
 $lang['testament_view_bottom_remove'] = "Remove";
+$lang['testament_view_size'] = "Size";
+$lang['testament_view_number'] = "Number";
 $lang['testament_view_delivery'] = " Delivery of Testament for user";
 $lang['testament_view_bottom_search'] = "Search";
+$lang['testament_view_not_csv'] = "Download users has not Testament as CSV";
+$lang['testament_view_csv'] = "Download users has Testament as CSV";
+
+
 ?>
