@@ -191,22 +191,78 @@
 <?php elseif($STEP == "show"): ?>
     <div class="message"><a href="<?=base_url()?>testament/download/users_has_not_testament.csv">Download users has not Testament as CSV</a></div>
     <div class="message"><a href="<?=base_url()?>testament/download/users_has_testament.csv">Download users has Testament as CSV</a></div>
+    <form method="post">
+    <table class="tbl" style="width:95%">
+        <thead>
+            <tr>
+                <td colspan="2">add testament to group</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nationals ID :</td>
+                <td><textarea name="IDNS" style="width:80%"></textarea></td>
+            </tr>
+            <tr>
+                <td>Select Testament :</td>
+                <td>
+                    <select name="testaments">
+                        <option selected="selected" value="0">None</option>
+                        <?php if(@$testaments): ?>
+                            <?php foreach(@$testaments as $row): ?>
+                                <option value="<?=$row->id?>"><?=$row->name?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>size :</td>
+                <td>
+                    <select name="size">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                            <option value="XXXL">XXXL</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Number :</td>
+                <td>
+                        <select name="number" id="a_testments<?=$row->id?>_number">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" name="add"  value="Add" /></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<br />
+    
     <table class="tbl">
-    <thead>
-        <tr>
-            <td colspan="2">Delivery of Testament for user</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ID National :</td>
-            <td><input type="text" name="IDN" id="IDN" placeholder="ID .." /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button onclick="window.location = '<?=base_url()?>testament/addtouser/'+$('#IDN').val();">Search</button></td>
-        </tr>
-    </tbody>
-</table>
+        <thead>
+            <tr>
+                <td colspan="2">Delivery of Testament for user</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ID National :</td>
+                <td><input type="text" name="IDN" id="IDN" placeholder="ID .." /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="window.location = '<?=base_url()?>testament/addtouser/'+$('#IDN').val();">Search</button></td>
+            </tr>
+        </tbody>
+    </table>
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />
@@ -244,5 +300,22 @@
 <div class="message">
     <?=$MSG?>
 </div>
+<?php elseif(@$STEP == "addtousers") : ?>
+<div class="message"><a href="<?=base_url()?>testament/addtouser">Back To Accepted list</a></div>
+<table class="tbl">
+    <thead>
+        <tr>
+            <td colspan="2">Result for added</td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($query as $value): ?>
+            <tr>
+                <td><?=$value['idn']?></td>
+                <td><?=$value['message']?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 <?php endif; ?>
 

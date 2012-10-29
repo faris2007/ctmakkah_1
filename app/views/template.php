@@ -40,7 +40,7 @@
         <div id="main_menu">
             <?=$MENU?>
         </div>
-        <?php if ($NAV): ?>
+        <?php if (@$NAV): ?>
         <div id="nav">
             <ul>
                 <li>&rsaquo;</li>

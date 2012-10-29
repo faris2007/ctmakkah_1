@@ -36,6 +36,8 @@ class testament extends CI_Controller {
         
         $data['TITLE'] = $this->lang->line('testament_view');
         $data['CONTENT'] = 'employee/testament';
+        $data['NAV'][base_url()."testament"] = "Testaments";
+        $data['NAV'][base_url()."testament/view"] = "View Testament";
         $this->core->load_template($data);
     }
     
@@ -66,6 +68,8 @@ class testament extends CI_Controller {
         
         $data['TITLE'] = $this->lang->line('testament_view');
         $data['CONTENT'] = 'employee/testament';
+        $data['NAV'][base_url()."testament"] = "Testaments";
+        $data['NAV'][base_url()."testament/add"] = "add Testament";
         $this->core->load_template($data);
     }
     
@@ -110,11 +114,50 @@ class testament extends CI_Controller {
         $segments = $this->uri->segment_array();
         $usersID = (isset($segments[3]))? $segments[3] : 0;
         if($usersID == 0){
-            $data['STEP'] = "show";
-            $data['TITLE'] = 'Delivery Testament for users';
-            $data['CONTENT'] = 'employee/testament';
-            $this->core->load_template($data);
+            if($_POST){
+                $idns = explode("\n", $this->input->post("IDNS",true));
+                $msg = array();
+                $testamentID = $this->input->post("testaments",true);
+                $size = $this->input->post("size",true);
+                $number = $this->input->post("number",true);
+                $store = array(
+                    'Testament_id'  => $testamentID,
+                    'deadline'      => "15/12/1433",
+                    'number'        => $number,
+                    'size'          => $size
+                );
+                foreach ($idns as $key => $value){
+                    if(is_numeric($value) && strlen($value) == 10)
+                    {
+                        $userinfo = $this->users->get_info_user("all",$value);
+                        if(!is_bool($userinfo['profile'])){
+                            $store['users_id'] = $userinfo['profile']->id;
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = ($this->testaments->addTestamentToUser($store)) ? "added successfully" : "there is problem";
+                        }else{
+                            $msg[$key]['idn'] = $value;
+                            $msg[$key]['message'] = "this user isn't add before in database";
+                        }
+                    }
+                }
+                $data['query'] = $msg;
+                $data['STEP'] = "addtousers";
+                $data['TITLE'] = 'Delivery Testament for users';
+                $data['CONTENT'] = 'employee/testament';
+                $data['NAV'][base_url()."testament"] = "Testaments";
+                $data['NAV'][base_url()."testament/addtouser"] = "Delivery Testament";
+                $this->core->load_template($data);
+            }else{
+                $data['STEP'] = "show";
+                $data['TITLE'] = 'Delivery Testament for users';
+                $data['CONTENT'] = 'employee/testament';
+                $data['testaments'] = $this->testaments->getTestaments("all");
+                $data['NAV'][base_url()."testament"] = "Testaments";
+                $data['NAV'][base_url()."testament/addtouser"] = "Delivery Testament";
+                $this->core->load_template($data);
+            }
         }else{
+            
             $userinfo = $this->users->get_info_user("all",$usersID);
             $this->db->where(array(
                 'year'      => date('Y'),
@@ -136,6 +179,8 @@ class testament extends CI_Controller {
                 $data['queryR'] = $this->testaments->getTestaments($userinfo['profile']->id);
                 $data['TITLE'] = 'Delivery Testament for users';
                 $data['CONTENT'] = 'employee/testament';
+                $data['NAV'][base_url()."testament"] = "Testaments";
+                $data['NAV'][base_url()."testament/addtouser"] = "Delivery Testament";
                 $this->core->load_template($data);
             }
         }
@@ -185,6 +230,8 @@ class testament extends CI_Controller {
         
         $data['TITLE'] = $this->lang->line('testament_view');
         $data['CONTENT'] = 'employee/testament';
+        $data['NAV'][base_url()."testament"] = "Testaments";
+        $data['NAV'][base_url()."testament/edit/".$testamentID] = "edit Testament";
         $this->core->load_template($data);
     }
     

@@ -607,6 +607,7 @@ class Employee extends CI_Controller{
                 $data['CONTENT'] = 'employee/accepted';
                 $data['TITLE'] = "List Of Accepted";
                 $data['STEP'] = "list";
+                $data['NAV'][base_url()."employee/accepted"] = "Accepted";
                 $this->core->load_template($data);
            }
         }elseif($type == "accept"){
