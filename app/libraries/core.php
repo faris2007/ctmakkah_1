@@ -224,12 +224,14 @@ class Core {
         return $error;
     }
     
-    public function createCSV($data,$fileName ="no_pictures.csv" )
+    public function createCSV($data,$fileName = "no_pictures.csv",$addPictures = false)
     {
-        $string = "NO#;National ID;Name;Position;Mobile\n";
+        $string = "NO#;National ID;Name;Position;Mobile";
+        $string .= ($addPictures)?";Picture Url\n":"\n";
         if($data){
             foreach ($data as $key => $value){
-                $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile."\n";
+                $string .= $key.";".$value->idn.";".$value->en_name.";".$value->grade.";".$value->mobile;
+                $string .= ($addPictures)?";".  base_url()."files/personal_img/".$value->idn."\n":"\n";
             }
         }
         $path = "./uploads/".$fileName;

@@ -4,7 +4,7 @@
 <div class="message">If you want Search on user who have personal picture <a href="<?=base_url()?>employee/users/pic">Click Here</a></div>
 
 <div class="demo_jui">
-<table class="tbl" id="list" style="width:100%">
+<table class="tbl" id="list" dataajax="users" style="width:100%">
     <thead>
         <tr>
             <th>#</th>
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if($users):?>
+        <?php if(!$users):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
                     <td><?=@$row->id?></td>
@@ -30,7 +30,9 @@
     </tbody>
 </table>
 </div>
-    <div class="message"><?=$pagination?></div>
+    <?php if($pagination):?>
+        <div class="message"><?=$pagination?></div>
+    <?php endif; ?>
 <?php elseif ($STEP == "list"): ?>
 <div class="message" id="delete" style="display:none"></div>
 <?php if($users):?>

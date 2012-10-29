@@ -16,12 +16,69 @@ $(document).ready(function(){
         top:50, 
         left:50 
     }); 
-    
-    $('#list').dataTable({
-        "aLengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
-        "sPaginationType": "full_numbers",
-        "bJQueryUI": true
-    });
+    if ($('#list').attr('dataajax') !== undefined) {
+        $('#list').dataTable({
+                    "aLengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
+                    "sPaginationType": "full_numbers",
+                    "bJQueryUI": true,
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "../ajax/"+$('#list').attr('dataajax'),
+                    "sServerMethod": "POST",
+                    
+                    "oLanguage": {
+                            "oAria": {
+                                "sSortAscending": " - click/return to sort ascending",
+                                "sSortDescending": " - click/return to sort descending"
+                            },
+                            "oPaginate": {
+                                "sFirst": "First",
+                                "sLast": "Last",
+                                "sNext": "Next",
+                                "sPrevious": "Previous"
+                            },
+                            "sLengthMenu": "Display _MENU_ records per page",
+                            "sZeroRecords": "Nothing found - sorry",
+                            "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+                            "sInfoEmpty": "Showing 0 to 0 of 0 records",
+                            "sInfoFiltered": "(filtered from _MAX_ total records)",
+                            "sEmptyTable": "No data available in table",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Please wait - loading...",
+                            "sProcessing": "DataTables is currently busy",
+                            "sSearch": "Search:"
+                    }
+            });
+    }else{
+        $('#list').dataTable({
+                    "aLengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
+                    "sPaginationType": "full_numbers",
+                    "bJQueryUI": true,
+                    "oLanguage": {
+                            "oAria": {
+                                "sSortAscending": " - click/return to sort ascending",
+                                "sSortDescending": " - click/return to sort descending"
+                            },
+                            "oPaginate": {
+                                "sFirst": "First",
+                                "sLast": "Last",
+                                "sNext": "Next",
+                                "sPrevious": "Previous"
+                            },
+                            "sLengthMenu": "Display _MENU_ records per page",
+                            "sZeroRecords": "Nothing found - sorry",
+                            "sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
+                            "sInfoEmpty": "Showing 0 to 0 of 0 records",
+                            "sInfoFiltered": "(filtered from _MAX_ total records)",
+                            "sEmptyTable": "No data available in table",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Please wait - loading...",
+                            "sProcessing": "DataTables is currently busy",
+                            "sSearch": "Search:"
+                    }
+            });
+
+    }
     
 });
 

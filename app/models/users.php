@@ -126,7 +126,7 @@ class Users extends CI_Model {
     }
 
 
-    function getAllInfoUser($limit = NULL,$start = NULL){
+    function getAllInfoUser($limit = NULL,$start = NULL,$isAjax = false){
         
         //$this->db->where($this->_tables['users'].".id",$userid);
         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
@@ -135,42 +135,45 @@ class Users extends CI_Model {
         $this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
-        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".contract_id as contract_id,".$this->_tables['employee'].".isContract as isContract,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
+        if(!$isAjax)
+            $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".contract_id as contract_id,".$this->_tables['employee'].".isContract as isContract,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
         $this->db->order_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);
-        return ($query->num_rows() > 0) ? $query->result() : false;
+        return ($query->num_rows() > 0) ? ((!$isAjax)? $query->result():$query->result_array()) : false;
     }
     
-    function getRejectedUsers($limit = NULL,$start = NULL){
+    function getRejectedUsers($limit = NULL,$start = NULL,$isAjax = false){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","R");
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
-        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
+        if(!$isAjax)
+            $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].','.$this->_tables['jobs']);
-        return ($query->num_rows() > 0) ? $query->result() : false;
+        return ($query->num_rows() > 0) ? ((!$isAjax)? $query->result():$query->result_array()) : false;
     }
-    function getPrecautionUsers($limit = NULL,$start = NULL){
+    function getPrecautionUsers($limit = NULL,$start = NULL,$isAjax = false){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",date("Y"));
         $this->db->where($this->_tables['employee'].".isAccept","P");
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
-        $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
+        if(!$isAjax)
+            $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
         $this->db->group_by($this->_tables['users'].".id");
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].','.$this->_tables['jobs']);
-        return ($query->num_rows() > 0) ? $query->result() : false;
+        return ($query->num_rows() > 0) ? ((!$isAjax)? $query->result():$query->result_array()) : false;
     }
     
-    function getUsers($limit = NULL,$start = NULL){
+    function getUsers($limit = NULL,$start = NULL,$isAjax = false){
         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         $query = $this->db->get($this->_tables['users']);
-        return ($query->num_rows() > 0) ? $query->result() : false;
+        return ($query->num_rows() > 0) ? ((!$isAjax)? $query->result():$query->result_array()) : false;
     }
 
     function get_total_users()

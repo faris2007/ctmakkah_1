@@ -10,15 +10,15 @@
         <tbody>
             <tr>
                 <td><?=@$this->lang->line('register_name_arabic');?></td>
-                <td><input type="text" name="arName" id="arName" placeholder="Name" value="<?=@$profile->ar_name?>" style="width: 70%"<?=(@$ADMIN)? "" : ' disabled="1"'?> /></td>
+                <td><input type="text" name="arName" id="arName" placeholder="Name" value="<?=@$profile->ar_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_name_english');?></td>
-                <td><input type="text" name="enName" id="enName" placeholder="Name" value="<?=@$profile->en_name?>" style="width: 70%"<?=(@$ADMIN)? "" : ' disabled="1"'?> /></td>
+                <td><input type="text" name="enName" id="enName" placeholder="Name" value="<?=@$profile->en_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('login_ID');?></td>
-                <td><input type="text" name="national_id" id="national_id" placeholder="National ID" value="<?=@$profile->idn?>" maxlength="10" style="width: 70%" <?=(@$ADMIN)? "" : ' disabled="1"'?> /></td>
+                <td><input type="text" name="national_id" id="national_id" placeholder="National ID" value="<?=@$profile->idn?>" maxlength="10" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_email');?></td>

@@ -438,7 +438,10 @@ class Employee extends CI_Controller{
                         'gender'        => $this->input->post("gender",true),
                         'email'         => $this->input->post("email",true),
                         'mobile'        => $this->input->post("mobile",true),
-                        'nationality'   => $this->input->post("nationality",true)
+                        'nationality'   => $this->input->post("nationality",true),
+                        'idn'           => $this->input->post("national_id",true),
+                        'ar_name'       => $this->input->post("arName",true),
+                        'en_name'       => $this->input->post("enName",true)
                     );
                     if($this->users->updateUser($userID,$store)){
                         $data['STEP'] = "success";
@@ -595,7 +598,7 @@ class Employee extends CI_Controller{
                 $data['TITLE'] = "Accepted new Employees";
                 $this->core->load_template($data);
            }else {
-                $query = $this->users->getAccpetedUsers();
+                //$query = $this->users->getAccpetedUsers();
                 $per_url = 'employee/accepted/';
                 $total_results = $this->users->get_total_info_users();
                 $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
@@ -791,7 +794,7 @@ class Employee extends CI_Controller{
            $query = $this->users->getUsers(1000,$start);
            $per_url = 'employee/users/';
            $total_results = $this->users->get_total_users();
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+           $data['pagination'] = false;
            $data['users'] = $query;
            $data['STEP'] = "users";
            $data['CONTENT'] = 'employee/users';
@@ -827,7 +830,7 @@ class Employee extends CI_Controller{
            $type = ($type == NULL)? 0 : $type;
            $query = $this->users->getAllUserByPictures("yes");
            if($type == 0)
-               $this->core->createCSV($query,"pictures.csv");
+               $this->core->createCSV($query,"pictures.csv",true);
            $per_url = 'employee/users/pic';
            $total_results = count($query);
            $data['pagination'] = $this->core->perpage($per_url,$total_results,$type,1000);
