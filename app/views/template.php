@@ -5,7 +5,7 @@
     <script type="text/javascript">
         var Token = '<?=$this->core->token(TRUE)?>';
         var base_url = '<?=base_url()?>';
-        var js_files = ["jquery","jquery.dataTables","functions","jquery.popupWindow"];
+        var js_files = ["jquery","functions","jquery.popupWindow"];
         for (js_x in js_files){document.write('<script type="text/javascript" src="' + base_url + 'js/' + js_files[js_x] + '.js"></' + 'script>');}
 	document.write('<link type="text/css" rel="stylesheet" href="' + base_url + 'style/style.css">');
     </script>
@@ -40,6 +40,18 @@
         <div id="main_menu">
             <?=$MENU?>
         </div>
+        <?php if ($NAV): ?>
+        <div id="nav">
+            <ul>
+                <li>&rsaquo;</li>
+                <li><a href="<?=base_url()?>">Home</a></li>
+                <?php foreach($NAV as $key => $value): ?>
+                <li>&rsaquo;</li>
+                <li><a href="<?=$key?>"><?=$value?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
         <div id="main_content">
 			<?=$CONTENT?>
             <br />

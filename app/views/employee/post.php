@@ -1,20 +1,19 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-<div class="demo_jui">
-<table class="tbl" id="list" style="width:100%">
+    <table class="tbl" id="list" style="width:80%">
         <thead>
             <tr>
                 <td colspan="3"><?=$this->lang->line('post_view')?></td>
                 <td><a href="<?=base_url()?>post/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
             </tr>
-            <tr>
-                <th>#</th>
-                <th><?=$this->lang->line('post_view_title')?></th>
-                <th><?=$this->lang->line('post_view_date')?></th>
-                <th><?=$this->lang->line('post_view_from')?></th>
-            </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>#</td>
+                <td><?=$this->lang->line('post_view_title')?></td>
+                <td><?=$this->lang->line('post_view_date')?></td>
+                <td><?=$this->lang->line('post_view_from')?></td>
+            </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): $user = $this->users->get_info_user("all",$row->from_users_id); ?>
                     <tr id="posts<?=$row->id?>">
@@ -31,27 +30,24 @@
             <?php endif; ?>
         </tbody>
     </table>
-</div>
 <?php elseif($STEP == "add"): ?>
     <form method="post">
         <input type="hidden" name="number" value="1" />
-        <table class="tbl" style="width:80%">
+        <table class="tbl" style="width:80%;margin-top: 20px;">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('post_add')?></td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="background-color: palegoldenrod;">
                     <td><?=$this->lang->line('post_title')?></td>
-                    <td><input type="text" name="title" id="title" /></td>
+                    <td><input type="text" name="title" style="width: 95%;" id="title" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('post_note')?></td>
                     <td>
-                        <textarea id="note" name="note" style="width: 80%">
-
-			</textarea>
+                        <textarea id="note" name="note" rows="10" style="width: 95%"></textarea>
                     </td>
                 </tr>
                 <?php if(@$ERROR): ?>
@@ -68,23 +64,21 @@
 <?php elseif($STEP == "edit"): ?>
     <form method="post">
         <input type="hidden" name="ID" value="<?=@$ID?>" />
-        <table class="tbl" style="width:80%">
+        <table class="tbl" style="width:80%;margin-top: 20px">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('post_edit')?></td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="background-color: palegoldenrod;">
                     <td><?=$this->lang->line('post_title')?></td>
-                    <td><input type="text" name="title" id="title" value="<?=@$TITLEM?>" /></td>
+                    <td><input type="text" name="title" id="title" style="width: 95%;" value="<?=@$TITLEM?>" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('post_note')?></td>
                     <td>
-                        <textarea id="note" name="note" style="width: 80%">
-                            <?=@$NOTEM?>
-			</textarea>
+                        <textarea id="note" name="note" rows="10" style="width: 95%"><?=@$NOTEM?></textarea>
                     </td>
                 </tr>
                 <?php if(@$ERROR): ?>
@@ -156,16 +150,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr style="background-color: palegoldenrod;">
                 <td><?=$this->lang->line('post_title')?></td>
-                <td><input type="text" name="title" id="title" /></td>
+                <td><input type="text" name="title" style="width: 95%" id="title" /></td>
             </tr>
             <tr>
                 <td><?=$this->lang->line('post_note')?></td>
                 <td>
-                    <textarea id="note" name="note" style="width: 80%">
-
-                    </textarea>
+                    <textarea id="note" name="note" rows="10" style="width: 95%"></textarea>
                 </td>
             </tr>
             <?php if(@$ERROR): ?>

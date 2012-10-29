@@ -2,8 +2,6 @@
 /* CSS Document */
 @import url("menu.css");
 @import url("css3buttons.css");
-@import url("table_jui.css");
-@import url("smoothness/jquery-ui-1.8.4.custom.css");
 
 * {
     font: normal 14px tahoma;
@@ -77,6 +75,26 @@ body {
     border-radius: 5px;
 }
 
+#nav {
+    border-bottom: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+    width: 90%;
+    margin: 10px auto 10px auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#nav ul {
+    list-style: square;
+    margin: 2px;
+    padding-left: 10px;
+}
+
+#nav ul li {
+    display: inline-block;    
+}
+
 #container {
 	margin: 0 auto 0 auto;
 	width: 900px;
@@ -136,32 +154,6 @@ body {
 
 .tbl tbody tr:hover {
 	background-color: #E0E0E0;	
-}
-
-.tbl1 {
-	border: 1px #CCC solid;
-	margin: 3px auto 3px auto;
-	background-color: #FFF;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.20);
-	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.20);
-	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.20);
-	text-align: center;
-}
-
-.tbl1 thead td {
-	border-bottom: 1px #CCC solid;
-	padding: 3px;
-	font-weight: bold;
-}
-
-.tbl1 tbody tr:hover {
-	background-color: #E0E0E0;	
-}
-.tbl1 tbody td {
-	border-bottom: 1px #CCC solid;
 }
 
 .message {

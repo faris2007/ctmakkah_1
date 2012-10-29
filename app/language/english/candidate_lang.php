@@ -4,6 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+//from view dir 
 $lang['candidate_view_list_candidate'] = "List of Candidate";
 $lang['candidate_view_id'] = "National ID";
 $lang['candidate_view_name'] = "Name";

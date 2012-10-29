@@ -8,7 +8,7 @@
 /**
  * @author Faris Al-Otaibi 
  */
-
+// file _ function or tittle 
 $lang['login_text'] = "Login Page";
 $lang['logout_text'] = "Logout Page";
 $lang['login_ID'] = "National ID or Iqama ID";

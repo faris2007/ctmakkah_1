@@ -4,7 +4,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+// file name _ function name
+
+$lang['employee_change_password'] = "Change password page";
+$lang['empoyee_upload_user'] = "Upload user Page";
 $lang['employee_upload_Picture'] = "Setting Profile Page ";
+$lang['employee_contract'] = "Contract Page";
+$lang['employee_contract_problem'] = "There is a problem";
+$lang['employee_is_contract'] = "He is a contract visit your profile";
+$lang['employee_no_contract'] = "He is not a contract";
+$lang['employee_contract_success'] = "Done , The user is Contractor now";
+$lang['employee_contract_error'] = "WORNG";
+
 $lang['employee_profile'] = "Your Profile Page";
 $lang['employee_candidate'] = "List of candidaties Page";
 $lang['employee_candidate_Accepted'] = "The acceptance process was successful";
@@ -39,5 +51,5 @@ $lang['employee_user'] = "Users List";
 $lang['employee_user_not_found'] = "Not found this user";
 $lang['employee_user_success'] = "The user has been deleted";
 $lang['employee_user_error'] = "There is a problem in the deletion process";
-
+$lang['employee_card'] = "Card";
 ?>

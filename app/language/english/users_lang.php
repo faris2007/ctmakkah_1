@@ -17,7 +17,8 @@ $lang['user_view_mobile'] = "Mobile";
 $lang['user_view_list_user_no_pic'] = "List Of Users Who don't have a Picture";
 $lang['user_view_not_found'] = "Not Found";
 $lang['user_view_position'] = "Position";
-
+$lang['user_view_download_csv'] = "Download AS CSV file";
+$lang['user_view_']
 
 
 ?>
