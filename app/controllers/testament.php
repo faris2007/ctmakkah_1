@@ -120,6 +120,7 @@ class testament extends CI_Controller {
                 $testamentID = $this->input->post("testaments",true);
                 $size = $this->input->post("size",true);
                 $number = $this->input->post("number",true);
+                $action = $this->input->post("action",true);
                 $store = array(
                     'Testament_id'  => $testamentID,
                     'deadline'      => "15/12/1433",
@@ -132,8 +133,21 @@ class testament extends CI_Controller {
                         $userinfo = $this->users->get_info_user("all",$value);
                         if(!is_bool($userinfo['profile'])){
                             $store['users_id'] = $userinfo['profile']->id;
-                            $msg[$key]['idn'] = $value;
-                            $msg[$key]['message'] = ($this->testaments->addTestamentToUser($store)) ? "added successfully" : "there is problem";
+                            if (!$this->testaments->checkIfHaveTestaments($userinfo['profile']->id,$testamentID))
+                            {
+                                $msg[$key]['idn'] = $value;
+                                if($action == "add")
+                                    $msg[$key]['message'] = ($this->testaments->addTestamentToUser($store)) ? "added successfully" : "there is problem";
+                                else
+                                    $msg[$key]['message'] = "this user don't have this testament before";
+
+                            }else{
+                                $msg[$key]['idn'] = $value;
+                                if($action == "del")
+                                    $msg[$key]['message'] = ($this->testaments->deleteTestamentFromUser($store['users_id'],$store['Testament_id'])) ? "added successfully" : "there is problem";
+                                else
+                                    $msg[$key]['message'] = "this user have this testament before";
+                            }
                         }else{
                             $msg[$key]['idn'] = $value;
                             $msg[$key]['message'] = "this user isn't add before in database";

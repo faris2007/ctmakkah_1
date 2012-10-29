@@ -204,6 +204,15 @@
                 <td><textarea name="IDNS" style="width:80%"></textarea></td>
             </tr>
             <tr>
+                <td>Select Action :</td>
+                <td>
+                    <select name="action">
+                        <option value="add">Add</option>
+                        <option value="del">Delete</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td>Select Testament :</td>
                 <td>
                     <select name="testaments">

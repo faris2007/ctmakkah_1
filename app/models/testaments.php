@@ -92,6 +92,24 @@ class testaments  extends CI_Model{
         return ($query->num_rows() > 0)?$query->result():false;
     }
     
+    
+    /**
+     *
+     * @param mixd $userid if you send "admin" this meaning give me all tables
+     */
+    function checkIfHaveTestaments($userid,$testamentID)
+    {
+        if(empty($userid) || empty($testamentID)) return false;
+      
+        $this->db->order_by($this->_tables['testament'].'.id',"DESC");
+        $this->db->group_by($this->_tables['testament'].'.id');
+        $this->db->where($this->_tables['link'].'.users_id',$userid);
+        $this->db->where($this->_tables['link'].'.Testament_id',$testamentID);
+        $this->db->where($this->_tables['testament'].'.id = '.$this->_tables['link'].'.Testament_id');
+        $query = $this->db->get($this->_tables['testament'].",".$this->_tables['link']);
+        return ($query->num_rows() > 0)? true:false;
+    }
+    
     function getUsersHasTestaments()
     {
       
