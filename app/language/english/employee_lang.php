@@ -8,7 +8,7 @@
 // file name _ function name
 
 $lang['employee_change_password'] = "Change password page";
-$lang['empoyee_upload_user'] = "Upload user Page";
+$lang['employee_upload_user'] = "Upload user Page";
 $lang['employee_upload_Picture'] = "Setting Profile Page ";
 $lang['employee_contract'] = "Contract Page";
 $lang['employee_contract_problem'] = "There is a problem";
@@ -25,13 +25,15 @@ $lang['employee_candidate_reject_success'] = "The rejection process was successf
 $lang['employee_candidate_reject_error'] = "There is a Problem";
 $lang['employee_candidate_Precaution_success'] = "Done , Precaution successfully";
 $lang['employee_candidate_Precaution_error'] = "There is a Problem";
-$lang['employee_accepted'] = "The list of accepted";
+$lang['employee_accepted1'] = "The list of accepted";
+$lang['employee_accepted2'] = "Accepted new Employees";
 $lang['employee_accepted_success'] = "The acceptance process was successful";
 $lang['employee_accepted_error'] = "There is a problem";
 $lang['employee_accepted_reject_success'] = "The rejection process was successful";
 $lang['employee_accepted_reject_error'] = "There is a Problem";
 $lang['employee_accepted_Precaution_success'] = "Done , Precaution successfully";
 $lang['employee_accepted_Precaution_error'] = "There is a Problem";
+$lang['employee_accepted_go_profile'] = "He is accepted if you want to visit your page";
 $lang['employee_rejected'] = "The list of rejected";
 $lang['employee_rejected_success'] = "The rejectence process was successful";
 $lang['employee_rejected_error'] = "There is a problem";
