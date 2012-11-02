@@ -75,14 +75,13 @@ class datatables extends CI_Model {
     private function filtering(){
 	if ( isset($this->data['sSearch']) && $this->data['sSearch'] != "" )
 	{
-		for ( $i=0 ; $i<$this->num_column ; $i++ )
-		{
-                        if($i == 0)
-                            $this->db->like($this->aColumns[$i],$this->data['sSearch']);
-                        else
-                            $this->db->or_like($this->aColumns[$i],$this->data['sSearch']);
+                for ( $i=0 ; $i<$this->num_column ; $i++ )
+		{   
+                        $likeA[] = $this->aColumns[$i]." LIKE '%".$this->data['sSearch']."%'";
 		}
-	}
+                $like = "( ".implode(" OR ", $likeA)." )";
+                $this->db->where($like);
+        }
 	
 	/* Individual column filtering */
 	for ( $i=0 ; $i<$this->num_column ; $i++ )
@@ -149,34 +148,50 @@ class datatables extends CI_Model {
             return $this->json_encode($output);
     }
     
-    private function json_encode($data){
-        if(!is_array($data))
-            @$this->fatal_error("There are problem in parameter which send it in json_encode function");
+    
+    private function json_encode($a=false)
+    {
+        if (is_null($a)) return 'null';
+        if ($a === false) return 'false';
+        if ($a === true) return 'true';
         
-        $output = "{";
-        foreach ($data as $key => $value){
-            if(is_array($value)){
-                $output .= '"'.$key .'": [';
-                foreach ($value as $k=> $var){
-                    $output .= '[';
-                    if(is_array($var))
-                    foreach ($var as $col)
-                        $output .= '"'.$col .'",';
-                    else
-                        $output .= '"'.$k .'":"'.$var.'"';
-                    $output = substr_replace( $output, "", -1 );
-                    $output .= '],';
-                }
-                $output = substr_replace( $output, "", -1 );
-                $output .= ']';
-            }else{
-                    $output .= '"'.$key .'":"'.$value.'"';
+        if (is_scalar($a))
+        {
+            if (is_float($a))
+            {
+                // Always use "." for floats.
+                return floatval(str_replace(",", ".", strval($a)));
             }
-            $output .= ',';
+
+            if (is_string($a))
+            {
+                static $jsonReplaces = array(array("\\", "/", "\n", "\t", "\r", "\b", "\f", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'));
+                return '"' . str_replace($jsonReplaces[0], $jsonReplaces[1], $a) . '"';
+            }
+            else
+                return $a;
         }
-        $output = substr_replace( $output, "", -1 );
-        $output .= "}";
-        return $output;
+        
+        $isList = true;
+        for ($i = 0, reset($a); $i < count($a); $i++, next($a))
+        {
+            if (key($a) !== $i)
+            {
+                $isList = false;
+                break;
+            }
+        }
+        $result = array();
+        if ($isList)
+        {
+            foreach ($a as $v) $result[] = $this->json_encode($v);
+            return '[' . join(',', $result) . ']';
+        }
+        else
+        {
+            foreach ($a as $k => $v) $result[] = $this->json_encode($k).':'.  $this->json_encode($v);
+            return '{' . join(',', $result) . '}';
+        }
     }
 }
 
