@@ -7,7 +7,7 @@
 //      file  _ function name
 $lang['attendance_takeattendance'] = "Show attendance";
 $lang['attendance_report'] = "Show report";
-$lang['attendance_add'] = "add new attendance";
+$lang['attendance_add'] = "add a new attendance";
 $lang['attendance_name'] = "Name of attendance";
 $lang['attendance_superviser'] = "Superviser";
 $lang['attendance_button_add'] = "Add";
@@ -18,9 +18,9 @@ $lang['attendance_view_name'] = "Name";
 $lang['attendance_view_superviser'] = "Superviser";
 $lang['attendance_view_control'] = "Control"; 
 $lang['attendance_add'] = "Add to attendance";
-$lang['attendance_add_error'] = "There is problem in data entry";
-$lang['attendance_add_success'] = "Done work,  add new attendance";
-$lang['attendance_edit_success'] = "Done work,  edit attendance";
+//$lang['attendance_add_error'] = "There is problem in data entry";
+//$lang['attendance_add_success'] = "Done work,  add new attendance";
+//$lang['attendance_edit_success'] = "Done work,  edit attendance";
 $lang['attendance_delete_success'] = "The item has been deleted";
 $lang['attendance_delete_error'] = "There is a problem , Can't delete it";
 $lang['attendance_view_nothing'] = "Do not have any attendance yet";
@@ -38,14 +38,14 @@ $lang['attendance_added_problem'] = "you have a Problem , Check The data  ";
 $lang['attendance_view_nothing'] = "Nothing";
 $lang['attendance_view_message'] = " groups in this attendance if you want add new group atended ";
 $lang['attendance_view_group'] = "group in this attendance";
-$lang['attendance_view_name'] = "Name";
-$lang['attendance_view_remove'] = "Remove";
-$lang['attendance_view_not_found'] = "Not Found";
+//$lang['attendance_view_name'] = "Name";
+//$lang['attendance_view_remove'] = "Remove";
+//$lang['attendance_view_not_found'] = "Not Found";
 $lang['attendance_view_back_to_attendance'] = "Back to Attendance Sheet";
 $lang['attendance_view_add_group'] = "Add group to attendance";
-$lang['attendance_view_select'] = "Select";
-$lang['attendance_view_add_bottom'] = "Add";
-$lang['attendance_view_remove_bottom'] = "Remove";
+//$lang['attendance_view_select'] = "Select";
+//$lang['attendance_view_add_bottom'] = "Add";
+//$lang['attendance_view_remove_bottom'] = "Remove";
 $lang['attendance_view_option'] = "Nothing";
 $lang['attendance_view_start_attendance'] = "Start Attendance";
 $lang['attendance_view_select_group'] = "Select Group";
@@ -53,7 +53,7 @@ $lang['attendance_view_select_action'] = "Select Group";
 $lang['attendance_view_report'] = "Report";
 $lang['attendance_view_start'] = "START"; 
 $lang['attendance_view_take_attendance'] = "Take Attendance";
-$lang['attendance_view_name_employee'] = "Name Of Employee";
+$lang['attendance_view_name_employee'] = "Employee Name";
 
 ?>
 

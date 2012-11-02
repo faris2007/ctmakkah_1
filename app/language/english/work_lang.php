@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -19,9 +20,9 @@ $lang['work_delete_worng'] = "wrong in delete process";
 // file name_ dir  _ html tag
 
 $lang['work_view_list'] = "list of group work in the day";
-$lang['work_view_name'] = "Name";
+//$lang['work_view_name'] = "Name";
 $lang['work_view_location'] = "Location";
-$lang['work_view_control'] = "Control";
+//$lang['work_view_control'] = "Control";
 $lang['work_view_have_not'] = "Don't have any Group yet";
 $lang['work_view_table_work'] = "Schedule";
 $lang['work_view_day'] = "Day";
@@ -45,8 +46,8 @@ $lang['work_view_problem_entry'] = "There is error in data entry";
 $lang['work_view_edit_group'] = "Edit Work Group";
 $lang['work_view_info_group'] = "Information about this Group of work";
 $lang['work_view_add_user'] = "add new user to this group";
-$lang['work_view_remove'] = "Remove";
-$lang['work_view_not_found'] = "Not Found";
+//$lang['work_view_remove'] = "Remove";
+//$lang['work_view_not_found'] = "Not Found";
 $lang['work_view_result_added'] = "Result for added";
 
 ?>
