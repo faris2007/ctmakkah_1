@@ -372,6 +372,13 @@ class Employee extends CI_Controller{
         
     }
 
+    function contract_view()
+    {
+            $data['CONTENT'] = 'employee/contract_view';
+            $data['TITLE'] = "Contract";
+            $this->core->load_template($data);        
+    }
+
 
     function profile()
     {
