@@ -1,4 +1,4 @@
-<div style="direction: rtl;padding: 20px;">
+<div style="direction: rtl;padding: 20px;background-color: white;">
 <DIV ALIGN="RIGHT">
 	<TABLE WIDTH="100%" CELLPADDING=7 CELLSPACING=0>
 		<COL WIDTH=312>
@@ -1469,62 +1469,62 @@
 		</COLGROUP>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">الاسم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['AR']['NAME']?><BR>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 WIDTH="40%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['EN']['NAME']?><BR>
 					</P>
 				</TD>
-				<TD WIDTH=114 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+				<TD WIDTH="20%" STYLE="border: 1px solid #000000; padding: 0in 0.08in">
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Name\</FONT></P>
 				</TD>
 			</TR>
 		</TBODY>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الهوية</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['ID']?><BR>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['ID']?><BR>
 					</P>
 				</TD>
-				<TD WIDTH=114 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+				<TD STYLE="border: 1px solid #000000; padding: 0in 0.08in">
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>IDNo\</FONT></P>
 				</TD>
 			</TR>
 		</TBODY>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الجوال</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['MOBILE']?><BR>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['MOBILE']?><BR>
 					</P>
 				</TD>
-				<TD WIDTH=114 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+				<TD STYLE="border: 1px solid #000000; padding: 0in 0.08in">
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Mobile No\</FONT></P>
 				</TD>
 			</TR>

@@ -374,6 +374,15 @@ class Employee extends CI_Controller{
 
     function contract_view()
     {
+            $data['CONTRACT']['2ND']['AR']['NAME'] = 'أحمد';
+            $data['CONTRACT']['2ND']['EN']['NAME'] = 'Ahmad';
+            $data['CONTRACT']['2ND']['ID'] = '11111111111';
+            $data['CONTRACT']['2ND']['MOBILE'] = '055555555555';
+            $data['CONTRACT']['2ND']['SIGNATURE'] = '';
+            $data['CONTRACT']['DAY'] = '';
+            $data['CONTRACT']['DATE'] = '';
+
+
             $data['CONTENT'] = 'employee/contract_view';
             $data['TITLE'] = "Contract";
             $this->core->load_template($data);        
