@@ -21,12 +21,16 @@ class ajax extends CI_Controller {
             return false;
         
         $editimg = img('style/icon/edit.png');
-        $delimg = img('style/icon/del.png');
         for($i = 0 ; $i<count($data);$i++){
             $url = anchor("employee/profile/".$data[$i]['idn'],$editimg);
             $data[$i][$key] = $url;
-            $js = 'onClick="deleted(\''.  base_url().'employee/users/0/del/'.$data[$i]['id'].'\',\'users'.$data[$i]['id'].'\',\'Not Found\')"';
-            $data[$i][$key] .= anchor('employee/users', $delimg, $js); 
+            $delimgdetail = array(
+                'src'       => 'style/icon/del.png',
+                'alt'       => 'delete users',
+                'onClick'   => 'deleted(\''.  base_url().'employee/users/0/del/'.$data[$i]['id'].'\',\'users'.$data[$i]['id'].'\',\'Not Found\')'
+            );
+            $delimg = img($delimgdetail);
+            $data[$i][$key] .= $delimg; 
         }
         return $data;
     }

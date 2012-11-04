@@ -120,7 +120,7 @@ class Core {
     }
     
     public function getServicesName(){
-        $data = array("testament","employee","job","group","post","attendance","notification","work");
+        $data = array("testament","employee","job","group","post","attendance","notification","work","penalty");
         return $data;
     }
     
@@ -133,7 +133,8 @@ class Core {
             "post"          => array("all","view","show","add","edit","delete"),
             "attendance"    => array("all","view","show","add","edit","delete"),
             "notification"  => array("all","view","show","add","edit","delete"),
-            "work"          => array("all","view","show","add","edit","delete")
+            "work"          => array("all","view","show","add","edit","delete"),
+            "penalty"       => array("all","view","show","add","edit","delete")
             );
         return (isset($data[$service_name]))? $data[$service_name] : $data  ;
     }
