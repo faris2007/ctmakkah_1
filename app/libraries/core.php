@@ -302,6 +302,16 @@ class Core {
         $data['am'] = $timeM[1];
         return $data;
     }
+    
+    public function add_log($_service = '',$_function = '',$_action = '',$_parem = '')
+    {
+        $data = array('USER_ID' => '',
+                      'SERVICE' => $_service,
+                      'FUNCTION' => $_function,
+                      'ACTION' => $_action,
+                      'PAREM' => $_parem);
+        $this->db->insert('logs', $data); 
+    }
 }
 
 ?>
