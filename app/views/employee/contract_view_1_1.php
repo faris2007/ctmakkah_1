@@ -13,7 +13,7 @@
 <td valign="top" > </td>
 <td valign="top" ><p>*Introduction &amp; Definition's </p>
 
-<p>1. 1<sup>st</sup> party\ Is " Asfar &amp; A'amal" The Fourndation, whom got a sub\contract of MMMP1 S-Line 2010 Operation's , and Got Assigned( for the 2<sup>nd</sup> season in Succession) for 2011 – 2012 Hajj seson MMMP2 – S-Line operation's Sub/Contract , and MMMP3 for the third time in a row. </p></td>
+<p>1. 1<sup>st</sup> party\ Is " Asfar &amp; A'amal " The Fourndation, whom got a sub\contract of MMMP1 S-Line 2010 Operation's , and Got Assigned( for the 2<sup>nd</sup> season in Succession) for 2011 – 2012 Hajj seson MMMP2 – S-Line operation's Sub/Contract , and MMMP3 for the third time in a row. </p></td>
 </tr>
 
 <tr>

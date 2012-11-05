@@ -6,7 +6,7 @@
 		<COL WIDTH=293>
 		<TR>
 			<TD COLSPAN=3 WIDTH=643 VALIGN=TOP STYLE="border: none; padding: 0in">
-				<P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in">      
+				<P CLASS="western" ALIGN="CENTER" STYLE="margin-bottom: 0in">      
 				                  <FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif"><B>عقد</B></FONT><FONT FACE="Times New Roman, serif"><B>
 				</B></FONT><FONT FACE="Simplified Arabic, serif"><B>توظيف</B></FONT><FONT FACE="Times New Roman, serif"><B>
 				</B></FONT><FONT FACE="Simplified Arabic, serif"><B>موسمي</B></FONT><FONT FACE="Times New Roman, serif"><B>

@@ -310,6 +310,7 @@ class Core {
                       'FUNCTION' => $_function,
                       'ACTION' => $_action,
                       'PAREM' => $_parem);
+        
         $this->db->insert('logs', $data); 
     }
 }
