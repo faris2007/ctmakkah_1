@@ -305,12 +305,18 @@ class Core {
     
     public function add_log($_service = '',$_function = '',$_action = '',$_parem = '')
     {
-        $data = array('USER_ID' => '',
+        /**
+         * SERVICE => Controller Name
+         * FUNCTION => Function Name
+         * ACTION => Num Action ( Get Str from lang )
+         * PAREM => Exp ( 1,ADD,LOGOUT )
+         */        
+        $data = array('USER_ID' => $this->CI->users->get_info_user("id"),
                       'SERVICE' => $_service,
                       'FUNCTION' => $_function,
                       'ACTION' => $_action,
-                      'PAREM' => $_parem);
-        
+                      'PAREM' => $_parem,
+                      'TIMESTAMP' => time());
         $this->db->insert('logs', $data); 
     }
 }
