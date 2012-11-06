@@ -1,3 +1,49 @@
+<html>
+
+<head>
+    <title>Signature</title>
+    <script language="JavaScript" type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/jSignature.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/plugins/jSignature.CompressorBase30.js"></script>
+    <script type="text/javascript">
+        var Token = '<?=$this->core->token(TRUE)?>';
+        var base_url = '<?=base_url()?>';
+      
+        $(document).ready(function() {
+                $(".jSignature").jSignature({width:400,height:300,color:'#E13300'});
+                /*$("#signature").attr("src",$('#signature').val());
+                $("#clear").click(function() {
+                        $("#jSignature").jSignature("clear");
+                });
+                $('#save').click(function() {
+                        $('#signature').val($('#jSignature').jSignature('getData', 'base30'));
+                        $('#form_signature').submit();
+                });*/
+                $(".jSignature").jSignature("setData", "data:<?=$CONTRACT['2ND']['SIGNATURE']?>");
+        });
+    </script>
+    <style>
+        * {
+            font-family: tahoma;
+            font-size: 14px;
+        }
+        
+        #buttons {
+            margin: auto;
+            width: 400px;
+        }
+        .jSignature{
+            width:400px;
+            height: 300px;
+            text-align: center;
+            position:relative;
+            right:15%;
+        }
+    </style>
+    <meta charset="utf-8" />
+</head>
+
+<body>
 <div style="direction: rtl;padding: 20px;background-color: white;">
 <DIV ALIGN="RIGHT">
 	<TABLE WIDTH="100%" CELLPADDING=7 CELLSPACING=0>
@@ -1469,7 +1515,7 @@
 		</COLGROUP>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">الاسم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
 					</P>
@@ -1489,7 +1535,7 @@
 		</TBODY>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الهوية</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
@@ -1510,7 +1556,7 @@
 		</TBODY>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الجوال</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
@@ -1531,19 +1577,16 @@
 		</TBODY>
 		<TBODY>
 			<TR VALIGN=TOP>
-				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<P CLASS="western" ALIGN=RIGHT><FONT FACE="Simplified Arabic, serif"><FONT SIZE=4><SPAN LANG="ar-SA">التوقيع</SPAN></FONT></FONT><FONT SIZE=4>/
 					</FONT>
 					</P>
 				</TD>
-				<TD COLSPAN=2 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
-					</P>
+                                <TD COLSPAN=4 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<div class ="jSignature"><BR>
+					</div>
 				</TD>
-				<TD COLSPAN=2 WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<P CLASS="western" ALIGN=RIGHT><BR>
-					</P>
-				</TD>
+				
 				<TD WIDTH=114 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Bar Code \</FONT></P>
 				</TD>
@@ -2710,82 +2753,90 @@ Misbehavior. </FONT>
 		<COL WIDTH=217>
 		<COL WIDTH=187>
 		<COL WIDTH=113>
-		<TR VALIGN=TOP>
-			<TD WIDTH=83 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">الاسم</FONT><FONT FACE="Times New Roman, serif">
-				</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
-				</P>
-			</TD>
-			<TD WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=113 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
-				<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Name\</FONT></P>
-			</TD>
-		</TR>
-		<TR VALIGN=TOP>
-			<TD WIDTH=83 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
-				</FONT><FONT FACE="Simplified Arabic, serif">الهوية</FONT><FONT FACE="Times New Roman, serif">
-				</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
-				</P>
-			</TD>
-			<TD WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=113 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
-				<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>IDNo\</FONT></P>
-			</TD>
-		</TR>
-		<TR VALIGN=TOP>
-			<TD WIDTH=83 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
-				</FONT><FONT FACE="Simplified Arabic, serif">الجوال</FONT><FONT FACE="Times New Roman, serif">
-				</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
-				</P>
-			</TD>
-			<TD WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=113 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
-				<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Mobile No\</FONT></P>
-			</TD>
-		</TR>
-		<TR VALIGN=TOP>
-			<TD WIDTH=83 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><FONT FACE="Simplified Arabic, serif"><FONT SIZE=4><SPAN LANG="ar-SA">التوقيع</SPAN></FONT></FONT><FONT SIZE=4>/
-				</FONT>
-				</P>
-			</TD>
-			<TD WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=187 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-				<P CLASS="western" ALIGN=RIGHT><BR>
-				</P>
-			</TD>
-			<TD WIDTH=113 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
-				<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Bar Code \</FONT></P>
-			</TD>
-		</TR>
+		<TBODY>
+			<TR VALIGN=TOP>
+				<TD WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">الاسم</FONT><FONT FACE="Times New Roman, serif">
+					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
+					</P>
+				</TD>
+				<TD COLSPAN=2 WIDTH="20%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['AR']['NAME']?><BR>
+					</P>
+				</TD>
+				<TD COLSPAN=2 WIDTH="40%" STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['EN']['NAME']?><BR>
+					</P>
+				</TD>
+				<TD WIDTH="20%" STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Name\</FONT></P>
+				</TD>
+			</TR>
+		</TBODY>
+		<TBODY>
+			<TR VALIGN=TOP>
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
+					</FONT><FONT FACE="Simplified Arabic, serif">الهوية</FONT><FONT FACE="Times New Roman, serif">
+					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
+					</P>
+				</TD>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['ID']?><BR>
+					</P>
+				</TD>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['ID']?><BR>
+					</P>
+				</TD>
+				<TD STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>IDNo\</FONT></P>
+				</TD>
+			</TR>
+		</TBODY>
+		<TBODY>
+			<TR VALIGN=TOP>
+				<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=4><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
+					</FONT><FONT FACE="Simplified Arabic, serif">الجوال</FONT><FONT FACE="Times New Roman, serif">
+					</FONT></SPAN></FONT><FONT SIZE=4>/ </FONT>
+					</P>
+				</TD>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['MOBILE']?><BR>
+					</P>
+				</TD>
+				<TD COLSPAN=2 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=CENTER><?=$CONTRACT['2ND']['MOBILE']?><BR>
+					</P>
+				</TD>
+				<TD STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Mobile No\</FONT></P>
+				</TD>
+			</TR>
+		</TBODY>
+		<TBODY>
+			<TR VALIGN=TOP>
+				<TD WIDTH=84 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<P CLASS="western" ALIGN=RIGHT><FONT FACE="Simplified Arabic, serif"><FONT SIZE=4><SPAN LANG="ar-SA">التوقيع</SPAN></FONT></FONT><FONT SIZE=4>/
+					</FONT>
+					</P>
+				</TD>
+                                <TD COLSPAN=4 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<div class ="jSignature"><BR>
+					</div>
+				</TD>
+				
+				<TD WIDTH=114 STYLE="border: 1px solid #000000; padding: 0in 0.08in">
+					<P DIR="LTR" CLASS="western" ALIGN=LEFT><FONT SIZE=4>Bar Code \</FONT></P>
+				</TD>
+			</TR>
+		</TBODY>
 	</TABLE>
 </DIV>
 <P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><BR>
 </P>
 </div>
+    </body>
+
+</html>

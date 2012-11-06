@@ -3,8 +3,8 @@
 <head>
     <title>Signature</title>
     <script language="JavaScript" type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://github.com/brinley/jSignature/raw/master/jSignature.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://github.com/brinley/jSignature/raw/master/jSignature.CompressorBase30.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/jSignature.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/plugins/jSignature.CompressorBase30.js"></script>
     <script type="text/javascript">
         var Token = '<?=$this->core->token(TRUE)?>';
         var base_url = '<?=base_url()?>';

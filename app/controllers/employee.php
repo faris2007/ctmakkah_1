@@ -374,18 +374,25 @@ class Employee extends CI_Controller{
 
     function contract_view()
     {
-            $data['CONTRACT']['2ND']['AR']['NAME'] = 'أحمد';
-            $data['CONTRACT']['2ND']['EN']['NAME'] = 'Ahmad';
-            $data['CONTRACT']['2ND']['ID'] = '11111111111';
-            $data['CONTRACT']['2ND']['MOBILE'] = '055555555555';
-            $data['CONTRACT']['2ND']['SIGNATURE'] = '';
+            if(!$this->users->isLogin())
+                show_404 ();
+            $userInfo = $this->users->get_info_user("all");
+            $this->db->where("year",  date("Y"));
+            $EmployeeInfo = $this->employees->getEmployees($userInfo->id);
+            $EmployeeId = $EmployeeInfo[0]->id;
+            $data['CONTRACT']['2ND']['AR']['NAME'] = $userInfo->ar_name;
+            $data['CONTRACT']['2ND']['EN']['NAME'] = $userInfo->en_name;
+            $data['CONTRACT']['2ND']['ID'] = $userInfo->idn;
+            $data['CONTRACT']['2ND']['MOBILE'] = $userInfo->mobile;
+            $data['CONTRACT']['2ND']['SIGNATURE'] = $this->employees->signature($EmployeeId);
             $data['CONTRACT']['DAY'] = '';
             $data['CONTRACT']['DATE'] = '';
 
 
             $data['CONTENT'] = 'employee/contract_view';
-            $data['TITLE'] = "Contract";
-            $this->core->load_template($data);        
+            $this->load->view("employee/contract_view",$data);
+            /*$data['TITLE'] = "Contract";
+            $this->core->load_template($data); */       
     }
 
 
