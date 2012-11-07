@@ -10,7 +10,7 @@
     <tbody>
         <tr>
             <td>#</td>
-            <td>Name</td>
+            <td>Name (length)</td>
             <td>Amount Of Penalty</td>
             <td>Control</td>
         </tr>
@@ -18,7 +18,7 @@
             <?php foreach ($types as $row):?>
                 <tr id="penaltyT<?=@$row->id?>">
                     <td><?=@$row->id?></td>
-                    <td><?=@$row->name?></td>
+                    <td><?=@$row->name." (".@$row->length.")"?></td>
                     <td><?=@$row->penaltyAmount?></td>
                     <td>
                         <a href="<?=base_url()?>penalty/edit/type/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
@@ -44,7 +44,7 @@
         <tr>
             <td>#</td>
             <td>Name of user</td>
-            <td>Type of penalty</td>
+            <td>Type of penalty (length)</td>
             <td>Control</td>
         </tr>
         <?php if(@$penalty): ?>
@@ -52,7 +52,7 @@
                 <tr id="penalty<?=@$row->id?>">
                     <td><?=@$row->id?></td>
                     <td><?=@$row->en_name?></td>
-                    <td><?=@$row->name?></td>
+                    <td><?=@$row->name." (".@$row->length.")"?></td>
                     <td>
                         <a href="<?=base_url()?>penalty/edit/penalty/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
                         <a onclick="deleted('<?=base_url()?>penalty/delete/penalty/<?=$row->id?>','penalty<?=@$row->id?>','NOT FOUND','penalty')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>

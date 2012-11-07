@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Signature</title>
+    <title>Contract</title>
     <script language="JavaScript" type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
     <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/jSignature.js"></script>
     <script language="JavaScript" type="text/javascript" src="https://raw.github.com/willowsystems/jSignature/master/src/plugins/jSignature.CompressorBase30.js"></script>
@@ -2823,7 +2823,7 @@ Misbehavior. </FONT>
 					</P>
 				</TD>
                                 <TD COLSPAN=4 WIDTH=217 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-					<div class ="jSignature"><BR>
+					<div class="jSignature" id="Sig2"><BR>
 					</div>
 				</TD>
 				
@@ -2834,6 +2834,11 @@ Misbehavior. </FONT>
 		</TBODY>
 	</TABLE>
 </DIV>
+<script type="text/javascript">
+        $(document).ready(function() {
+                $("#Sig2").jSignature("setData", "data:<?=$CONTRACT['2ND']['SIGNATURE']?>");
+        });
+    </script>
 <P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><BR>
 </P>
 </div>

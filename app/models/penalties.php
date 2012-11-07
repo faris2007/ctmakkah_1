@@ -87,7 +87,7 @@ class penalties extends CI_Model {
         }
         $this->db->where($this->_tables['penalty'].'.type = `'.$this->_tables['type'].'`.`id`');
         $this->db->where($this->_tables['penalty'].'.to_users_id = `users`.`id`');
-        $this->db->select($this->_tables['penalty'].'.id,'.$this->_tables['type'].'.name,users.en_name');
+        $this->db->select($this->_tables['penalty'].'.id,'.$this->_tables['penalty'].'.date,'.$this->_tables['penalty'].'.time,'.$this->_tables['type'].'.name,users.en_name,'.$this->_tables['type'].'.penaltyAmount,'.$this->_tables['type'].'.length');
         $this->db->group_by($this->_tables['penalty'].'.id');
         $this->db->order_by("id"); 
         $query = $this->db->get($this->_tables['penalty'].",".$this->_tables['type'].",users");

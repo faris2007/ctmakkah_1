@@ -319,6 +319,18 @@ class Core {
                       'TIMESTAMP' => time());
         $this->db->insert('logs', $data); 
     }
+    
+    public function computePenaltyAmount($penalties){
+        if(!is_array($penalties))
+            return 0;
+        
+        $total = 0;
+        foreach ($penalties as $value)
+            $total += $value->penaltyAmount;
+        
+        return $total;
+        
+    }
 }
 
 ?>

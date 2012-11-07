@@ -21,9 +21,11 @@ class ajax extends CI_Controller {
             return false;
         
         $editimg = img('style/icon/edit.png');
+        $cardsimg = img('style/icon/cards.png');
         for($i = 0 ; $i<count($data);$i++){
             $url = anchor("employee/profile/".$data[$i]['idn'],$editimg);
-            $data[$i][$key] = $url;
+            $cards = anchor("penalty/add/penalty/".$data[$i]['id'],$cardsimg);
+            $data[$i][$key] = $url.$cards;
             $delimgdetail = array(
                 'src'       => 'style/icon/del.png',
                 'alt'       => 'delete users',

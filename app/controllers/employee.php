@@ -374,25 +374,77 @@ class Employee extends CI_Controller{
 
     function contract_view()
     {
-            if(!$this->users->isLogin())
+        if(!$this->users->isLogin())
+            show_404 ();
+        $userInfo = $this->users->get_info_user("all");
+        $this->db->where("year",  date("Y"));
+        $EmployeeInfo = $this->employees->getEmployees($userInfo->id);
+        $EmployeeId = $EmployeeInfo[0]->id;
+        $data['CONTRACT']['2ND']['AR']['NAME'] = $userInfo->ar_name;
+        $data['CONTRACT']['2ND']['EN']['NAME'] = $userInfo->en_name;
+        $data['CONTRACT']['2ND']['ID'] = $userInfo->idn;
+        $data['CONTRACT']['2ND']['MOBILE'] = $userInfo->mobile;
+        $data['CONTRACT']['2ND']['SIGNATURE'] = $this->employees->signature($EmployeeId);
+        $data['CONTRACT']['DAY'] = '';
+        $data['CONTRACT']['DATE'] = '';
+
+
+        $data['CONTENT'] = 'employee/contract_view';
+        $this->load->view("employee/contract_view",$data);
+        /*$data['TITLE'] = "Contract";
+        $this->core->load_template($data); */       
+    }
+    
+    function salary(){
+        if(!$this->users->isLogin())
                 show_404 ();
-            $userInfo = $this->users->get_info_user("all");
-            $this->db->where("year",  date("Y"));
-            $EmployeeInfo = $this->employees->getEmployees($userInfo->id);
-            $EmployeeId = $EmployeeInfo[0]->id;
-            $data['CONTRACT']['2ND']['AR']['NAME'] = $userInfo->ar_name;
-            $data['CONTRACT']['2ND']['EN']['NAME'] = $userInfo->en_name;
-            $data['CONTRACT']['2ND']['ID'] = $userInfo->idn;
-            $data['CONTRACT']['2ND']['MOBILE'] = $userInfo->mobile;
-            $data['CONTRACT']['2ND']['SIGNATURE'] = $this->employees->signature($EmployeeId);
-            $data['CONTRACT']['DAY'] = '';
-            $data['CONTRACT']['DATE'] = '';
-
-
-            $data['CONTENT'] = 'employee/contract_view';
-            $this->load->view("employee/contract_view",$data);
-            /*$data['TITLE'] = "Contract";
-            $this->core->load_template($data); */       
+        
+        $this->load->model("penalties");
+        $segments = $this->uri->segment_array();
+        $type = (isset($segments[3]))? $segments[3] : NULL;
+        if(is_null($type)){
+            $userInfo = $this->users->get_info_user('all');
+            $userProfile = $this->users->getProfileUser($userInfo->id);
+            $penaltiesData = $this->penalties->getPenaltys($userInfo->id);
+            if($userInfo->mony == 1 || @$this->core->checkPermissions("employee","add","all","all")){
+                $data['CANTAKESALARY'] = true;
+                $data['SALARY'] = $userProfile->{"mony"};
+                $data['BOUNCE'] = $userProfile->{"date"};
+                $data['PENALTY'] = $this->core->computePenaltyAmount($penaltiesData);
+                $data['penalties'] = $penaltiesData;
+            }else{
+                $data['MSG'] = "Sorry, now you can't see your salary";
+                $data['CANTAKESALARY'] = false;
+            }
+            $data['ADMIN'] = false;
+        }elseif($type == "add"){
+            if($_POST){
+                $idns = explode("\n", $this->input->post("IDNS",true));
+                $msg = array();
+                $store['mony'] = '1';
+                foreach ($idns as $key => $value){
+                    if(is_numeric($value) && strlen($value) == 10)
+                    {
+                        $userinfo = $this->users->get_info_user("all",$value);
+                        $msg[$key]['idn'] = $value;
+                        if(!is_bool($userinfo['profile']))
+                            $msg[$key]['message'] = ($this->users->updateUser($userinfo['profile']->id,$store)) ? "added successfully" : "there is problem";
+                        else
+                            $msg[$key]['message'] = "this isn't not found in database";
+                    }
+                }
+                $data['query'] = $msg;
+                $data['STEP'] = "success";
+            }else{
+                $data['STEP'] = "add";
+            }
+            $data['ADMIN'] = true;
+        }else
+            show_404 ();
+        
+        $data['CONTENT'] = 'employee/salary';
+        $data['TITLE'] = "Profile";
+        $this->core->load_template($data);
     }
 
 

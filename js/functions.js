@@ -16,6 +16,13 @@ $(document).ready(function(){
         top:50, 
         left:50 
     }); 
+    $('#contracturl').popupWindow({ 
+        height:550, 
+        width:900,
+        scrollbars:1,
+        top:50, 
+        left:50 
+    }); 
     if ($('#list').attr('dataajax') !== undefined) {
         $('#list').dataTable({
                     "aLengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
