@@ -4,6 +4,7 @@
         <ul>
             <?php if($this->users->isLogin()): ?>
                 <li><a href="<?=base_url()?>employee/profile">Profile</a></li>
+                <li><a href="<?=base_url()?>employee/salary">View Salary</a></li>
                 <li><a id="contracturl" href="<?=base_url()?>employee/contract_view">View Contract</a></li>
                 <li><a href="<?=base_url()?>testament">Testaments</a></li>
                 <li><a href="<?=base_url()?>work">Table Of Work</a></li>
