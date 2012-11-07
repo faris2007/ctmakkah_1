@@ -77,7 +77,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if(!$users):?>
+        <?php if(!@$users):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
                     <td><?=@$row->contract_id?></td>
@@ -99,7 +99,7 @@
     </tbody>
 </table>
 </div>
-<?php if($pagination) : ?>
+<?php if(@$pagination) : ?>
     <div class="message"><?=$pagination?></div>
 <?php endif; ?>
 <?php elseif(@$STEP == "accept") : ?>

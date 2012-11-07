@@ -676,7 +676,7 @@ class Employee extends CI_Controller{
                 //$query = $this->users->getAccpetedUsers();
                 $per_url = 'employee/accepted/';
                 $total_results = $this->users->get_total_info_users();
-                $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+                $data['pagination'] = false;
                 $data['users'] = $this->users->getAllInfoUser(1000,$start);
                 $data['jobs'] = $this->jobs->getJobs("all");
                 $data['CONTENT'] = 'employee/accepted';
