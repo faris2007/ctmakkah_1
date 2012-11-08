@@ -11,14 +11,6 @@
       
         $(document).ready(function() {
                 $(".jSignature").jSignature({width:400,height:300,color:'#E13300'});
-                /*$("#signature").attr("src",$('#signature').val());
-                $("#clear").click(function() {
-                        $("#jSignature").jSignature("clear");
-                });
-                $('#save').click(function() {
-                        $('#signature').val($('#jSignature').jSignature('getData', 'base30'));
-                        $('#form_signature').submit();
-                });*/
                 $(".jSignature").jSignature("setData", "data:<?=$CONTRACT['2ND']['SIGNATURE']?>");
         });
     </script>
@@ -1621,8 +1613,7 @@
 					</FONT><FONT FACE="Simplified Arabic, serif">الطرف</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الأول</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">لفترة</FONT><FONT FACE="Times New Roman, serif">
-					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">((
-					______________________)) . </FONT>
+					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">((الحج لعام (<?=date('Y')?>))) . </FONT>
 					</P>
 					<P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">ب</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">.
 					</FONT><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">أن</FONT><FONT FACE="Times New Roman, serif">
@@ -1631,8 +1622,7 @@
 					</FONT><FONT FACE="Simplified Arabic, serif">الثاني</FONT><FONT FACE="Times New Roman, serif">
 					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ </FONT><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">على</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">وظيفة</FONT><FONT FACE="Times New Roman, serif">
-					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">: ((
-					_________________________________)) </FONT><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">ضمن</FONT><FONT FACE="Times New Roman, serif">
+					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">: ((<?=$CONTRACT['2ND']['JOB']?>)) </FONT><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">ضمن</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">أعمال</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">تشغيل</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">محطات</FONT><FONT FACE="Times New Roman, serif">
@@ -1722,12 +1712,11 @@
 					</P>
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT STYLE="margin-bottom: 0in">
 					<FONT SIZE=3 STYLE="font-size: 13pt">a. 2<SUP>nd</SUP> party
-					will work for the 1<SUP>st</SUP> party for a period of : ((
-					_______________)) . </FONT>
+					will work for the 1<SUP>st</SUP> party for a period of : ((hajj <?=date("Y")?>)) . </FONT>
 					</P>
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT STYLE="margin-bottom: 0in">
 					 <FONT SIZE=3 STYLE="font-size: 13pt">b. 2<SUP>nd</SUP> party
-					will work no the Position of: (( __________________________))</FONT></P>
+					will work no the Position of: (( <?=$CONTRACT['2ND']['JOB']?>))</FONT></P>
 					<P DIR="LTR" CLASS="western" ALIGN=LEFT STYLE="margin-bottom: 0in">
 					<FONT SIZE=3 STYLE="font-size: 13pt">c. 2<SUP>nd</SUP> party
 					will work at the \station\ shift\ position – which determined
@@ -1770,19 +1759,24 @@
 					Party </FONT>
 					</P>
 					<P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">الاسم</FONT><FONT FACE="Times New Roman, serif">
-					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ </FONT>
+					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ <?=$CONTRACT['2ND']['AR']['NAME']?></FONT>
 					</P>
 					<P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
 					</FONT><FONT FACE="Simplified Arabic, serif">الهوية</FONT><FONT FACE="Times New Roman, serif">
-					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ </FONT>
+					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ <?=$CONTRACT['2ND']['ID']?></FONT>
 					</P>
 					<P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">رقم</FONT><FONT FACE="Times New Roman, serif">
-					</FONT><FONT FACE="Simplified Arabic, serif">الاتصال</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/
+					</FONT><FONT FACE="Simplified Arabic, serif">الاتصال</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ <?=$CONTRACT['2ND']['MOBILE']?>
 					</FONT>
 					</P>
 					<P CLASS="western" ALIGN=RIGHT><FONT SIZE=3 STYLE="font-size: 13pt"><SPAN LANG="ar-SA"><FONT FACE="Simplified Arabic, serif">التوقيع</FONT><FONT FACE="Times New Roman, serif">
-					</FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ </FONT>
+                                                </FONT></SPAN></FONT><FONT SIZE=3 STYLE="font-size: 13pt">/ <div class="jSignature" id="Sig3"></div></FONT>
 					</P>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                    $("#Sig3").jSignature("setData", "data:<?=$CONTRACT['2ND']['SIGNATURE']?>");
+                                            });
+                                        </script>
 				</TD>
 			</TR>
 		</TBODY>

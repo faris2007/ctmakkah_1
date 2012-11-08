@@ -325,8 +325,12 @@ class Core {
             return 0;
         
         $total = 0;
-        foreach ($penalties as $value)
-            $total += $value->penaltyAmount;
+        foreach ($penalties as $value){
+            if(is_numeric($value->penaltyAmount))
+                $total += $value->penaltyAmount;
+            elseif(is_string($value->penaltyAmount) || $value->penaltyAmount == "Reject")
+                return -1;
+        }
         
         return $total;
         

@@ -377,6 +377,7 @@ class Employee extends CI_Controller{
         if(!$this->users->isLogin())
             show_404 ();
         $userInfo = $this->users->get_info_user("all");
+        $userProfile = $this->users->getProfileUser($userInfo->id);
         $this->db->where("year",  date("Y"));
         $EmployeeInfo = $this->employees->getEmployees($userInfo->id);
         $EmployeeId = $EmployeeInfo[0]->id;
@@ -385,6 +386,7 @@ class Employee extends CI_Controller{
         $data['CONTRACT']['2ND']['ID'] = $userInfo->idn;
         $data['CONTRACT']['2ND']['MOBILE'] = $userInfo->mobile;
         $data['CONTRACT']['2ND']['SIGNATURE'] = $this->employees->signature($EmployeeId);
+        $data['CONTRACT']['2ND']['JOB'] = $userProfile->name;
         $data['CONTRACT']['DAY'] = '';
         $data['CONTRACT']['DATE'] = '';
 
@@ -410,7 +412,8 @@ class Employee extends CI_Controller{
                 $data['CANTAKESALARY'] = true;
                 $data['SALARY'] = $userProfile->{"mony"};
                 $data['BOUNCE'] = $userProfile->{"date"};
-                $data['PENALTY'] = $this->core->computePenaltyAmount($penaltiesData);
+                $penaltyTotal = $this->core->computePenaltyAmount($penaltiesData);
+                $data['PENALTY'] = ($penaltyTotal != -1)? $penaltyTotal : $data['SALARY']+$data['BOUNCE'];
                 $data['penalties'] = $penaltiesData;
             }else{
                 $data['MSG'] = "Sorry, now you can't see your salary";
