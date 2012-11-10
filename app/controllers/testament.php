@@ -288,6 +288,9 @@ class testament extends CI_Controller {
         }elseif($type == "users_has_testament.csv"){
             $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_testament.csv");
             $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/users_has_testament.csv"));
+        }elseif($type == "accepted_users.csv"){
+            $this->core->createCSV($this->users->getAllInfoUser(),"accepted_users.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/accepted_users.csv"));
         }else
             show_404 ();
     }

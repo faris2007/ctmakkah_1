@@ -677,7 +677,7 @@ class Employee extends CI_Controller{
                 $this->core->load_template($data);
            }else {
                 $data['pagination'] = false;
-                $data['users'] = $this->users->getAllInfoUser(1000,$start);
+                $data['users'] = $this->users->getAllInfoUser(10,0);
                 $data['jobs'] = $this->jobs->getJobs("all");
                 $data['CONTENT'] = 'employee/accepted';
                 $data['TITLE'] = "List Of Accepted";
