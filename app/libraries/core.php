@@ -331,9 +331,10 @@ class Core {
     
     function changeIfWindows($string){
         $this->CI->load->library('user_agent');
-        
-        if($this->CI->agent->platform() == "Windows")
-            $newString = iconv('UTF-8', 'Windows-1256', $string);
+        if(empty($string))
+            return "";
+        if(@ereg('windows', strtolower($this->CI->agent->platform())))
+            $newString = @iconv('UTF-8', 'Windows-1256', $string);
         else
             $newString = $string;
         return $newString;
