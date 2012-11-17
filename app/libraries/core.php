@@ -208,14 +208,7 @@ class Core {
         $query = $this->CI->users->getAllInfoUser();
         if(!is_bool($query)){
             foreach ($query as $key =>$row){
-                if(($key+1) < 10)
-                    $data['contract_id'] = "000".($key+1);
-                elseif(($key+1) >= 10 && ($key+1)<100)
-                    $data['contract_id'] = "00".($key+1);
-                elseif (($key+1) >= 100 && ($key+1)<1000)
-                    $data['contract_id'] = "0".($key+1);
-                elseif (($key+1) >= 1000)
-                    $data['contract_id'] = ($key+1);
+                    $data['contract_id'] = str_pad($key+1,4,"0",STR_PAD_LEFT);
                 
                 if(!$this->CI->employees->updateEmployee($row->ide,$data))
                     $error[$key] = "Can't update the user number (".$row->id.")";
@@ -231,7 +224,7 @@ class Core {
         $string .= ($addPictures)?";Picture Url\n":"\n";
         if($data){
             foreach ($data as $key => $value){
-                $string .= $key.";".$value->idn.";".$value->en_name.";".@$value->ar_name.";".$value->grade.";".$value->mobile;
+                $string .= $key.";".$value->idn.";".$value->en_name.";".$this->changeIfWindows(@$value->ar_name).";".$value->grade.";".$value->mobile;
                 $string .= ($addPictures)?";".  base_url()."files/personal_img/".$value->idn."\n":"\n";
             }
         }
@@ -334,6 +327,16 @@ class Core {
         
         return $total;
         
+    }
+    
+    function changeIfWindows($string){
+        $this->CI->load->library('user_agent');
+        
+        if($this->CI->agent->platform() == "Windows")
+            $newString = iconv('UTF-8', 'Windows-1256', $string);
+        else
+            $newString = $string;
+        return $newString;
     }
 }
 

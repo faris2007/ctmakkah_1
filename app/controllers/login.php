@@ -75,7 +75,7 @@ class Login extends CI_Controller{
                     $this->db->where("year",date("Y"));
                     $this->db->where("users_id",$check['profile']->id);
                     $result = $this->employees->getEmployees("ALL");
-                    if(!$result){
+                    if(!is_bool($result)){
                         $data['ERROR'] = False;
                         $data['STEP'] = 4;
                         $data['MSG'] = $this->lang->line('register_employee_error');
