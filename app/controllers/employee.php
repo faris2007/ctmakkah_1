@@ -633,9 +633,13 @@ class Employee extends CI_Controller{
                             $userinfo = $this->users->get_info_user("all",$value);
                             if(!is_bool($userinfo['profile'])){
                                 $this->db->where("year",date("Y"));
+                                $this->db->where("isAccept !=",'A');
                                 $emp = $this->employees->getEmployees($userinfo['profile']->id);
                                 $msg[$key]['idn'] = $value;
-                                $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                                if(!is_bool($emp))
+                                    $msg[$key]['message'] = ($this->employees->updateEmployee($emp[0]->id,$store)) ? "added successfully" : "there is problem";
+                                else
+                                    $msg[$key]['message'] = "This user is added before";
                             }else{
                                 $msg[$key]['idn'] = $value;
                                 $msg[$key]['message'] = "this user isn't add before in database";
