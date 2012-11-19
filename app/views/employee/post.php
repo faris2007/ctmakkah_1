@@ -1,19 +1,19 @@
 <?php if($STEP == "view"): ?>
 <div id="delete" class="tbl" style="color:white;background-color:red;display:none;width:50%;text-align:center" ></div>
-    <table class="tbl" id="list" style="width:80%">
+    <table class="tbl" id="list" style="width:100%">
         <thead>
             <tr>
                 <td colspan="3"><?=$this->lang->line('post_view')?></td>
                 <td><a href="<?=base_url()?>post/add"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
             </tr>
+            <tr>
+                <th>#</th>
+                <th><?=$this->lang->line('post_view_title')?></th>
+                <th><?=$this->lang->line('post_view_date')?></th>
+                <th><?=$this->lang->line('post_view_from')?></th>
+            </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>#</td>
-                <td><?=$this->lang->line('post_view_title')?></td>
-                <td><?=$this->lang->line('post_view_date')?></td>
-                <td><?=$this->lang->line('post_view_from')?></td>
-            </tr>
             <?php if($query) : ?>
                 <?php foreach(@$query as $row): $user = $this->users->get_info_user("all",$row->from_users_id); ?>
                     <tr id="posts<?=$row->id?>">

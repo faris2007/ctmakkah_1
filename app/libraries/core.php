@@ -205,13 +205,15 @@ class Core {
     public function retypeContractNumber(){
         $this->CI->load->model("employees");
         $error = array();
-        $query = $this->CI->users->getAllInfoUser();
+        $this->CI->db->where("year",date("Y"));
+        $this->CI->db->where("isAccept",'A');
+        $query = $this->CI->employees->getEmployees('all');
         if(!is_bool($query)){
             foreach ($query as $key =>$row){
                     $data['contract_id'] = str_pad($key+1,4,"0",STR_PAD_LEFT);
                 
-                if(!$this->CI->employees->updateEmployee($row->ide,$data))
-                    $error[$key] = "Can't update the user number (".$row->id.")";
+                if(!$this->CI->employees->updateEmployee($row->id,$data))
+                    $error[$key] = "Can't update the user number (".$row->users_id.")";
             }
         }
         

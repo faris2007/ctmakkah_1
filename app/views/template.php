@@ -25,10 +25,10 @@
     <div id="notification">
         <div>
             <img src="<?=base_url()?>style/icon/notification.png">
-            <marquee behavior="scroll" scrollamount="4" style="width:850px" direction="left">
-                <span class="scrollingtext" style="color: #FFF;">Notification: <?=$this->core->getNotification()?></span>
+            <marquee behavior="scroll" scrollamount="4" style="width:850px" direction="right">
+                <span class="scrollingtext" style="color: #FFF;">التنبيهات: <?=$this->core->getNotification()?></span>
             </marquee>
-            <?=$this->core->getNotification()?>
+            
         </div>
     </div>
     <div id="top_bar">
