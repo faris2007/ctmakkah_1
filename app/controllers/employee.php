@@ -23,6 +23,64 @@ class Employee extends CI_Controller{
         $this->profile(); 
     }
     
+    
+    
+    function getPayment() {
+        if(!$this->users->isLogin())
+                show_404 ();
+        
+        $this->load->model("penalties");
+        $user_id = $this->users->get_info_user("id");
+        $userProfile = $this->users->getProfileUser($user_id);
+        $penaltiesData = $this->penalties->getPenaltys($user_id);
+        $SALARY = $userProfile->{"mony"};
+        $BOUNCE = $userProfile->{"date"};
+        $penaltyTotal = $this->core->computePenaltyAmount($penaltiesData);
+        $penalty = ($penaltyTotal != -1)? $penaltyTotal : $SALARY + $data['BOUNCE'];
+        $data = array(
+            'SALARY'    => ($SALARY + $BOUNCE)- $penalty,
+            'NAME_AR'   => $userProfile->ar_name,
+            'NAME_EN'   => $userProfile->en_name,
+            'IDN'       => $userProfile->idn,
+            'MOBILE'    => $userProfile->mobile,
+        );
+        $this->load->library('pdf');
+
+        // set document information
+        $this->pdf->SetAuthor('Author');
+        $this->pdf->SetTitle('Title');
+        $this->pdf->SetSubject('Subject');
+        $this->pdf->SetKeywords('keywords');
+        
+        $this->pdf->setRTL(true);
+        #---------------------- create file ----
+        // set font
+        $this->pdf->SetFont('almohanad', '', 14);
+
+        // add a page
+        $this->pdf->AddPage();
+        
+        $data['LNG'] = "ar";
+        $tbl = $this->load->view("employee/payment",$data,true);
+        $this->pdf->SetY(45);
+        // write html on PDF
+        $this->pdf->writeHTML($tbl, true, false, false, false, '');
+        
+        $this->pdf->setRTL(false);
+        // add second page
+        $this->pdf->AddPage();
+        $this->pdf->SetFont('dejavuserif', '', 12);
+        $this->pdf->SetY(45);
+        $data['LNG'] = "en";
+        $tbl = $this->load->view("employee/payment",$data,true);
+
+        // write html on PDF
+        $this->pdf->writeHTML($tbl, true, false, false, false, '');
+
+        //Close and output PDF document
+        $this->pdf->Output(md5($user_id).rand(0, 1000000).'.pdf', 'I');
+    }
+    
     function change_password(){
         $segments = $this->uri->segment_array();
         if(@$this->core->checkPermissions("employee","edit","all","all"))
@@ -33,7 +91,7 @@ class Employee extends CI_Controller{
             show_404 ();
         
         if($_POST){
-            $oldPass = $this->input->post("oldpass",true);
+            $oldPass = (@$this->core->checkPermissions("employee","edit","all","all") && ($this->input->post("oldpass",true) == ""))? "dfg" : $this->input->post("oldpass",true);
             $newPass = $this->input->post("newpass",true);
             $renewPass = $this->input->post("renewpass",true);
             if($newPass == $renewPass){

@@ -356,7 +356,7 @@ $config['rewrite_short_tags'] = TRUE;
 |
 */
 $config['proxy_ips'] = '';
-
+define('K_CELL_HEIGHT_RATIO', 1.25);
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

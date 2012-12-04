@@ -63,6 +63,11 @@
                 <td><?=(@$SALARY+@$BOUNCE)-@$PENALTY?></td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">before you come to delivery your salary you want to print this document <a href="<?=base_url()?>employee/getPayment">Download</a></td>
+            </tr>
+        </tfoot>
     </table>
     <br />
     <table class="tbl" id="penalty" style="width:85%">
