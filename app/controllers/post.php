@@ -41,21 +41,26 @@ class post extends CI_Controller {
     function add(){
         if(($this->users->isLogin() && $this->users->checkIfUser()) || @$this->core->checkPermissions("post","add","all","all")){
             if($_POST){
-                $store = array(
-                    'title'         => $this->input->post("title",true),
-                    'date'          => date("y-m-d h:i:s"),
-                    'notemessage'   => $this->input->post("note",true),
-                    'numberOfPost'  => $this->input->post("number",true),
-                    'from_users_id' => $this->users->get_info_user("id")
-                );
-                if(!$this->posts->addNewPost($store)){
+                if(empty($_POST['title']) || empty($_POST['note'])){
                     $data['STEP'] = "add";
                     $data['ERROR'] = true;
-                }else
-                {
-                    $data['STEP'] = "success";
-                    $data['MSG'] = $this->lang->line('post_add_success');
-                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'post/show/'.$this->db->insert_id(), 'type' => 'equiv'));
+                }else{
+                    $store = array(
+                        'title'         => $this->input->post("title",true),
+                        'date'          => date("y-m-d h:i:s"),
+                        'notemessage'   => $this->input->post("note",true),
+                        'numberOfPost'  => $this->input->post("number",true),
+                        'from_users_id' => $this->users->get_info_user("id")
+                    );
+                    if(!$this->posts->addNewPost($store)){
+                        $data['STEP'] = "add";
+                        $data['ERROR'] = true;
+                    }else
+                    {
+                        $data['STEP'] = "success";
+                        $data['MSG'] = $this->lang->line('post_add_success');
+                        $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'post/show/'.$this->db->insert_id(), 'type' => 'equiv'));
+                    }
                 }
             }else{
                 $data['STEP'] = "add";
@@ -152,23 +157,34 @@ class post extends CI_Controller {
         $row = $this->posts->getPost($postID);
         if(($userid == $row->from_users_id) || $this->core->checkPermissions("post","show","all","all")){
             if($_POST){
-               $store = array(
-                    'title'         => $this->input->post("title",true),
-                    'date'          => date("y-m-d h:i:s"),
-                    'notemessage'   => $this->input->post("note",true),
-                    'numberOfPost'  => $this->input->post("number",true),
-                    'from_users_id' => $this->users->get_info_user("id"),
-                    'post_id'       => $postID
-                );
-                if(!$this->posts->addNewPost($store)){
+               if(empty($_POST['title']) || empty($_POST['note'])){
+                    $userInfo = $this->users->get_info_user("all",$row->from_users_id);
+                    $data['TITLEM'] = $row->title;
+                    $data['NOTEM'] = $row->notemessage;
+                    $data['DATE'] = $row->date;
+                    $data['FROM'] = $userInfo['profile']->en_name;
+                    $data['REPLAY'] = $this->posts->getReplays($postID);
+                    $data['TITLE'] = $row->title;
                     $data['STEP'] = "show";
-                    $data['ERROR'] = true;
-                }else
-                {
-                    $data['STEP'] = "success";
-                    $data['MSG'] = $this->lang->line('post_add_success');
-                    $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'post/show/'.$postID, 'type' => 'equiv'));
-                } 
+               }else{
+                    $store = array(
+                        'title'         => $this->input->post("title",true),
+                        'date'          => date("y-m-d h:i:s"),
+                        'notemessage'   => $this->input->post("note",true),
+                        'numberOfPost'  => $this->input->post("number",true),
+                        'from_users_id' => $this->users->get_info_user("id"),
+                        'post_id'       => $postID
+                    );
+                    if(!$this->posts->addNewPost($store)){
+                        $data['STEP'] = "show";
+                        $data['ERROR'] = true;
+                    }else
+                    {
+                        $data['STEP'] = "success";
+                        $data['MSG'] = $this->lang->line('post_add_success');
+                        $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '5;url='.  base_url().'post/show/'.$postID, 'type' => 'equiv'));
+                    }
+                }
             }else {
                 $userInfo = $this->users->get_info_user("all",$row->from_users_id);
                 $data['TITLEM'] = $row->title;

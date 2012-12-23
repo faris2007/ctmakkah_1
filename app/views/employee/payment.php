@@ -4,11 +4,11 @@
 دفع رواتب موظفين أسفار
 <br />
 (يتضمن الوردية الليلية من تاريخ 22 أكتوير 2012 والوردية الأضافية)</p>
-<p style="text-align:right">أنا:<?=$NAME_AR?> عملت لدى شركة أسفار كموظف مؤقت خلال موسم حج عام 2012
+<p style="text-align:right">أنا:<span style="text-decoration:underline"><?=@$NAME_AR?></span> عملت لدى شركة أسفار كموظف مؤقت خلال موسم حج عام 2012
 <br />
-بموجب هوية رقم:<?=$IDN?> وجوال رقم :<?=$MOBILE?>
+بموجب هوية رقم:<span style="text-decoration:underline"><?=@$IDN?></span> وجوال رقم :<span style="text-decoration:underline"><?=@$MOBILE?></span>
 <br />
-وتلقيت مبلغ :<?=$SALARY?> ريال سعودي من قبل شركة CRCC نظير الخدمة في موسم الحج 2012
+وتلقيت مبلغ :<?=@$SALARY?> ريال سعودي من قبل شركة CRCC نظير الخدمة في موسم الحج 2012
 <br />
 والمتضمن مبلغ الوردية الليلية ليوم 22 أكتوبر 2012 والوردية الأضافية. وهذا المبلغ النهائي والكامل يعتبر تسوية
 نهائية للعقد بين الشخص الموقع وشركة أسفار. و وظيفة شركة CRCC تتلخص في الدفع نيابة عن شركة أسفار, وشركة
@@ -28,9 +28,9 @@ CRCC لا تتحمل أي مسؤولية بموجب عقد العمل.</p>
 <p style="text-align:right;color:red">(ملاحظة: يتم إرفاق صورة من اثبات الهوية للموظف المستلم)</p>
 <?php else: ?>
 <p style="text-align:center">Makkah Railway Operation Temporary Hajj Staff (Station) 2012<br />Direct Salary Payment to Asfar Staff<br />(Including Late Shift on 22 Oct 2012 and Double Shifts Allowance)</p>
-<p style="text-align:left">I, <?=$NAME_EN?> Being Asfar temporary staff in Hajj 2012 Makkah railway operation service with ID
-card number :<?=$IDN?> and mobile number : <?=$MOBILE?>, hereby received
-a sum of SAR :<?=$SALARY?> from CRCC as an 2012 Hajj service salary including
+<p style="text-align:left">I, <span style="text-decoration:underline"><?=@$NAME_EN?></span> Being Asfar temporary staff in Hajj 2012 Makkah railway operation service with ID
+    card number :<span style="text-decoration:underline"><?=@$IDN?></span> and mobile number : <span style="text-decoration:underline"><?=@$MOBILE?></span>, hereby received
+a sum of SAR :<?=@$SALARY?> from CRCC as an 2012 Hajj service salary including
 additional late shift on 22 Oct 2012 and double shifts, if any. The money is the <span style="color:red;text-decoration:underline">full and
 final</span> settlement for the 2012 Hajj employment contract between Asfar and me. I understand that the employment contract <span style="color:red;text-decoration:underline">still remains</span> between Asfar and me, and
 CRCC just pay <span style="color:red;text-decoration:underline">me</span> on behalf of Asfar <span style="color:red;text-decoration:underline">only without taking any liability under the said employment contract</span>.</p>

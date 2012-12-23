@@ -104,6 +104,8 @@
     <?php else: ?>
     <div class="message">
         <?=@$MSG?>
+        <br />
+        <span style="color:red">attention: you cannot deliver your salary if don't print this document (<a href="<?=base_url()?>employee/getPayment">Download</a>)</span>
     </div>
     <?php endif; ?>
 <?php endif; ?>

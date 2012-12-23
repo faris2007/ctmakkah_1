@@ -42,12 +42,12 @@
             <tbody>
                 <tr style="background-color: palegoldenrod;">
                     <td><?=$this->lang->line('post_title')?></td>
-                    <td><input type="text" name="title" style="width: 95%;" id="title" /></td>
+                    <td><input type="text" name="title" style="width: 95%;" id="title" required="required" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('post_note')?></td>
                     <td>
-                        <textarea id="note" name="note" rows="10" style="width: 95%"></textarea>
+                        <textarea id="note" name="note" rows="10" style="width: 95%" required="required"></textarea>
                     </td>
                 </tr>
                 <?php if(@$ERROR): ?>
@@ -73,12 +73,12 @@
             <tbody>
                 <tr style="background-color: palegoldenrod;">
                     <td><?=$this->lang->line('post_title')?></td>
-                    <td><input type="text" name="title" id="title" style="width: 95%;" value="<?=@$TITLEM?>" /></td>
+                    <td><input type="text" name="title" id="title" style="width: 95%;" value="<?=@$TITLEM?>" required="required" /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('post_note')?></td>
                     <td>
-                        <textarea id="note" name="note" rows="10" style="width: 95%"><?=@$NOTEM?></textarea>
+                        <textarea id="note" name="note" rows="10" style="width: 95%" required="required"><?=@$NOTEM?></textarea>
                     </td>
                 </tr>
                 <?php if(@$ERROR): ?>
@@ -152,12 +152,12 @@
         <tbody>
             <tr style="background-color: palegoldenrod;">
                 <td><?=$this->lang->line('post_title')?></td>
-                <td><input type="text" name="title" style="width: 95%" id="title" /></td>
+                <td><input type="text" name="title" style="width: 95%" id="title" required="required" /></td>
             </tr>
             <tr>
                 <td><?=$this->lang->line('post_note')?></td>
                 <td>
-                    <textarea id="note" name="note" rows="10" style="width: 95%"></textarea>
+                    <textarea id="note" name="note" rows="10" style="width: 95%" required="required"></textarea>
                 </td>
             </tr>
             <?php if(@$ERROR): ?>

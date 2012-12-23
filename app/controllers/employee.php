@@ -30,16 +30,16 @@ class Employee extends CI_Controller{
                 show_404 ();
         
         $this->load->model("penalties");
+        $userProfile = $this->users->get_info_user("all");
         $user_id = $this->users->get_info_user("id");
-        $userProfile = $this->users->getProfileUser($user_id);
-        $penaltiesData = $this->penalties->getPenaltys($user_id);
+        /*$penaltiesData = $this->penalties->getPenaltys($user_id);
         $SALARY = $userProfile->{"mony"};
         $BOUNCE = $userProfile->{"date"};
         $penaltyTotal = $this->core->computePenaltyAmount($penaltiesData);
-        $penalty = ($penaltyTotal != -1)? $penaltyTotal : $SALARY + $data['BOUNCE'];
+        $penalty = ($penaltyTotal != -1)? $penaltyTotal : $SALARY + $data['BOUNCE'];*/
         $data = array(
-            'SALARY'    => ($SALARY + $BOUNCE)- $penalty,
-            'NAME_AR'   => $userProfile->ar_name,
+            'SALARY'    => '________________',//($SALARY + $BOUNCE)- $penalty,
+            'NAME_AR'   => (empty($userProfile->ar_name))? "_________________" :$userProfile->ar_name,
             'NAME_EN'   => $userProfile->en_name,
             'IDN'       => $userProfile->idn,
             'MOBILE'    => $userProfile->mobile,
@@ -47,10 +47,10 @@ class Employee extends CI_Controller{
         $this->load->library('pdf');
 
         // set document information
-        $this->pdf->SetAuthor('Author');
-        $this->pdf->SetTitle('Title');
-        $this->pdf->SetSubject('Subject');
-        $this->pdf->SetKeywords('keywords');
+        $this->pdf->SetAuthor('Asfar Website');
+        $this->pdf->SetTitle('Payment');
+        $this->pdf->SetSubject('Payment');
+        $this->pdf->SetKeywords('');
         
         $this->pdf->setRTL(true);
         #---------------------- create file ----
@@ -69,7 +69,7 @@ class Employee extends CI_Controller{
         $this->pdf->setRTL(false);
         // add second page
         $this->pdf->AddPage();
-        $this->pdf->SetFont('dejavuserif', '', 12);
+        $this->pdf->SetFont('times', '', 14);
         $this->pdf->SetY(45);
         $data['LNG'] = "en";
         $tbl = $this->load->view("employee/payment",$data,true);
