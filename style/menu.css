@@ -39,6 +39,7 @@ margin:0 0 0 -1px;
 padding:0;
 list-style:none;
 border-bottom:3px solid #F2861D;
+z-index:1;
 }
 
 .navigation ul li {

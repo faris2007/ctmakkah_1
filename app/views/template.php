@@ -18,9 +18,12 @@
 
                 #makeMeScrollable
                 {
-                        width:100%;
-                        height: 100px;
+                        width:90%;
+                        height: 50px;
                         position: relative;
+                        z-index:0;
+                        text-align:center;
+                        left:41px;
                 }
 
                 /* Replace the last selector for the type of element you have in
@@ -91,7 +94,7 @@
         <?php if($this->uri->segment(1, 0) == "home" || $this->uri->segment(2, 0) == "login"): ?>
             <div id="makeMeScrollable">
                 <?php for($i=1;$i<=62;$i++): ?>
-                <a rel="prettyPhoto[gallery1]" href="gallery/normal/<?=$i?>.jpg" target="_blank"><img src="gallery/thumb/<?=$i?>.jpg" alt="Asfar Images"/></a>
+                    <a rel="prettyPhoto[gallery1]" href="gallery/normal/<?=$i?>.jpg" target="_blank"><img src="gallery/thumb/<?=$i?>.jpg" alt="Asfar Images"/></a>
                 <?php endfor; ?>
             </div>
 

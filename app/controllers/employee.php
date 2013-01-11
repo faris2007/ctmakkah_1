@@ -23,7 +23,68 @@ class Employee extends CI_Controller{
         $this->profile(); 
     }
     
-    
+    function getCertificate() {
+        if(!$this->users->isLogin())
+                show_404 ();
+        
+        $user_id = $this->users->get_info_user("id");
+        $userProfile = $this->users->getProfileUser($user_id);
+        if(is_bool($userProfile))
+            show_404 ();
+
+        $this->load->library('pdf_certificate');
+
+        // set document information
+        $this->pdf_certificate->SetAuthor('Asfar Website');
+        $this->pdf_certificate->SetTitle('Payment');
+        $this->pdf_certificate->SetSubject('Payment');
+        $this->pdf_certificate->SetKeywords('');
+        
+        $this->pdf_certificate->SetMargins(15, 27, 15);
+        $this->pdf_certificate->SetHeaderMargin(0);
+        $this->pdf_certificate->SetFooterMargin(0);
+
+        //set auto page breaks
+        $this->pdf_certificate->SetAutoPageBreak(TRUE, 25);
+        
+        $this->pdf_certificate->setFontSubsetting(false); 
+        //set image scale factor
+        $this->pdf_certificate->setImageScale(1.25);
+        
+        #---------------------- create file ----
+        // set font
+        $this->pdf_certificate->SetFont('almohanad', '', 16);
+        
+        // add a page
+        $this->pdf_certificate->AddPage();
+        
+        
+       
+        $this->pdf_certificate->setRTL(true);
+        
+        $this->pdf_certificate->SetY(99);
+        $this->pdf_certificate->SetX(52);
+        $this->pdf_certificate->Write(20, $userProfile->ar_name);
+        
+        $this->pdf_certificate->SetFont('times', 'b', 16);
+        $this->pdf_certificate->SetY(110);
+        $this->pdf_certificate->SetX(143);
+        $this->pdf_certificate->Write(20, $userProfile->name);
+        $this->pdf_certificate->SetY(99);
+        $this->pdf_certificate->SetX(195);
+        $this->pdf_certificate->Write(20, $userProfile->idn);
+        $this->pdf_certificate->SetY(84);
+        $this->pdf_certificate->SetX(134);
+        $this->pdf_certificate->Write(20, '1433'); 
+        $this->pdf_certificate->SetY(124);
+        $this->pdf_certificate->SetX(228);
+        $this->pdf_certificate->Write(20, '1433'); 
+        
+        $this->pdf_certificate->setRTL(false);
+        
+        //$this->pdf_certificate->Output(md5($user_id).rand(0, 1000000).'.pdf', 'I');
+        $this->pdf_certificate->Output('./uploads/file.pdf', 'F');
+    }
     
     function getPayment() {
         if(!$this->users->isLogin())
