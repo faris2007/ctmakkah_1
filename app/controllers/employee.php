@@ -33,11 +33,11 @@ class Employee extends CI_Controller{
             show_404 ();
 
         $this->load->library('pdf_certificate');
-
+     
         // set document information
         $this->pdf_certificate->SetAuthor('Asfar Website');
-        $this->pdf_certificate->SetTitle('Payment');
-        $this->pdf_certificate->SetSubject('Payment');
+        $this->pdf_certificate->SetTitle('Certificate');
+        $this->pdf_certificate->SetSubject('Certificate');
         $this->pdf_certificate->SetKeywords('');
         
         $this->pdf_certificate->SetMargins(15, 27, 15);
@@ -53,7 +53,7 @@ class Employee extends CI_Controller{
         
         #---------------------- create file ----
         // set font
-        $this->pdf_certificate->SetFont('almohanad', '', 16);
+        $this->pdf_certificate->SetFont('times', 'b', 16);
         
         // add a page
         $this->pdf_certificate->AddPage();
@@ -64,11 +64,11 @@ class Employee extends CI_Controller{
         
         $this->pdf_certificate->SetY(99);
         $this->pdf_certificate->SetX(52);
-        $this->pdf_certificate->Write(20, $userProfile->ar_name);
+        $this->pdf_certificate->Write(20, $userProfile->en_name);
         
         $this->pdf_certificate->SetFont('times', 'b', 16);
-        $this->pdf_certificate->SetY(110);
-        $this->pdf_certificate->SetX(143);
+        $this->pdf_certificate->SetY(111);
+        $this->pdf_certificate->SetX(100);
         $this->pdf_certificate->Write(20, $userProfile->name);
         $this->pdf_certificate->SetY(99);
         $this->pdf_certificate->SetX(195);
@@ -82,8 +82,8 @@ class Employee extends CI_Controller{
         
         $this->pdf_certificate->setRTL(false);
         
-        //$this->pdf_certificate->Output(md5($user_id).rand(0, 1000000).'.pdf', 'I');
-        $this->pdf_certificate->Output('./uploads/file.pdf', 'F');
+        $this->pdf_certificate->Output(md5($user_id.rand(0, 1000000)).'.pdf', 'I');
+        //$this->pdf_certificate->Output('./uploads/file.pdf', 'F');
     }
     
     function getPayment() {
@@ -584,7 +584,7 @@ class Employee extends CI_Controller{
         $prev = (isset($segments[4]))? $segments[4] : NULL;
         
         $query1 = $this->users->get_info_user("all",$user_id);
-        $userID = ($query1['profile']->id)? $query1['profile']->id :NULL;
+        $userID = ($query1['profile'])? $query1['profile']->id :NULL;
         if(is_bool($query1['profile']))
         {    
             if(is_null($prev))
@@ -633,12 +633,7 @@ class Employee extends CI_Controller{
                 }else{
                     $store = array(
                         'gender'        => $this->input->post("gender",true),
-                        'email'         => $this->input->post("email",true),
-                        'mobile'        => $this->input->post("mobile",true),
-                        'nationality'   => $this->input->post("nationality",true),
-                        'idn'           => $this->input->post("national_id",true),
-                        'ar_name'       => $this->input->post("arName",true),
-                        'en_name'       => $this->input->post("enName",true)
+                        'nationality'   => $this->input->post("nationality",true)
                     );
                     if($this->users->updateUser($userID,$store)){
                         $data['STEP'] = "success";

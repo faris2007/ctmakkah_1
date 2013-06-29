@@ -10,23 +10,23 @@
         <tbody>
             <tr>
                 <td><?=@$this->lang->line('register_name_arabic');?></td>
-                <td><input type="text" name="arName" id="arName" placeholder="Name" value="<?=@$profile->ar_name?>" style="width: 70%" /></td>
+                <td><input type="text" name="arName" id="arName" placeholder="Name"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->ar_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_name_english');?></td>
-                <td><input type="text" name="enName" id="enName" placeholder="Name" value="<?=@$profile->en_name?>" style="width: 70%" /></td>
+                <td><input type="text" name="enName" id="enName" placeholder="Name"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->en_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('login_ID');?></td>
-                <td><input type="text" name="national_id" id="national_id" placeholder="National ID" value="<?=@$profile->idn?>" maxlength="10" style="width: 70%" /></td>
+                <td><input type="text" name="national_id" id="national_id" placeholder="National ID"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->idn?>" maxlength="10" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_email');?></td>
-                <td><input type="text" name="email" id="email" placeholder="Email" value="<?=@$profile->email?>" style="width: 70%" /></td>
+                <td><input type="text" name="email" id="email" placeholder="Email"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->email?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_mobile');?></td>
-                <td><input type="text" name="mobile" id="mobile" placeholder="Mobile" value="<?=@$profile->mobile?>" style="width: 70%" /></td>
+                <td><input type="text" name="mobile" id="mobile" placeholder="Mobile"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->mobile?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_gender');?></td>
@@ -87,6 +87,23 @@
         </tbody>
     </table>
 </form>
+<div class="message">Download Certificate
+<br />
+you can't download this document more than 1 time. 
+</div>
+<table class="tbl">
+    <thead>
+        <tr>
+            <td colspan="2">Certificates for <?=@$profile->en_name?></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>‫‪Certificate of Practical Experience‬‬:</td>
+            <td><a href="<?=base_url()?>employee/getCertificate">Download</a></td>
+        </tr>
+    </tbody>
+</table>
 <div class="message">Change Password</div>
 <form action="<?=base_url()?>employee/change_password/<?=@$ID?>" method="post">
     <input type="hidden" name="token" value="<?=$this->core->token(TRUE)?>" />

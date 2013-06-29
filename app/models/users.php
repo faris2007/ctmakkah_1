@@ -413,7 +413,7 @@ class Users extends CI_Model {
     private function checkIfEmployee($type,$userid)
     {
         $this->db->where("users_id",$userid);
-        $this->db->where("year",date('Y'));
+        $this->db->where("year",'2012');
         $value = ($type == "rejected") ? 'R':(($type =="accepted")? 'A':'P');
         $this->db->where("isAccept",$value);
         $query = $this->db->get($this->_tables['employee']);
@@ -423,7 +423,7 @@ class Users extends CI_Model {
     private function checkIfCandidate($userid)
     {
         $this->db->where("users_id",$userid);
-        $this->db->where("year",date('Y'));
+        $this->db->where("year",'2012');
         $query = $this->db->get($this->_tables['employee']);
         if($query->num_rows() == 0)
             return true;
