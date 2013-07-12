@@ -47,7 +47,7 @@ class Users extends CI_Model {
     function getCandidate($limit = NULL,$start = NULL){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","C");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -55,10 +55,22 @@ class Users extends CI_Model {
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
     
+    function checkIfWorkIn($userid,$year){
+        if(empty($userid) || empty($year))
+            return false;
+       
+        $this->db->where($this->_tables['employee'].".year",$year);
+        $this->db->where($this->_tables['employee'].".isAccept","A");
+        $this->db->where($this->_tables['employee'].".users_id = ".$userid);
+        $query = $this->db->get($this->_tables['employee']);
+        return ($query->num_rows() > 0) ? true : false;
+    }
+
+
     function getAccpetedUsers($limit = NULL,$start = NULL){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->group_by($this->_tables['users'].".id");
@@ -71,7 +83,7 @@ class Users extends CI_Model {
             return false;
        
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->where($this->_tables['users'].".id",$userid);
         $this->db->group_by($this->_tables['users'].".id");
@@ -81,7 +93,7 @@ class Users extends CI_Model {
     
     function get_total_info_users(){
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->from($this->_tables['employee']);
         $this->db->join($this->_tables['jobs'], $this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id", 'left');
@@ -132,7 +144,7 @@ class Users extends CI_Model {
         //$this->db->where($this->_tables['users'].".id",$userid);
         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->from($this->_tables['employee']);
         $this->db->join($this->_tables['jobs'], $this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id", 'left');
@@ -148,7 +160,7 @@ class Users extends CI_Model {
     function getRejectedUsers($limit = NULL,$start = NULL,$isAjax = false){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","R");
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
@@ -161,7 +173,7 @@ class Users extends CI_Model {
     function getPrecautionUsers($limit = NULL,$start = NULL,$isAjax = false){
          if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->where($this->_tables['employee'].".isAccept","P");
         $this->db->where($this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id");
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
@@ -413,7 +425,7 @@ class Users extends CI_Model {
     private function checkIfEmployee($type,$userid)
     {
         $this->db->where("users_id",$userid);
-        $this->db->where("year",'2012');
+        $this->db->where("year",'2013');
         $value = ($type == "rejected") ? 'R':(($type =="accepted")? 'A':'P');
         $this->db->where("isAccept",$value);
         $query = $this->db->get($this->_tables['employee']);
@@ -423,7 +435,7 @@ class Users extends CI_Model {
     private function checkIfCandidate($userid)
     {
         $this->db->where("users_id",$userid);
-        $this->db->where("year",'2012');
+        $this->db->where("year",'2013');
         $query = $this->db->get($this->_tables['employee']);
         if($query->num_rows() == 0)
             return true;
@@ -492,7 +504,7 @@ class Users extends CI_Model {
         $this->db->where($this->_tables['users'].".idn",$employee_id);
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         $this->db->where($this->_tables['employee'].".isAccept","A");
-        $this->db->where($this->_tables['employee'].".year",'2012');
+        $this->db->where($this->_tables['employee'].".year",'2013');
         $this->db->group_by($this->_tables['users'].".id");
         
         $query = $this->db->get($this->_tables['users'].",".$this->_tables['employee'].",".$this->_tables['jobs']);

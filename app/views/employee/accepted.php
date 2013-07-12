@@ -78,7 +78,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if(!@$users):?>
+        <?php /*if(!@$users ):?>
             <?php foreach ($users as $row): ?>
                 <tr id="users<?=@$row->id?>">
                     <td><?=@$row->contract_id?></td>
@@ -93,10 +93,10 @@
                         <button id="users<?=@$row->id?>accept" onclick="candidate('<?=base_url()?>employee/candidate/0/accept/<?=@$row->ide?>','users<?=@$row->id?>','accept')">Accept</button>
                         <button id="users<?=@$row->id?>reject" onclick="candidate('<?=base_url()?>employee/candidate/0/reject/<?=@$row->ide?>','users<?=@$row->id?>','reject')">Reject</button>
                         <button id="users<?=@$row->id?>precau" onclick="candidate('<?=base_url()?>employee/candidate/0/precau/<?=@$row->ide?>','users<?=@$row->id?>','precau')">Precaution</button>
-                    </td> */?>
+                    </td> *//*?>
                 </tr>
             <?php endforeach; ?>
-        <?php endif; ?>
+        <?php endif;*/ ?>
     </tbody>
 </table>
 </div>

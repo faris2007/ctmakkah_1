@@ -240,6 +240,26 @@ class Core {
             return false;
     }
     
+    public function createCSVC($data,$fileName = "no_pictures.csv",$addPictures = false)
+    {
+        $string = "NO#;National ID;English Name;Arabic Name;Mobile;Position;Iban No.;Bank Name;Email";
+        $string .= ($addPictures)?";Picture Url\n":"\n";
+        if($data){
+            foreach ($data as $key => $value){
+                $string .= $key.";".$value->idn.";".$value->en_name.";".$this->changeIfWindows(@$value->ar_name).";".$value->mobile.";".$value->grade.";".$value->iban.";".$this->changeIfWindows($value->bankName).";".$value->email;
+                $string .= ($addPictures)?";".  base_url()."files/personal_img/".$value->idn."\n":"\n";
+            }
+        }
+        $path = "./uploads/".$fileName;
+        if(file_exists($path)){
+            unlink($path);
+        }
+        if(write_file($path, $string))
+            return true;
+        else
+            return false;
+    }
+    
     public function getNameOfContract($ext)
     {
         if(empty($ext))

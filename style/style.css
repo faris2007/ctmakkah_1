@@ -8,7 +8,7 @@
 
 * {
     font: normal 14px tahoma;
-    color: #555;
+    color: #000;
 }
 
 body {
@@ -46,7 +46,7 @@ body {
 }
 
 #notification div {
-    background-color: #000;
+    background-color: #009846;
     width: 90%;
     height: 100%;
     margin: auto;
@@ -66,7 +66,7 @@ body {
 
 #main_menu {
     margin: 10px auto 10px auto;
-    background-color: #c5c5c5;
+    background-color: #7bca9f;
     width: 90%;
     height: 34px;
     padding: 0px 4px 0px 4px;
@@ -101,7 +101,7 @@ body {
 #container {
 	margin: 0 auto 0 auto;
 	width: 900px;
-        background-color:#f4f4f4;
+        background-color:#fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -111,14 +111,14 @@ body {
 }
 
 #header {
-	height: 80px;
-	background-image:url('header.png');
+	height: 68px;
+	background-image:url('aswaqlogo.png');
 	background-repeat:no-repeat;
         background-position: bottom;
 }
 
 #footer {
-	background-color: #c5c5c5;
+	background-color: #7bca9f;
 	margin:5px auto auto auto;
 	padding: 10px;
 	height: 15px;
@@ -271,3 +271,20 @@ span.formbutton1 > a:visited {
     color:inherit;
 }
 
+ul#step{
+    list-style: none outside none;
+    text-align: center;
+}
+
+#step li{
+    display: inline-block;
+}
+
+#step li:nth-child(odd){
+    border: 1px solid #009846;
+}
+
+#step li.active{
+    background-color: #009846;
+    color:#fff;
+}

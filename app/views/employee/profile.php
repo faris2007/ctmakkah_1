@@ -48,6 +48,33 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>Blood Type : </td>
+                <td>
+                    <select name="blood">
+                        <option<?=(@$profile->blood == 'A+')? " selected=\"true\"":""?> value="A+">A+</option>
+                        <option<?=(@$profile->blood == 'A-')? " selected=\"true\"":""?> value="A-">A-</option>
+                        <option<?=(@$profile->blood == 'B+')? " selected=\"true\"":""?> value="B+">B+</option>
+                        <option<?=(@$profile->blood == 'B-')? " selected=\"true\"":""?> value="B-">B-</option>
+                        <option<?=(@$profile->blood == 'AB+')? " selected=\"true\"":""?> value="AB+">AB+</option>
+                        <option<?=(@$profile->blood == 'AB-')? " selected=\"true\"":""?> value="AB-">AB-</option>
+                        <option<?=(@$profile->blood == 'O+')? " selected=\"true\"":""?> value="O+">O+</option>
+                        <option<?=(@$profile->blood == 'O-')? " selected=\"true\"":""?> value="O-">O-</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Name:</td>
+                <td><input type="text" name="bankName" required value="<?=@$profile->bankName?>" /> </td>
+            </tr>
+            <tr>
+                <td>your Name In Bank Card :</td>
+                <td><input type="text" name="cardName" required value="<?=@$profile->cardName?>" /></td>
+            </tr>
+            <tr>
+                <td>Iban : </td>
+                <td><input type="text" name="iban" required value="<?=@$profile->iban?>" /></td>
+            </tr>
             <?php if(@$ADMIN): ?>
                 <tr>
                     <td>Group</td>
@@ -87,7 +114,7 @@
         </tbody>
     </table>
 </form>
-<div class="message">Download Certificate
+<?php /*<div class="message">Download Certificate
 <br />
 you can't download this document more than 1 time. 
 </div>
@@ -104,6 +131,29 @@ you can't download this document more than 1 time.
         </tr>
     </tbody>
 </table>
+ * 
+ */?>
+<?php if(@$ADMIN): ?>
+    <div class="message">Attachments:</div>
+    <table class="tbl" style="width: 85%">
+        <thead>
+            <tr>
+                <td>Type Of Attachments</td>
+                <td>View</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if($attachments): ?>
+                <?php foreach ($attachments as $value): ?>
+                    <tr>
+                        <td><?=$value->name?></td>
+                        <td><a href="<?=$value->file_url?>"><img src="<?=base_url()?>style/icon/show.png" /></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
 <div class="message">Change Password</div>
 <form action="<?=base_url()?>employee/change_password/<?=@$ID?>" method="post">
     <input type="hidden" name="token" value="<?=$this->core->token(TRUE)?>" />
@@ -134,7 +184,7 @@ you can't download this document more than 1 time.
     </table>
 </form>
 
-<?php $folder = 'store/personal_img/'; if(@$ADMIN):?>
+<?php /* $folder = 'store/personal_img/'; if(@$ADMIN):?>
     <div class="message">
     <?php if((file_exists($folder.@$profile->idn.".jpg") || file_exists($folder.@$profile->idn.".jpeg") || file_exists($folder.@$profile->idn.".png")
                    || file_exists($folder.@$profile->idn." .png") || file_exists($folder.@$profile->idn." .jpg" ) || file_exists($folder.@$profile->idn.".PNG") || file_exists($folder.@$profile->idn.".JPG"))): ?>
@@ -159,7 +209,7 @@ you can't download this document more than 1 time.
             </tbody>
         </table>
     </form>
-<?php endif;?>
+<?php endif;*/?>
 <?php elseif (@$STEP == "success") : ?>
     <div class="message">
         <?=@$MSG?>

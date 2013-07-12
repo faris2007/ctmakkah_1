@@ -5,7 +5,7 @@
     <script type="text/javascript">
         var Token = '<?=$this->core->token(TRUE)?>';
         var base_url = '<?=base_url()?>';
-        var js_files = ["jquery","jquery.dataTables","functions","jquery.popupWindow"];
+        var js_files = ["jquery","jquery.dataTables","ajaxfileupload","functions","jquery.popupWindow"];
         for (js_x in js_files){document.write('<script type="text/javascript" src="' + base_url + 'js/' + js_files[js_x] + '.js"></' + 'script>');}
 	document.write('<link type="text/css" rel="stylesheet" href="' + base_url + 'style/style.css">');
     </script>
@@ -16,7 +16,7 @@
         <!-- Styles for my specific scrolling content -->
         <style type="text/css">
 
-                #makeMeScrollable
+                /*#makeMeScrollable
                 {
                         width:90%;
                         height: 50px;
@@ -29,7 +29,7 @@
                 /* Replace the last selector for the type of element you have in
                     your scroller. If you have div's use #makeMeScrollable div.scrollableArea div,
                     if you have links use #makeMeScrollable div.scrollableArea a and so on. */
-                #makeMeScrollable div.scrollableArea a
+                /*#makeMeScrollable div.scrollableArea a
                 {
                         position: relative;
                         float: left;
@@ -38,12 +38,12 @@
                         /* If you don't want the images in the scroller to be selectable, try the following
                             block of code. It's just a nice feature that prevent the images from
                             accidentally becoming selected/inverted when the user interacts with the scroller. */
-                        -webkit-user-select: none;
+                        /*-webkit-user-select: none;
                         -khtml-user-select: none;
                         -moz-user-select: none;
                         -o-user-select: none;
                         user-select: none;
-                }
+                }*/
         </style>
         <link rel="stylesheet" href="style/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
         <script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
@@ -93,9 +93,9 @@
         <?php endif; ?>
         <?php if($this->uri->segment(1, 0) == "home" || $this->uri->segment(2, 0) == "login"): ?>
             <div id="makeMeScrollable">
-                <?php for($i=1;$i<=62;$i++): ?>
+                <?php /* for($i=1;$i<=62;$i++): ?>
                     <a rel="prettyPhoto[gallery1]" href="gallery/normal/<?=$i?>.jpg" target="_blank"><img src="gallery/thumb/<?=$i?>.jpg" alt="Asfar Images"/></a>
-                <?php endfor; ?>
+                <?php endfor; */?>
             </div>
 
             <!-- jQuery UI Widget and Effects Core (custom download)
@@ -132,7 +132,7 @@
             <br />
         </div>
         <div id="footer">
-        	<span>Copyright &copy; ASFAR</span>
+            <span>Development & Design By <a href="http://std-hosting.com">Saudi Technical Design</a></span>
         </div>
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function(){

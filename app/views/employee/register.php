@@ -1,7 +1,18 @@
+<div>
+    <ul id="step">
+        <li<?=($STEP==1)?' class="active"':''?>>Check</li>
+        <li> &gt; </li>
+        <li<?=($STEP==2)?' class="active"':''?>>Fill Information</li>
+        <li> &gt; </li>
+        <li<?=($STEP==3)?' class="active"':''?>>Upload Files</li>
+        <li> &gt; </li>
+        <li<?=($STEP==4)?' class="active"':''?>>Finish</li>
+    </ul>
+</div>
 <?php if($STEP==1): ?>
     <form method="post">
         <input type="hidden" name="step" value="1" />
-        <table class="tbl" style="width: 50%;margin-top: 15px;">
+        <table class="tbl" style="width: 85%;margin-top: 15px;">
             <thead>
                 <tr>
                     <td colspan="2"><?=@$this->lang->line('register_checkID');?></td>
@@ -32,7 +43,7 @@
         <input type="hidden" name="step" value="2" />
         <input type="hidden" name="ID" value="<?=@$ID?>" />
         <input type="hidden" name="expiry" value="<?=@$expiry?>" />
-        <table class="tbl" style="width: 50%;margin-top: 15px;">
+        <table class="tbl" style="width: 85%;margin-top: 15px;">
             <thead>
                 <tr>
                     <td colspan="2"><?=@$this->lang->line('register_complete_data');?></td>
@@ -41,11 +52,11 @@
             <tbody>
                 <tr>
                     <td><?=@$this->lang->line('register_name_arabic');?></td>
-                    <td><input type="text" placeholder="Your Name (Arabic)" name="arName" id="arName" /></td>
+                    <td><input type="text" placeholder="Your Name (Arabic)" required name="arName" id="arName" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_name_english');?></td>
-                    <td><input type="text" placeholder="Your Name (English)" name="enName" id="enName" /></td>
+                    <td><input type="text" placeholder="Your Name (English)" required name="enName" id="enName" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_nationality')?></td>
@@ -246,19 +257,19 @@
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_mobile');?></td>
-                    <td><input type="text" placeholder="05xxxxxxxx" name="mobile" id="mobile" maxlength="10" /></td>
+                    <td><input type="text" placeholder="05xxxxxxxx" name="mobile" required id="mobile" maxlength="10" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_password');?></td>
-                    <td><input type="password" placeholder="Password" name="password" id="password" /></td>
+                    <td><input type="password" placeholder="Password" required name="password" id="password" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_repassword');?></td>
-                    <td><input type="password" placeholder="Password" name="repassword" id="repassword" /></td>
+                    <td><input type="password" placeholder="Password" required name="repassword" id="repassword" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_email');?></td>
-                    <td><input type="text" placeholder="your Email" name="email" id="email" /></td>
+                    <td><input type="text" placeholder="your Email" required name="email" id="email" /></td>
                 </tr>
                 <tr>
                     <td><?=@$this->lang->line('register_acadamic');?></td>
@@ -411,6 +422,45 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Blood Type : </td>
+                    <td>
+                        <select name="blood">
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Name:</td>
+                    <td><input type="text" name="bankName" required /> </td>
+                </tr>
+                <tr>
+                    <td>your Name In Bank Card :</td>
+                    <td><input type="text" name="cardName" required /></td>
+                </tr>
+                <tr>
+                    <td>Iban : </td>
+                    <td><input type="text" name="iban" required /></td>
+                </tr>
+                <tr>
+                    <td>Are you work on the metro of mashaer before</td>
+                    <td><input type="radio" name="work" value="1" />Yes  |<input type="radio" name="work" value="0">No</td>
+                </tr>
+                <tr>
+                    <td>If Yes select the year which you work in it</td>
+                    <td>
+                        <input type="checkbox" name="workYears_1" value="2010">2010 |
+                        <input type="checkbox" name="workYears_2" value="2011">2011 |
+                        <input type="checkbox" name="workYears_3" value="2010">2012
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2"><input type="submit" value="<?=$this->lang->line('register_step2');?>" /></td>
                 </tr>
                 <?php if($ERROR): ?>
@@ -425,7 +475,7 @@
     <form method="post"  enctype="multipart/form-data">
         <input type="hidden" name="step" value="3" />
         <input type="hidden" name="ID" value="<?=@$ID?>" />
-        <table class="tbl" style="width: 50%;margin-top: 15px;">
+        <table class="tbl" style="width: 85%;margin-top: 15px;">
             <thead>
                 <tr>
                     <td colspan="2"><?=$this->lang->line('register_upload_files');?></td>
@@ -434,22 +484,14 @@
             <tbody>
                 <tr>
                     <td><?=$this->lang->line('register_upload_picture');?></td>
-                    <td><input type="file" name="picture" id="picture" /></td>
+                    <td><input type="file" name="picture" id="picture" required /></td>
                 </tr>
                 <tr>
                     <td><?=$this->lang->line('register_upload_identity');?></td>
-                    <td><input type="file" name="identity" id="identity" /></td>
+                    <td><input type="file" name="identity" id="identity" required /></td>
                 </tr>
                 <tr>
-                    <td><?=$this->lang->line('register_upload_certificate');?></td>
-                    <td><input type="file" name="certificate" id="certificate" /></td>
-                </tr>
-                <tr>
-                    <td><?=$this->lang->line('register_upload_training');?></td>
-                    <td><input type="file" name="training" id="training" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" name="submit" value="<?=$this->lang->line('register_step3');?>" /> &nbsp;&nbsp;<input type="submit" name="skip" value="<?=$this->lang->line('register_skip');?>" /></td>
+                    <td colspan="2"><input type="submit" name="submit" value="<?=$this->lang->line('register_step3');?>" /> </td>
                 </tr>
                 <?php if($ERROR): ?>
                     <tr>

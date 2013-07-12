@@ -16,6 +16,7 @@ class Employee extends CI_Controller{
         $this->load->model("jobs");
         $this->load->model("employees");
         $this->load->model("testaments");
+        $this->load->model("attachments");
     }
     
     function index()
@@ -610,6 +611,10 @@ class Employee extends CI_Controller{
                         'idn'           => $this->input->post("national_id",true),
                         'ar_name'       => $this->input->post("arName",true),
                         'en_name'       => $this->input->post("enName",true),
+                        'blood'         => $this->input->post("blood",true),
+                        'bankName'      => $this->input->post("bankName",true),
+                        'cardName'      => $this->input->post("cardName",true),
+                        'iban'          => $this->input->post("iban",true)
                     );
                     if($this->users->updateUser($userID,$store)){
                         $this->db->where("year",date("Y"));
@@ -633,7 +638,11 @@ class Employee extends CI_Controller{
                 }else{
                     $store = array(
                         'gender'        => $this->input->post("gender",true),
-                        'nationality'   => $this->input->post("nationality",true)
+                        'nationality'   => $this->input->post("nationality",true),
+                        'blood'         => $this->input->post("blood",true),
+                        'bankName'      => $this->input->post("bankName",true),
+                        'cardName'      => $this->input->post("cardName",true),
+                        'iban'          => $this->input->post("iban",true)
                     );
                     if($this->users->updateUser($userID,$store)){
                         $data['STEP'] = "success";
@@ -656,6 +665,7 @@ class Employee extends CI_Controller{
                     $data['jobs'] = false;
                     $data['ADMIN'] = false;
                 }
+                $data['attachments'] = $this->attachments->getAttachments($userID);
                 $data['STEP'] = "view";
                 $data['ERROR'] = FALSE;
             }
@@ -676,8 +686,8 @@ class Employee extends CI_Controller{
            $query = $this->users->getCandidate();
            $per_url = 'employee/candidate/';
            $total_results = count($query);
-           $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
-           $data['users'] = $this->users->getCandidate(30,$start);;
+           $data['pagination'] = false;
+           $data['users'] = $this->users->getCandidate();
            $data['CONTENT'] = 'employee/candidate';
            $data['TITLE'] = "List Of Candidates";
            $this->core->load_template($data);

@@ -102,7 +102,10 @@ class Login extends CI_Controller{
                 $expiry= $this->input->post("expiry",true);
                 $password = $this->input->post("password",true);
                 $repassword = $this->input->post("repassword",true);
-                if($password == $repassword){
+                $email = $this->input->post("email",true);
+                $this->db->where('email',$email);
+                $checkEmail = $this->users->getUsers();
+                if($password == $repassword && ($checkEmail == FALSE)){
                     $store = array(
                         'ar_name'           => $this->input->post("arName",true),
                         'en_name'           => $this->input->post("enName",true),
@@ -117,7 +120,11 @@ class Login extends CI_Controller{
                         'specialisatie'     => $this->input->post("specialization",true),
                         'gender'            => $this->input->post("gender",true),
                         'address'           => $this->input->post("address",true),
-                        'city'              => $this->input->post("city",true)
+                        'city'              => $this->input->post("city",true),
+                        'blood'             => $this->input->post("blood",true),
+                        'bankName'          => $this->input->post("bankName",true),
+                        'cardName'          => $this->input->post("cardName",true),
+                        'iban'              => $this->input->post("iban",true)
                     );
                     if($this->users->register($store))
                     {
@@ -128,6 +135,19 @@ class Login extends CI_Controller{
                             'users_id'  => $check['profile']->id
                         );
                         $this->employees->addNewEmployee($storeE);
+                        $work = $this->input->post("work",true);
+                        if($work == 1){
+                            foreach ($_POST as $key => $value){
+                                if(strpos($key,"workYears_") !== FALSE){
+                                    $storeE = array(
+                                        'year'      => $value,
+                                        'isAccept'  => "A",
+                                        'users_id'  => $check['profile']->id
+                                    );
+                                    $this->employees->addNewEmployee($storeE);
+                                }
+                            }
+                        }
                         $data['ERROR'] = False;
                         $data['STEP'] = 3;
                         $data['ID'] = $check['profile']->id;
@@ -146,19 +166,18 @@ class Login extends CI_Controller{
             }elseif ($step == 3) {
                 if(!isset($_POST['skip'])) {
                     $config['upload_path'] = './uploads/';
-                    $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
-                    $config['max_size'] = '2048';
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|doc|docx';
+                    //$config['max_size'] = '2048';
                     $config['encrypt_name'] = true;
                     $this->load->library('upload', $config);
                     $uploadFile = array(
                         'picture'       => "Personal Picture",
-                        'identity'      => "Identity Card",
-                        'certificate'   => "Academic certificate",
-                        'training'      => "Metro training certificate"
+                        'identity'      => "Identity Card"
                         );
-                    foreach ( $uploadFile as $key => $value){
+                    foreach ( $_FILES as $key => $value){
                         if (!$this->upload->do_upload($key))
                         {
+                            echo $this->upload->display_errors();
                             $data['ERROR'] = true;
                             $data['STEP'] = 3;
                             break;
@@ -167,8 +186,8 @@ class Login extends CI_Controller{
                         {
                             $uploadData = $this->upload->data();
                             $store = array(
-                                'name'      => $value,
-                                'file_url'  => $uploadData['full_path'],
+                                'name'      => $uploadFile[$key],
+                                'file_url'  => base_url()."uploads/".$uploadData['file_name'],
                                 'users_id'  => $this->input->post("ID",true)
                             );
                             $this->attachments->addNewAttachment($store);

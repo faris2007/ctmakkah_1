@@ -9,7 +9,7 @@ class Home extends CI_Controller {
     public function index()
 	{
             if($this->users->isLogin()){    
-                $data['TITLE'] = 'Asfar Wa Amal';
+                $data['TITLE'] = 'Aswaq Est.';
                 $data['CONTENT'] = 'home';
                 $this->core->load_template($data);
             }  else {
