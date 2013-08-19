@@ -105,7 +105,7 @@
         </tr>
         <tr>
             <td><?=$this->lang->line('post_view_from')?></td>
-            <td><?=@$FROM?></td>
+            <td><a href="<?=base_url()?>employee/profile/<?=@$USERID?>"><?=@$FROM?></a></td>
         </tr>
         <tr>
             <td><?=$this->lang->line('post_view_date')?></td>

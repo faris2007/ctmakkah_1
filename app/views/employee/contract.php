@@ -1,5 +1,7 @@
 <?php if($STEP == "list"): ?>
     <div class="message" id="contract" style="display: none;"></div>
+    <div class="message"><a href="<?=base_url()?>testament/download/usersContract.csv">Download users who is contracted with them as CSV</a></div>
+    <div class="message"><a href="<?=base_url()?>testament/download/usersNoContract.csv">Download users who isn't contracted with them as CSV</a></div>
     <form method="post">
         <table class="tbl" style="width:95%">
             <thead>
@@ -39,7 +41,7 @@
                     <?php foreach($users as $row): ?>
                     <tr>
                         <td><?=$row->contract_id?></td>
-                        <td><?=$row->idn?></td>
+                        <td><a href="<?=base_url()?>employee/profile/<?=$row->idn?>"><?=$row->idn?></a></td>
                         <td><?=$row->en_name?></td>
                         <td><?=$row->grade?></td>
                         <td><?=$row->mobile?></td>

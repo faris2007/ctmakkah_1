@@ -86,6 +86,10 @@ $(document).ready(function(){
             });
 
     }
+    $(".styleDate").datepicker( { 
+        appendText: "(yyyy-mm-dd)" ,
+        dateFormat: "dd-mm-yy" 
+    });
     $('#upload_file').click(function() {
         $(this).submit(function(e) {
             e.preventDefault();

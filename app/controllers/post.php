@@ -163,6 +163,7 @@ class post extends CI_Controller {
                     $data['NOTEM'] = $row->notemessage;
                     $data['DATE'] = $row->date;
                     $data['FROM'] = $userInfo['profile']->en_name;
+                    $data['USERID'] = $userInfo['profile']->id;
                     $data['REPLAY'] = $this->posts->getReplays($postID);
                     $data['TITLE'] = $row->title;
                     $data['STEP'] = "show";
@@ -191,6 +192,7 @@ class post extends CI_Controller {
                 $data['NOTEM'] = $row->notemessage;
                 $data['DATE'] = $row->date;
                 $data['FROM'] = $userInfo['profile']->en_name;
+                $data['USERID'] = $userInfo['profile']->id;
                 $data['REPLAY'] = $this->posts->getReplays($postID);
                 $data['TITLE'] = $row->title;
                 $data['STEP'] = "show";

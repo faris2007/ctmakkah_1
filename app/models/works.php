@@ -27,11 +27,10 @@ class works extends CI_Model {
      * @param string $type "work" or "traning"
      * @param array $data 
      */
-    function addNewTable($type,$data)
+    function addNewTable($data)
     {
-        if(empty($type) || !is_array($data)) return false;
-        
-        $data['isTraning'] = ($type == "traning")?"y":"n";
+        if(!is_array($data)) return false;
+
         return $this->db->insert($this->_tables['work'], $data); 
     }
     
@@ -83,7 +82,7 @@ class works extends CI_Model {
       
         if(is_numeric($userid))
         {
-            $this->db->order_by($this->_tables['work'].'.day');
+            $this->db->order_by($this->_tables['work'].'.date');
             $this->db->group_by($this->_tables['work'].'.id'); 
             $this->db->where($this->_tables['link'].'.users_id',$userid);
             $this->db->where($this->_tables['work'].'.id ='.$this->_tables['link'].'.work_id');
@@ -100,20 +99,11 @@ class works extends CI_Model {
         return ($query->num_rows() > 0)? $query->result() : false;
     }
     
-    function getTablesByDay($day,$type = "work")
+    function getTablesByType($type = "W")
     {
-        if(empty($day)) return false;
-      
-        if(is_numeric($day))
-        {
-            $this->db->where($this->_tables['work'].'.day',$day);
-            if($type == "work")
-                $this->db->where("isTraning",'n');
-            else
-                $this->db->where("isTraning",'y');
-            $query = $this->db->get($this->_tables['work']);
-        }else
-            return false;
+        if(empty($type)) return FALSE;
+        $this->db->where("isTraning",$type);
+        $query = $this->db->get($this->_tables['work']);
         return ($query->num_rows() > 0)? $query->result() : false;
     }
     

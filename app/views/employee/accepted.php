@@ -43,7 +43,7 @@
         </tbody>
     </table>
 </form>
-<br />
+<br /><? /*
 <table class="tbl" style="width:95%">
     <thead>
         <tr>
@@ -60,7 +60,7 @@
         </tr>
     </tbody>
 </table>
-<br />
+<br />*/?>
 <div class="demo_jui">
 <table class="tbl" id="list" dataajax="accepted" style="width:100%">
     <thead>

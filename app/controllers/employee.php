@@ -380,10 +380,50 @@ class Employee extends CI_Controller{
     
     
     function uploadPicture(){
-        if(!$this->core->checkPermissions("employee","edit","all","all"))
-            show_404();
+        /*if(!$this->core->checkPermissions("employee","edit","all","all"))
+            show_404();*/
         
         $segments = $this->uri->segment_array();
+        $idn = (isset($segments[3]))? $segments[3]: 0;
+        if($idn == 0 || !$_FILES)
+            show_404 ();
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|doc|docx';
+        //$config['max_size'] = '2048';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+        $uploadFile = array(
+            'picture'       => "Personal Picture",
+            'identity'      => "Identity Card"
+            );
+        foreach ( $_FILES as $key => $value){
+            if (!$this->upload->do_upload($key))
+            {
+                $this->core->message("we can't upload file maybe there is problem",  base_url ()."employee/profile/".$idn,"upload Problem",2);
+                break;
+            }
+            else
+            {
+                $uploadData = $this->upload->data();
+                $store = array(
+                    'name'      => $uploadFile[$key],
+                    'file_url'  => base_url()."uploads/".$uploadData['file_name'],
+                    'users_id'  => $this->input->post("ID",true)
+                );
+                $this->db->where('name',$uploadFile[$key]);
+                $attachment = $this->attachments->getAttachments($store['users_id']);
+                if(is_bool($attachment)){
+                    $this->attachments->addNewAttachment($store);
+                }else{
+                    $attachId = $attachment[0]->id;
+                    $this->attachments->updateAttachment($attachId,$store);
+                }
+            }
+            $data['STEP'] = "success";
+            $data['MSG'] = $this->lang->line('profile_edit_success');
+            $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '1;url='.  base_url().'employee/profile/'.$idn, 'type' => 'equiv'));
+        }
+        /*$segments = $this->uri->segment_array();
         $idn = (isset($segments[3]))? $segments[3]: 0;
         if($_FILES){
             $folder = 'store/personal_img/';
@@ -416,7 +456,7 @@ class Employee extends CI_Controller{
                 $this->core->message("we can't upload file maybe there is problem",  base_url ()."employee/profile/".$idn,"upload Problem",2); 
             }
         }else
-            show_404();
+            show_404();*/
         $data['CONTENT'] = 'employee/profile';
         $data['TITLE'] = "Profile";
         $this->core->load_template($data);
@@ -594,6 +634,7 @@ class Employee extends CI_Controller{
                 $this->core->message("This user Not Found In Database",  base_url ()."employee/users","user Not Found",1); 
         }
         else{
+            $this->db->where("year",'2013');
             $emp = $this->employees->getEmployees($userID);
             if($emp[0]->jobs_id != NULL){
                 $query = $this->users->getProfileUser($userID);
@@ -638,7 +679,11 @@ class Employee extends CI_Controller{
                 }else{
                     $store = array(
                         'gender'        => $this->input->post("gender",true),
+                        'email'         => $this->input->post("email",true),
+                        'mobile'        => $this->input->post("mobile",true),
                         'nationality'   => $this->input->post("nationality",true),
+                        'ar_name'       => $this->input->post("arName",true),
+                        'en_name'       => $this->input->post("enName",true),
                         'blood'         => $this->input->post("blood",true),
                         'bankName'      => $this->input->post("bankName",true),
                         'cardName'      => $this->input->post("cardName",true),
@@ -653,7 +698,6 @@ class Employee extends CI_Controller{
                     }
                 }
             }else{
-                
                 $data['profile'] = $query;
                 $data['ID'] = $userID;
                 if($this->core->checkPermissions("employee","profile","all","all")){
@@ -693,6 +737,7 @@ class Employee extends CI_Controller{
            $this->core->load_template($data);
         }elseif($type == "accept"){
             if($userID != 0){
+                $this->db->where("year","2013");
                 $userInfo = $this->employees->getEmployee($userID);
                 if(is_bool($userInfo))
                     die("There is problem");
@@ -705,6 +750,7 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }elseif($type == "reject"){
             if($userID != 0){
+                $this->db->where("year","2013");
                 $userInfo = $this->employees->getEmployee($userID);
                 if(is_bool($userInfo))
                     die("There is problem");
@@ -718,6 +764,7 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }else if($type == "precau"){
             if($userID != 0){
+                $this->db->where("year","2013");
                 $userInfo = $this->employees->getEmployee($userID);
                 if(is_bool($userInfo))
                     die("There is problem");
@@ -814,28 +861,29 @@ class Employee extends CI_Controller{
                 $data['NAV'][base_url()."employee/accepted"] = "Accepted";
                 $this->core->load_template($data);
            }
-        }elseif($type == "accept"){
+        }elseif($type == "candidate"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $this->db->where("year","2013");
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
-                $data['isAccept'] = "A";
-                if($this->employees->updateEmployee($userInfo->id,$data))
-                    echo "Accepted successfully";
+                $data['isAccept'] = "C";
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
+                    echo "Candidate successfully";
                 else
-                    echo "Accepted wrong";
+                    echo "Candidate wrong";
                 $error = $this->core->retypeContractNumber();
-                print_r($error);
             }else
                 echo "there is problem";
         }elseif($type == "reject"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $this->db->where("year","2013");
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "R";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Rejected successfully";
                 else
                     echo "Rejected wrong";
@@ -843,12 +891,13 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }else if($type == "precau"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $this->db->where("year","2013");
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "P";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Precaution successfully";
                 else
                     echo "Precaution wrong";
@@ -890,11 +939,11 @@ class Employee extends CI_Controller{
            $this->core->load_template($data);
         }elseif($type == "accept"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 $data['isAccept'] = "A";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Accepted successfully";
                 else
                     echo "Accepted wrong";
@@ -904,12 +953,12 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }elseif($type == "reject"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "R";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Rejected successfully";
                 else
                     echo "Rejected wrong";
@@ -917,12 +966,12 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }else if($type == "precau"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "P";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Precaution successfully";
                 else
                     echo "Precaution wrong";
@@ -949,11 +998,11 @@ class Employee extends CI_Controller{
            $this->core->load_template($data);
         }elseif($type == "accept"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 $data['isAccept'] = "A";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Accepted successfully";
                 else
                     echo "Accepted wrong";
@@ -961,12 +1010,12 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }elseif($type == "reject"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "R";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Rejected successfully";
                 else
                     echo "Rejected wrong";
@@ -974,12 +1023,12 @@ class Employee extends CI_Controller{
                 echo "there is problem";
         }else if($type == "precau"){
             if($userID != 0){
-                $userInfo = $this->employees->getEmployee($userID);
-                if(is_bool($userInfo))
+                $userInfo = $this->employees->getEmployees($userID);
+                if(is_bool($userInfo[0]))
                     die("There is problem");
                 
                 $data['isAccept'] = "P";
-                if($this->employees->updateEmployee($userInfo->id,$data))
+                if($this->employees->updateEmployee($userInfo[0]->id,$data))
                     echo "Precaution successfully";
                 else
                     echo "Precaution wrong";

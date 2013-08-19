@@ -289,11 +289,29 @@ class testament extends CI_Controller {
             $this->core->createCSV($this->testaments->getUsersHasTestaments(),"users_has_testament.csv");
             $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/users_has_testament.csv"));
         }elseif($type == "accepted_users.csv"){
-            $this->core->createCSV($this->users->getAllInfoUser(),"accepted_users.csv");
+            $this->core->createCSVC($this->users->getAccpetedUsers(),"accepted_users.csv");
             $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/accepted_users.csv"));
         }elseif($type == "candidate_users.csv"){
             $this->core->createCSVC($this->users->getCandidate(),"candidate_users.csv");
             $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/candidate_users.csv"));
+        }elseif($type == "rejected_users.csv"){
+            $this->core->createCSVC($this->users->getRejectedUsers,"rejected_users.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/rejected_users.csv"));
+        }elseif($type == "precaution_users.csv"){
+            $this->core->createCSVC($this->users->getPrecautionUsers(),"precaution_users.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/precaution_users.csv"));
+        }elseif($type == "users.csv"){
+            $this->core->createCSVC($this->users->getUsers(),"users.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/users.csv"));
+        }elseif($type == "usersNoContract.csv"){
+            $this->db->where('isContract','N');
+            $this->db->or_where('isContract IS Null');
+            $this->core->createCSVC($this->users->getAccpetedUsers(),"usersNoContract.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/usersNoContract.csv"));
+        }elseif($type == "usersContract.csv"){
+            $this->db->where('isContract','Y');
+            $this->core->createCSVC($this->users->getAccpetedUsers(),"usersContract.csv");
+            $this->output->set_content_type("csv/text")->set_output(read_file("./uploads/usersContract.csv"));
         }else
             show_404 ();
     }

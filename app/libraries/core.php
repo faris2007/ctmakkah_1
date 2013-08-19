@@ -300,15 +300,59 @@ class Core {
             return "";
     }
     
-    public function getGroupOfWorkByDay(){
+    public function getGroupOfWorkByType(){
         $this->CI->load->model("works");
+        $type = array('W','T','O','L');
         $data = array();
-        for($i=6;$i<=13;$i++){
-            $data[$i] = $this->CI->works->getTablesByDay($i);
+        foreach($type as $val){
+            $this->CI->db->where('date >',  $this->decreaseMonth(6));
+            $this->CI->db->where('date <',  $this->increaseMonth(6));
+            $data[$val] = $this->CI->works->getTablesByType($val);
         }
         return $data;
     }
     
+    public function getNameOfTableType($type){
+        $data = array(
+            'W'     => "Work",
+            'T'     => "Training",
+            'O'     => "Trail Operation",
+            'L'     => "Live Exercise"
+        );
+        return (isset($data[$type]))? $data[$type] : "";
+    }
+
+
+    public function increaseMonth($val){
+        $month = date('m');
+        $year = date('Y');
+        $dif = abs(12 - $val);
+        $yearIncrease = ((($val-1)+$month)/12);
+        if($dif == 0){
+            $year++;
+        }elseif($month > $dif){
+            $month = 1 + ((($month + $val)-1) % 12);
+            $year += $yearIncrease; 
+        }else{
+            $month += $val;
+        }
+        return mktime(0, 0, 0, $month, 1, $year);
+    }
+    
+    public function decreaseMonth($val){
+        $month = date('m');
+        $year = date('Y');
+        $yearDecrease = ((($val)-$month)/12);
+        if($month < $val){
+            $month = 1+(((($month - $val) + 12)-1) % 12);
+            $year -= $yearDecrease; 
+        }else{
+            $month -= $val;
+        }
+        return mktime(0, 0, 0, $month, 1, $year);
+    }
+
+
     public function getTimeAsArray($time){
         $timeH = explode(":", $time);
         $data['hour'] = $timeH[0];

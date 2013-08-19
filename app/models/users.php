@@ -107,16 +107,18 @@ class Users extends CI_Model {
         if(empty($type))
             return false;
         
+        $ci = & get_instance();
+        $ci->load->model("attachments");
         $folder = 'store/personal_img/';
-        $query = $this->getAllInfoUser();
+        $query = $this->getAccpetedUsers();
         $data = array();
         $count = 0;
         if(!is_bool($query)){
             if($type == "no"){
                 foreach ($query as $row){
-                    if(!file_exists($folder.$row->idn.".jpg") && !file_exists($folder.$row->idn.".gif") && !file_exists($folder.$row->idn.".bmp") && !file_exists($folder.$row->idn.".jpeg") 
-                    && !file_exists($folder.$row->idn.".png") && !file_exists($folder.$row->idn.".JPEG") && !file_exists($folder.$row->idn." .png") && !file_exists($folder.$row->idn." .jpg" ) 
-                    && !file_exists($folder.$row->idn.".PNG") && !file_exists($folder.$row->idn.".JPG"))
+                    $this->db->where('name','Personal Picture');
+                    $check = $ci->attachments->getAttachments($row->users_id);
+                    if(is_bool($check))
                     {
                         $data[$count] = $row;
                         $count++;
@@ -124,10 +126,10 @@ class Users extends CI_Model {
                 }
             }elseif($type == "yes"){
 
-                        foreach ($query as $row){
-                    if(file_exists($folder.$row->idn.".jpg") || file_exists($folder.$row->idn.".gif") || file_exists($folder.$row->idn.".bmp") || file_exists($folder.$row->idn.".jpeg") 
-                    || file_exists($folder.$row->idn.".png") || file_exists($folder.$row->idn.".JPEG") || file_exists($folder.$row->idn." .png")  || file_exists($folder.$row->idn." .jpg" ) 
-                    || file_exists($folder.$row->idn.".PNG") || file_exists($folder.$row->idn.".JPG"))
+                foreach ($query as $row){
+                    $this->db->where('name','Personal Picture');
+                    $check = $ci->attachments->getAttachments($row->users_id);
+                    if(!is_bool($check))
                     {
                         $data[$count] = $row;
                         $count++;

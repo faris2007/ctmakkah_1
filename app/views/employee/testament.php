@@ -38,10 +38,6 @@
                         <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                    <tr>
-                        <td colspan="<?=(@$CONTROL)?5:4?>"><?=$this->lang->line('testament_view_nothing')?></td>
-                    </tr>
             <?php endif; ?>
         </tbody>
 </table></div>

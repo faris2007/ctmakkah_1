@@ -10,11 +10,11 @@
         <tbody>
             <tr>
                 <td><?=@$this->lang->line('register_name_arabic');?></td>
-                <td><input type="text" name="arName" id="arName" placeholder="Name"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->ar_name?>" style="width: 70%" /></td>
+                <td><input type="text" name="arName" id="arName" placeholder="Name"<?/*=(@!$ADMIN)?' disabled="disabled"':'' */?> value="<?=@$profile->ar_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_name_english');?></td>
-                <td><input type="text" name="enName" id="enName" placeholder="Name"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->en_name?>" style="width: 70%" /></td>
+                <td><input type="text" name="enName" id="enName" placeholder="Name"<?/*=(@!$ADMIN)?' disabled="disabled"':'' */?> value="<?=@$profile->en_name?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('login_ID');?></td>
@@ -22,11 +22,11 @@
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_email');?></td>
-                <td><input type="text" name="email" id="email" placeholder="Email"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->email?>" style="width: 70%" /></td>
+                <td><input type="text" name="email" id="email" placeholder="Email"<?/*=(@!$ADMIN)?' disabled="disabled"':'' */?> value="<?=@$profile->email?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_mobile');?></td>
-                <td><input type="text" name="mobile" id="mobile" placeholder="Mobile"<?=(@!$ADMIN)?' disabled="disabled"':'' ?> value="<?=@$profile->mobile?>" style="width: 70%" /></td>
+                <td><input type="text" name="mobile" id="mobile" placeholder="Mobile"<?/*=(@!$ADMIN)?' disabled="disabled"':'' */?> value="<?=@$profile->mobile?>" style="width: 70%" /></td>
             </tr>
             <tr>
                 <td><?=@$this->lang->line('register_gender');?></td>
@@ -102,6 +102,23 @@
                         </select>
                     </td>
                 </tr>
+            <?php else: ?>
+                <tr>
+                    <td>Job Name</td>
+                    <td><?=$profile->name?>
+                        <?php /*if(@$jobs && !is_null(@$profile->jobs_id)): ?>
+                            <?php foreach ($jobs as $value): ?>
+                                <?php if(@$profile->jobs_id == $value->id): ?>
+                                    <?=$value->name?>
+                                <?php endif;?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <?php /*if(!$check):*/ /*?>
+                                Sorry you don't have job name yet
+                            <?php /*endif;*/ ?>
+                        <?php /*endif;*/ ?>
+                    </td>
+                </tr>
             <?php endif; ?>
             <?php if(@$ERROR): ?>
                 <tr>
@@ -133,7 +150,7 @@ you can't download this document more than 1 time.
 </table>
  * 
  */?>
-<?php if(@$ADMIN): ?>
+<?php /*if(@$ADMIN):*/ ?>
     <div class="message">Attachments:</div>
     <table class="tbl" style="width: 85%">
         <thead>
@@ -147,13 +164,42 @@ you can't download this document more than 1 time.
                 <?php foreach ($attachments as $value): ?>
                     <tr>
                         <td><?=$value->name?></td>
-                        <td><a href="<?=$value->file_url?>"><img src="<?=base_url()?>style/icon/show.png" /></a></td>
+                        <td><img src="<?=$value->file_url?>" style="width:150px;height:150px" /></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
         </tbody>
     </table>
-<?php endif; ?>
+    <div class="message">Upload New attachment</div>
+    <form action="<?=base_url()?>employee/uploadPicture/<?=@$profile->idn?>" method="post"  enctype="multipart/form-data" >
+    <input type="hidden" name="ID" value="<?=@$ID?>" />
+    <table class="tbl" style="width: 85%;margin-top: 15px;">
+        <thead>
+            <tr>
+                <td colspan="2"><?=$this->lang->line('register_upload_files');?></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><?=$this->lang->line('register_upload_picture');?></td>
+                <td><input type="file" name="picture" id="picture" required /></td>
+            </tr>
+            <tr>
+                <td><?=$this->lang->line('register_upload_identity');?></td>
+                <td><input type="file" name="identity" id="identity" required /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" name="submit" value="<?=$this->lang->line('register_step3');?>" /> </td>
+            </tr>
+            <?php if($ERROR): ?>
+                <tr>
+                    <td colspan="2"><?=$this->lang->line('register_uploaded_error');?></td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    </form>
+<?php /*endif;*/ ?>
 <div class="message">Change Password</div>
 <form action="<?=base_url()?>employee/change_password/<?=@$ID?>" method="post">
     <input type="hidden" name="token" value="<?=$this->core->token(TRUE)?>" />

@@ -20,10 +20,16 @@ class work extends CI_Controller {
     function view(){
         if(@$this->core->checkPermissions("group","view","all","all")){
             $data['ADMIN'] = true;
-            $data['days'] = $this->core->getGroupOfWorkByDay();
+            $groups = $this->core->getGroupOfWorkByType();
+            $data['WORK'] = $groups['W'];
+            $data['TRAIN'] = $groups['T'];
+            $data['TRAIL'] = $groups['O'];
+            $data['LIVE'] = $groups['L'];
         }elseif(@$this->users->isLogin() && $this->users->checkIfUser()){
             $data['ADMIN'] = false;
             $userId = $this->users->get_info_user("id");
+            $this->db->where('date >',  $this->core->decreaseMonth(6));
+            $this->db->where('date <',  $this->core->increaseMonth(6));
             $data['tables'] = $this->works->getTables($userId);
         }else
             show_404 ();
@@ -66,7 +72,7 @@ class work extends CI_Controller {
             }else{
                 $data['STEP'] = 'show';
                 $data['NAME'] = $workInfo->name;
-                $data['DAY'] = $workInfo->day;
+                $data['DATE'] = date('Y-m-d',$workInfo->date);
                 $data['ID'] = $workId;
                 $data['LOCATION'] = $workInfo->location;
                 $data['START'] = $workInfo->startTime;
@@ -101,21 +107,23 @@ class work extends CI_Controller {
             show_404 ();
         
         $segments = $this->uri->segment_array();
-        $day = (isset($segments[3]))? $segments[3] : 0;
-        if($day == 0)
+        $type = (isset($segments[3]))? $segments[3] : 0;
+        if($type == 0 && ($type != 'w' && $type != 't' && $type != 'o' && $type != 'l'))
             show_404 ();
         
         if($_POST){
             $startTime = $this->input->post("start_hour",true).':'.$this->input->post("start_min",true).' '.$this->input->post("start_am",true);
             $endTime = $this->input->post("end_hour",true).':'.$this->input->post("end_min",true).' '.$this->input->post("end_am",true);
+            $date = $this->input->post("date",true);
             $store = array(
                 'name'      => $this->input->post("name",true),
                 'startTime' => $startTime,
                 'endTime'   => $endTime,
                 'location'  => $this->input->post("location",true),
-                'day'       => $day
+                'date'      => strtotime($date),
+                'isTraning' => strtoupper($type)
             );
-            if($this->works->addNewTable("work",$store)){
+            if($this->works->addNewTable($store)){
                 $data['STEP'] = "success";
                 $data['MSG'] = "done add new group of work, we will transfer you automatically";
                 $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '2;url='.  base_url().'work', 'type' => 'equiv'));
@@ -148,11 +156,13 @@ class work extends CI_Controller {
         if($_POST){
             $startTime = $this->input->post("start_hour",true).':'.$this->input->post("start_min",true).' '.$this->input->post("start_am",true);
             $endTime = $this->input->post("end_hour",true).':'.$this->input->post("end_min",true).' '.$this->input->post("end_am",true);
+            $date = $this->input->post("date",true);
             $store = array(
                 'name'      => $this->input->post("name",true),
                 'startTime' => $startTime,
                 'endTime'   => $endTime,
-                'location'  => $this->input->post("location",true)
+                'location'  => $this->input->post("location",true),
+                'date'      => strtotime($date),
             );
             if($this->works->updateTable($workId,$store)){
                 $data['STEP'] = "success";
@@ -168,6 +178,7 @@ class work extends CI_Controller {
                 $data['END_HOUR'] = $endTime['hour'];
                 $data['END_MIN'] = $endTime['min'];
                 $data['END_AM'] = $endTime['am'];
+                $data['DATE'] = date('d-m-Y',$workInfo->date);
                 $data['LOCATION'] = $workInfo->location;
                 $data['STEP'] = "edit";
                 $data['ERROR'] = true;
@@ -182,6 +193,7 @@ class work extends CI_Controller {
             $data['END_HOUR'] = $endTime['hour'];
             $data['END_MIN'] = $endTime['min'];
             $data['END_AM'] = $endTime['am'];
+            $data['DATE'] = date('d-m-Y',$workInfo->date);
             $data['STEP'] = "edit";
             $data['ERROR'] = false;
         }

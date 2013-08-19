@@ -1,4 +1,5 @@
 <div class="message" id="candidate" style="display:none"></div>
+<div class="message"><a href="<?=base_url()?>testament/download/precaution_users.csv">Download users who is Precaution as CSV</a></div>
 <div class="demo_jui">
     <table class="tbl" id="list" style="width:100%">
         <thead>

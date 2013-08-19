@@ -2,43 +2,146 @@
 <div class="message" id="delete" style="display:none"></div>
     <?php if(@$ADMIN): ?>
         <br />
-        <?php for($i=6;$i<=13;$i++):?>
-            <table class="tbl" id="list<?=$i?>" style="width: 85%">
-                <thead>
-                    <tr>
-                        <td colspan="3">list of group work in the day <?=$i?>th</td>
-                        <td><a href="<?=base_url()?>work/add/<?=$i?>"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td>Location</td>
-                        <td>Control</td>
-                    </tr>
-                    <?php if($days[$i]): ?>
-                        <?php foreach ($days[$i] as $row): ?>
-                            <tr id="work<?=$row->id?>">
-                                <td><?=@$row->id?></td>
-                                <td><?=@$row->name?></td>
-                                <td><?=@$row->location?></td>
-                                <td>
-                                    <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
-                                    <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
-                                    <a onclick="deleted('<?=base_url()?>work/delete/<?=$row->id?>','work<?=$row->id?>','Not Found','list<?=$i?>')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="4">Do not have any group yet</td>
+        <table class="tbl" id="listWork" style="width: 85%">
+            <thead>
+                <tr>
+                    <td colspan="3">Table of Work</td>
+                    <td><a href="<?=base_url()?>work/add/w"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td>Name</td>
+                    <td>Location</td>
+                    <td>Control</td>
+                </tr>
+                <?php if($WORK): ?>
+                    <?php foreach ($WORK as $row): ?>
+                        <tr id="work<?=$row->id?>">
+                            <td><?=@date('Y-m-d',$row->date)?></td>
+                            <td><?=@$row->name?></td>
+                            <td><?=@$row->location?></td>
+                            <td>
+                                <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                                <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
+                                <a onclick="deleted('<?=base_url()?>work/delete/<?=$row->id?>','work<?=$row->id?>','Not Found','listWork')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            </td>
                         </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-            <br />
-        <?php endfor; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Do not have any item yet</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <br />
+        <table class="tbl" id="listTraining" style="width: 85%">
+            <thead>
+                <tr>
+                    <td colspan="3">Table of Training</td>
+                    <td><a href="<?=base_url()?>work/add/t"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td>Name</td>
+                    <td>Location</td>
+                    <td>Control</td>
+                </tr>
+                <?php if($TRAIN): ?>
+                    <?php foreach ($TRAIN as $row): ?>
+                        <tr id="work<?=$row->id?>">
+                            <td><?=@date('Y-m-d',$row->date)?></td>
+                            <td><?=@$row->name?></td>
+                            <td><?=@$row->location?></td>
+                            <td>
+                                <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                                <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
+                                <a onclick="deleted('<?=base_url()?>work/delete/<?=$row->id?>','work<?=$row->id?>','Not Found','listTraining')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Do not have any item yet</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <br />
+        <table class="tbl" id="listTrail" style="width: 85%">
+            <thead>
+                <tr>
+                    <td colspan="3">Table of Trail Operation</td>
+                    <td><a href="<?=base_url()?>work/add/o"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td>Name</td>
+                    <td>Location</td>
+                    <td>Control</td>
+                </tr>
+                <?php if($TRAIL): ?>
+                    <?php foreach ($TRAIL as $row): ?>
+                        <tr id="work<?=$row->id?>">
+                            <td><?=@date('Y-m-d',$row->date)?></td>
+                            <td><?=@$row->name?></td>
+                            <td><?=@$row->location?></td>
+                            <td>
+                                <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                                <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
+                                <a onclick="deleted('<?=base_url()?>work/delete/<?=$row->id?>','work<?=$row->id?>','Not Found','listTrail')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Do not have any item yet</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <br />
+        <table class="tbl" id="listLive" style="width: 85%">
+            <thead>
+                <tr>
+                    <td colspan="3">Table Of Live Exercise</td>
+                    <td><a href="<?=base_url()?>work/add/l"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td>Name</td>
+                    <td>Location</td>
+                    <td>Control</td>
+                </tr>
+                <?php if($LIVE): ?>
+                    <?php foreach ($LIVE as $row): ?>
+                        <tr id="work<?=$row->id?>">
+                            <td><?=@date('Y-m-d',$row->date)?></td>
+                            <td><?=@$row->name?></td>
+                            <td><?=@$row->location?></td>
+                            <td>
+                                <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
+                                <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
+                                <a onclick="deleted('<?=base_url()?>work/delete/<?=$row->id?>','work<?=$row->id?>','Not Found','listLive')" ><img src="<?=base_url()?>style/icon/del.png" title="<?=$this->lang->line('icon_del')?>" /></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Do not have any item yet</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <br />
     <?php else: ?>
             <table class="tbl1" style="width: 85%">
                 <thead>
@@ -48,16 +151,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Day</td>
+                        <td>Date</td>
                         <td>Location</td>
+                        <td>Type</td>
                         <td>Start Time</td>
                         <td>End Time</td>
                     </tr>
                     <?php if(@$tables): ?>
                         <?php foreach($tables as $row): ?>
                             <tr>
-                                <td><?=@$row->day?>th</td>
+                                <td><?=@date('Y-m-d',$row->date)?>th</td>
                                 <td><?=@$row->location?></td>
+                                <td><?=@$this->core->getNameOfTableType($row->isTraning)?></td>
                                 <td><?=@$row->startTime?></td>
                                 <td><?=@$row->endTime?></td>
                             </tr>
@@ -82,6 +187,10 @@
                 <tr>
                     <td>Name : </td>
                     <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Date : </td>
+                    <td><input type="text" name="date" class="styleDate" /></td>
                 </tr>
                 <tr>
                     <td>Location : </td>
@@ -162,6 +271,10 @@
                     <td><input type="text" name="name" value="<?=@$NAME?>" /></td>
                 </tr>
                 <tr>
+                    <td>Date : </td>
+                    <td><input type="text" name="date" class="styleDate" value="<?=@$DATE?>" /></td>
+                </tr>
+                <tr>
                     <td>Location : </td>
                     <td>
                         <select name="location">
@@ -236,8 +349,8 @@
         </thead>
         <tbody>
             <tr>
-                <td>Day : </td>
-                <td><?=@$DAY?>th</td>
+                <td>DATE : </td>
+                <td><?=@$DATE?></td>
             </tr>
             <tr>
                 <td>Name : </td>
