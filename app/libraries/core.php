@@ -240,14 +240,14 @@ class Core {
             return false;
     }
     
-    public function createCSVC($data,$fileName = "no_pictures.csv",$addPictures = false)
+    public function createCSVC($data,$fileName = "no_pictures.csv",$addPictures = true)
     {
         $string = "NO#;National ID;English Name;Arabic Name;Mobile;Position;Iban No.;Bank Name;Email";
         $string .= ($addPictures)?";Picture Url\n":"\n";
         if($data){
             foreach ($data as $key => $value){
                 $string .= $key.";".$value->idn.";".$value->en_name.";".$this->changeIfWindows(@$value->ar_name).";".$value->mobile.";".$value->grade.";".$value->iban.";".$this->changeIfWindows($value->bankName).";".$value->email;
-                $string .= ($addPictures)?";".  base_url()."files/personal_img/".$value->idn."\n":"\n";
+                $string .= ($addPictures)?";".$this->getPicture($value->id)."\n":"\n";
             }
         }
         $path = "./uploads/".$fileName;
@@ -260,6 +260,19 @@ class Core {
             return false;
     }
     
+    private function getPicture($userid){
+        $this->CI->load->model('attachments');
+        
+        $this->CI->db->where('name','Personal Picture');
+        $check = $this->CI->attachments->getAttachments($userid);
+        if(is_bool($check)){
+            return "";
+        }else{
+            return $check[0]->file_url;
+        }
+    }
+
+
     public function getNameOfContract($ext)
     {
         if(empty($ext))
@@ -305,8 +318,10 @@ class Core {
         $type = array('W','T','O','L');
         $data = array();
         foreach($type as $val){
-            $this->CI->db->where('date >',  $this->decreaseMonth(6));
-            $this->CI->db->where('date <',  $this->increaseMonth(6));
+            if($val != 'T'){
+                $this->CI->db->where('date >',  $this->decreaseMonth(6));
+                $this->CI->db->where('date <',  $this->increaseMonth(6));
+            }
             $data[$val] = $this->CI->works->getTablesByType($val);
         }
         return $data;

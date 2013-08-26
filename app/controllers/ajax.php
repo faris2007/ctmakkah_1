@@ -116,6 +116,7 @@ class ajax extends CI_Controller {
             "`users`.`id`"
             );
         $this->datatables->beforeQuery($columns);
+        $this->db->where('isAccept','A');
         $query = $this->users->getAllInfoUser(NULL,NULL,true);
         $totalAfterfiltering = $this->datatables->getNumberOfRowForFilterData();
         $data['iTotalDisplayRecords'] = $totalAfterfiltering;

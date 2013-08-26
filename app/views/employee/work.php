@@ -40,23 +40,21 @@
         <table class="tbl" id="listTraining" style="width: 85%">
             <thead>
                 <tr>
-                    <td colspan="3">Table of Training</td>
+                    <td colspan="2">Table of Training</td>
                     <td><a href="<?=base_url()?>work/add/t"><img src="<?=base_url()?>style/icon/add.png" title="<?=$this->lang->line('icon_add')?>" /></a></td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Date</td>
+                    <td>#</td>
                     <td>Name</td>
-                    <td>Location</td>
                     <td>Control</td>
                 </tr>
                 <?php if($TRAIN): ?>
                     <?php foreach ($TRAIN as $row): ?>
                         <tr id="work<?=$row->id?>">
-                            <td><?=@date('Y-m-d',$row->date)?></td>
+                            <td><?=@$row->id?></td>
                             <td><?=@$row->name?></td>
-                            <td><?=@$row->location?></td>
                             <td>
                                 <a href="<?=base_url()?>work/edit/<?=$row->id?>"><img src="<?=base_url()?>style/icon/edit.png" title="<?=$this->lang->line('icon_edit')?>" /></a>
                                 <a href="<?=base_url()?>work/show/<?=$row->id?>"><img src="<?=base_url()?>style/icon/show.png" title="<?=$this->lang->line('icon_show')?>" /></a>
@@ -146,6 +144,32 @@
             <table class="tbl1" style="width: 85%">
                 <thead>
                     <tr>
+                        <td colspan="2">Training Table</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>Table Pictures</td>
+                    </tr>
+                    <?php if(@$TRAIN): ?>
+                        <?php foreach($TRAIN as $row): ?>
+                            <tr>
+                                <td><?=$row->name?></td>
+                                <td><a rel="prettyPhoto[gallery1]" href="<?=@$row->table?>"><img src="<?=@$row->table?>" style="width:100px;height:100px" alt="<?=$row->name?>" /></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="2">Do not have any tables yet</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <br />
+            <table class="tbl1" style="width: 85%">
+                <thead>
+                    <tr>
                         <td colspan="4">Table of works</td>
                     </tr>
                 </thead>
@@ -160,7 +184,7 @@
                     <?php if(@$tables): ?>
                         <?php foreach($tables as $row): ?>
                             <tr>
-                                <td><?=@date('Y-m-d',$row->date)?>th</td>
+                                <td><?=@date('Y-m-d',$row->date)?></td>
                                 <td><?=@$row->location?></td>
                                 <td><?=@$this->core->getNameOfTableType($row->isTraning)?></td>
                                 <td><?=@$row->startTime?></td>
@@ -188,25 +212,14 @@
                     <td>Name : </td>
                     <td><input type="text" name="name" /></td>
                 </tr>
+                <?php if($ISNOTTRAIN): ?>
                 <tr>
                     <td>Date : </td>
                     <td><input type="text" name="date" class="styleDate" /></td>
                 </tr>
                 <tr>
                     <td>Location : </td>
-                    <td>
-                        <select name="location">
-                            <option value="Mina1">Mina1</option>
-                            <option value="Mina2">Mina2</option>
-                            <option value="Mina3">Mina3</option>
-                            <option value="Arafat1">Arafat1</option>
-                            <option value="Arafat2">Arafat2</option>
-                            <option value="Arafat3">Arafat3</option>
-                            <option value="Muzdalifah1">Muzdalifah1</option>
-                            <option value="Muzdalifah2">Muzdalifah2</option>
-                            <option value="Muzdalifah3">Muzdalifah3</option>
-                        </select>
-                    </td>
+                    <td><input type="text" name="location" /></td>
                 </tr>
                 <tr>
                     <td>Start Time : </td>
@@ -246,6 +259,7 @@
                         </select>
                     </td>
                 </tr>
+                <?php endif; ?>
                 <tr>
                     <td colspan="2"><input type="submit" value="Add" /></td>
                 </tr>
@@ -270,25 +284,14 @@
                     <td>Name : </td>
                     <td><input type="text" name="name" value="<?=@$NAME?>" /></td>
                 </tr>
+                <?php if($ISNOTTRAIN): ?>
                 <tr>
                     <td>Date : </td>
                     <td><input type="text" name="date" class="styleDate" value="<?=@$DATE?>" /></td>
                 </tr>
                 <tr>
                     <td>Location : </td>
-                    <td>
-                        <select name="location">
-                            <option<?=(@$LOCATION == 'Mina1')?' selected="selected"':''?> value="Mina1">Mina1</option>
-                            <option<?=(@$LOCATION == 'Mina2')?' selected="selected"':''?> value="Mina2">Mina2</option>
-                            <option<?=(@$LOCATION == 'Mina3')?' selected="selected"':''?> value="Mina3">Mina3</option>
-                            <option<?=(@$LOCATION == 'Arafat1')?' selected="selected"':''?> value="Arafat1">Arafat1</option>
-                            <option<?=(@$LOCATION == 'Arafat2')?' selected="selected"':''?> value="Arafat2">Arafat2</option>
-                            <option<?=(@$LOCATION == 'Arafat3')?' selected="selected"':''?> value="Arafat3">Arafat3</option>
-                            <option<?=(@$LOCATION == 'Muzdalifah1')?' selected="selected"':''?> value="Muzdalifah1">Muzdalifah1</option>
-                            <option<?=(@$LOCATION == 'Muzdalifah2')?' selected="selected"':''?> value="Muzdalifah2">Muzdalifah2</option>
-                            <option<?=(@$LOCATION == 'Muzdalifah3')?' selected="selected"':''?> value="Muzdalifah3">Muzdalifah3</option>
-                        </select>
-                    </td>
+                    <td><input type="text" name="location" value="<?=$LOCATION?>" /></td>
                 </tr>
                 <tr>
                     <td>Start Time : </td>
@@ -328,6 +331,7 @@
                         </select>
                     </td>
                 </tr>
+                <?php endif;?>
                 <tr>
                     <td colspan="2"><input type="submit" value="Edit" /></td>
                 </tr>
@@ -348,14 +352,17 @@
             </tr>
         </thead>
         <tbody>
+            <?php if(!$ISTRAINING): ?>
             <tr>
                 <td>DATE : </td>
                 <td><?=@$DATE?></td>
             </tr>
+            <?php endif; ?>
             <tr>
                 <td>Name : </td>
                 <td><?=@$NAME?></td>
             </tr>
+            <?php if(!$ISTRAINING): ?>
             <tr>
                 <td>Location : </td>
                 <td><?=@$LOCATION?></td>
@@ -364,6 +371,7 @@
                 <td>Time : </td>
                 <td>From <?=@$START?> To <?=@$END?></td>
             </tr>
+            <?php endif; ?>
         </tbody>
     </table>
     <br />
@@ -384,7 +392,7 @@
         </tbody>
     </table>
     <br />
-    <form method="post">
+    <form method="post"<?php if($ISTRAINING): ?> enctype="multipart/form-data"<?php endif;?>>
         <table class="tbl" style="width:85%">
             <thead>
                 <tr>
@@ -396,6 +404,12 @@
                     <td>National ID :</td>
                     <td><textarea name="IDNS" style="width:80%"></textarea></td>
                 </tr>
+                <?php if($ISTRAINING): ?>
+                    <tr>
+                        <td>Upload Table : </td>
+                        <td><input type="file" name="tablepic" /></td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
                     <td colspan="2"><input type="submit"  value="Add" /></td>
                 </tr>

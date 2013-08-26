@@ -476,7 +476,7 @@ class Employee extends CI_Controller{
             if($_POST){
                 $idns = explode("\n", $this->input->post("IDNS",true));
                 $msg = array();
-                $store['isContract'] = "Y";
+                $store['isContract'] = $this->input->post('contract',true);
                 foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
                     {
@@ -494,6 +494,7 @@ class Employee extends CI_Controller{
                 $per_url = 'employee/contract/';
                 $total_results = $this->users->get_total_info_users();
                 $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,1000);
+                $this->db->where('isAccept','A');
                 $data['users'] = $this->users->getAllInfoUser(1000,$start);
             }
             $data['CONTENT'] = 'employee/contract';
@@ -1111,6 +1112,9 @@ class Employee extends CI_Controller{
         
         $data['EMPLOYEE_ID'] = $EmployeeId;
         $data['SIGNATURE'] = $this->employees->signature($EmployeeId);
+        $employee = $this->employees->getEmployee($EmployeeId);
+        $userInfo = $this->users->get_info_user("all",$employee->users_id);
+        $data['EMPNAME'] = $userInfo['profile']->ar_name;
         $this->load->view('signature',$data);
     }
     

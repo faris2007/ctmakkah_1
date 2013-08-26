@@ -40,7 +40,7 @@ class works extends CI_Model {
     * @param type $workid
     * @return boolean 
     */
-    function addTableToUser($userid,$workid)
+    function addTableToUser($userid,$workid,$table = null)
     {
         if(empty($userid) || empty($workid)) return false;
         
@@ -48,6 +48,8 @@ class works extends CI_Model {
             'users_id'  => $userid,
             'work_id'   => $workid
         );
+        if(!is_null($table))
+            $data['table'] = $table;
         return $this->db->insert($this->_tables['link'], $data); 
     }
     
@@ -76,7 +78,7 @@ class works extends CI_Model {
      *
      * @param mixd $userid if you send "admin" this meaning give me all tables
      */
-    function getTables($userid,$type = "work")
+    function getTables($userid)
     {
         if(empty($userid)) return false;
       
@@ -86,10 +88,6 @@ class works extends CI_Model {
             $this->db->group_by($this->_tables['work'].'.id'); 
             $this->db->where($this->_tables['link'].'.users_id',$userid);
             $this->db->where($this->_tables['work'].'.id ='.$this->_tables['link'].'.work_id');
-            if($type == "work")
-                $this->db->where("isTraning",'n');
-            else
-                $this->db->where("isTraning",'y');
             $query = $this->db->get($this->_tables['link'].",".$this->_tables['work']);
         }else
         {
@@ -107,7 +105,7 @@ class works extends CI_Model {
         return ($query->num_rows() > 0)? $query->result() : false;
     }
     
-    function getUsersByTable($tableID,$type = "work",$limit = NULL,$start = NULL){
+    function getUsersByTable($tableID,$type = "W",$limit = NULL,$start = NULL){
         if(empty($tableID))
             return false;
         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
@@ -118,10 +116,7 @@ class works extends CI_Model {
         $this->db->where("users.id =".$this->_tables['link'].'.users_id');
         $this->db->where($this->_tables['link'].'.work_id',$tableID);
         $this->db->where($this->_tables['work'].'.id ='.$this->_tables['link'].'.work_id');
-        if($type == "work")
-            $this->db->where("isTraning",'n');
-        else
-            $this->db->where("isTraning",'y');
+        $this->db->where("isTraning",$type);
         $this->db->select("users.id as id,users.idn as idn,users.en_name as en_name,jobs.name as grade,Employee.id as ide,users.mobile as mobile");
         $query = $this->db->get($this->_tables['link'].",".$this->_tables['work'].",users,Employee,jobs");
         return ($query->num_rows() > 0)? $query->result() : false;

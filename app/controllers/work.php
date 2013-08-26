@@ -28,9 +28,12 @@ class work extends CI_Controller {
         }elseif(@$this->users->isLogin() && $this->users->checkIfUser()){
             $data['ADMIN'] = false;
             $userId = $this->users->get_info_user("id");
+            $this->db->where("isTraning != 'T'");
             $this->db->where('date >',  $this->core->decreaseMonth(6));
             $this->db->where('date <',  $this->core->increaseMonth(6));
             $data['tables'] = $this->works->getTables($userId);
+            $this->db->where('isTraning','T');
+            $data['TRAIN'] = $this->works->getTables($userId);
         }else
             show_404 ();
         
@@ -58,18 +61,32 @@ class work extends CI_Controller {
             if($_POST){
                 $idns = explode("\n", $this->input->post("IDNS",true));
                 $msg = array();
+                $file_url = null;
+                if($_FILES && $workInfo->isTraning == 'T'){
+                    $config['upload_path'] = './uploads/';
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|doc|docx';
+                    //$config['max_size'] = '2048';
+                    $config['encrypt_name'] = true;
+                    $this->load->library('upload', $config);
+                    if ($this->upload->do_upload('tablepic'))
+                    {
+                        $uploadData = $this->upload->data();
+                        $file_url  = base_url()."uploads/".$uploadData['file_name'];
+                    }
+                }
                 foreach ($idns as $key => $value){
                     if(is_numeric($value) && strlen($value) == 10)
                     {
                         $userinfo = $this->users->get_info_user("all",$value);
                         $msg[$key]['idn'] = $value;
-                        $msg[$key]['message'] = ($this->works->addTableToUser($userinfo['profile']->id,$workId)) ? "added successfully" : "there is problem";
+                        $msg[$key]['message'] = ($this->works->addTableToUser($userinfo['profile']->id,$workId,$file_url)) ? "added successfully" : "there is problem";
                     }
                 }
                 $data['query'] = $msg;
                 $data['STEP'] = "adduser";
                 $data['WORKID'] = $workId;
             }else{
+                $data['ISTRAINING'] = ($workInfo->isTraning == 'T')? true:false;
                 $data['STEP'] = 'show';
                 $data['NAME'] = $workInfo->name;
                 $data['DATE'] = date('Y-m-d',$workInfo->date);
@@ -77,7 +94,7 @@ class work extends CI_Controller {
                 $data['LOCATION'] = $workInfo->location;
                 $data['START'] = $workInfo->startTime;
                 $data['END'] = $workInfo->endTime;
-                $data['users'] = $this->works->getUsersByTable($workId,'work',30,$start);
+                $data['users'] = $this->works->getUsersByTable($workId,$workInfo->isTraning,30,$start);
                 $per_url = 'work/show/' . $workId . '/';
                 $total_results = $this->works->getTotalUsersByTable($workId);
                 $data['pagination'] = $this->core->perpage($per_url,$total_results,$start,30);
@@ -107,8 +124,8 @@ class work extends CI_Controller {
             show_404 ();
         
         $segments = $this->uri->segment_array();
-        $type = (isset($segments[3]))? $segments[3] : 0;
-        if($type == 0 && ($type != 'w' && $type != 't' && $type != 'o' && $type != 'l'))
+        $type = (isset($segments[3]))? $segments[3] : NULL;
+        if($type === 0 || ( $type != 'w' && $type != 't' && $type != 'o' && $type != 'l'))
             show_404 ();
         
         if($_POST){
@@ -128,11 +145,17 @@ class work extends CI_Controller {
                 $data['MSG'] = "done add new group of work, we will transfer you automatically";
                 $data['HEAD'] =  meta(array('name' => 'refresh', 'content' => '2;url='.  base_url().'work', 'type' => 'equiv'));
             }else{
+                $data['ISNOTTRAIN'] = true;
+                if($type == 't')
+                    $data['ISNOTTRAIN'] = false;
                 $data['STEP'] = "add";
                 $data['ERROR'] = true;
             }
             
         }else{
+            $data['ISNOTTRAIN'] = true;
+            if($type == 't')
+                $data['ISNOTTRAIN'] = false;
             $data['STEP'] = "add";
             $data['ERROR'] = false;
         }
@@ -182,6 +205,9 @@ class work extends CI_Controller {
                 $data['LOCATION'] = $workInfo->location;
                 $data['STEP'] = "edit";
                 $data['ERROR'] = true;
+                $data['ISNOTTRAIN'] = true;
+                if($workInfo->isTraning == 'T')
+                    $data['ISNOTTRAIN'] = false;
             }
         }else{
             $data['NAME'] = $workInfo->name;
@@ -196,6 +222,9 @@ class work extends CI_Controller {
             $data['DATE'] = date('d-m-Y',$workInfo->date);
             $data['STEP'] = "edit";
             $data['ERROR'] = false;
+            $data['ISNOTTRAIN'] = true;
+            if($workInfo->isTraning == 'T')
+                $data['ISNOTTRAIN'] = false;
         }
         
         $data['TITLE'] = 'edit group of work';

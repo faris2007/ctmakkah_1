@@ -147,12 +147,12 @@ class Users extends CI_Model {
         if (!is_null($limit) && !is_null($start)) $this->db->limit($limit, $start);
         
         $this->db->where($this->_tables['employee'].".year",'2013');
-        $this->db->where($this->_tables['employee'].".isAccept","A");
+        //$this->db->where($this->_tables['employee'].".isAccept","A");
         $this->db->from($this->_tables['employee']);
         $this->db->join($this->_tables['jobs'], $this->_tables['employee'].".jobs_id =".$this->_tables['jobs'].".id", 'left');
         $this->db->where($this->_tables['users'].".id =".$this->_tables['employee'].".users_id");
         if(!$isAjax)
-            $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['users'].".ar_name as ar_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".contract_id as contract_id,".$this->_tables['employee'].".isContract as isContract,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile");
+            $this->db->select($this->_tables['users'].".id as id,".$this->_tables['users'].".idn as idn,".$this->_tables['users'].".en_name as en_name,".$this->_tables['users'].".ar_name as ar_name,".$this->_tables['jobs'].".name as grade,".$this->_tables['employee'].".contract_id as contract_id,".$this->_tables['employee'].".isContract as isContract,".$this->_tables['employee'].".id as ide,".$this->_tables['users'].".mobile as mobile,".$this->_tables['users'].".iban,".$this->_tables['users'].".bankName,".$this->_tables['users'].".email");
         $this->db->group_by($this->_tables['users'].".id");
         $this->db->order_by($this->_tables['employee'].".contract_id");
         $query = $this->db->get($this->_tables['users']);

@@ -38,6 +38,7 @@
 </head>
 
 <body>
+    <div style="direction: rtl">أقر أنا <?=@$EMPNAME?> بأني قرأت كامل العقد وعلى ذلك أوقع</div>
     <form method="post" id="form_signature">
     <input type="hidden" name="employee_id" id="employee_id" value="<?=$EMPLOYEE_ID?>" />
     <input type="hidden" name="signature" id="signature" value="<?=$SIGNATURE?>" />

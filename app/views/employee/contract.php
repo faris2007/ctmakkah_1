@@ -15,6 +15,10 @@
                     <td><textarea name="IDNS" style="width:80%"></textarea></td>
                 </tr>
                 <tr>
+                    <td>Are They Contract?</td>
+                    <td><input type="radio" name="contract" value="Y" />Yes &nbsp;&nbsp; <input type="radio" name="contract" value="N" />No</td>
+                </tr>
+                <tr>
                     <td colspan="2"><input type="submit"  value="Add" /></td>
                 </tr>
             </tbody>
@@ -32,7 +36,7 @@
                     <th>National ID</th>
                     <th>Name</th>
                     <th>Position</th>
-                    <th>Mobile</th>
+                    <th>signature</th>
                     <th>Contract</th>
                 </tr>
             </thead>
@@ -44,7 +48,7 @@
                         <td><a href="<?=base_url()?>employee/profile/<?=$row->idn?>"><?=$row->idn?></a></td>
                         <td><?=$row->en_name?></td>
                         <td><?=$row->grade?></td>
-                        <td><?=$row->mobile?></td>
+                        <td><a id="signatureurl" href="<?=base_url()?>employee/signatures/<?=@$row->ide?>">Signature</a></td>
                         <td><?=$this->core->getNameOfContract($row->isContract)?></td>
                     </tr>
                     <?php endforeach; ?>

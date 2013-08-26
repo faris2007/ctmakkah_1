@@ -103,7 +103,7 @@ class employees extends CI_Model {
         if ($signature_data)
         {
             $this->db->where('id', $employee_id);
-            return $this->db->update($this->_table, array('signature' => $signature_data));            
+            return $this->db->update($this->_table, array('signature' => $signature_data,'isContract' => 'Y'));            
         }else{
             $this->db->where('id',$employee_id);
             $query = $this->db->get($this->_table);
